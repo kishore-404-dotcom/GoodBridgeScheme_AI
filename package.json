@@ -1,0 +1,15 @@
+{
+  "name": "goodscheme-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GoodSchemeAI - Production Vernacular Government Scheme Assistant Platform",
+  "scripts": {
+    "install:all": "npm install --prefix client && npm install --prefix server",
+    "dev:client": "npm --prefix client run dev",
+    "dev:server": "npm --prefix server run dev",
+    "build:client": "npm --prefix client run build",
+    "build:server": "npm --prefix server run build",
+    "build": "npm run build:client && npm run build:server",
+    "start": "npm --prefix server start"
+  }
+}
