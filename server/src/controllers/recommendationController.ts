@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { RuleEngineService } from '../services/ruleEngineService';
-import { SchemeModel } from '../models/Scheme';
-import { VERIFIED_SCHEMES_100 } from '../scripts/seedSchemes';
+import { SchemeStore } from '../services/schemeStore';
 import { UserProfile, Scheme } from '../../../shared/types';
 
 /**
@@ -11,24 +10,27 @@ import { UserProfile, Scheme } from '../../../shared/types';
 export class RecommendationController {
   public static async evaluateProfile(req: Request, res: Response): Promise<void> {
     try {
+      // Keep legitimate zeros (e.g. ₹0 income) instead of replacing them with defaults
+      const num = (value: unknown, fallback: number): number => {
+        const n = Number(value);
+        return value === undefined || value === null || value === '' || Number.isNaN(n) ? fallback : n;
+      };
+
       const profile: UserProfile = {
         fullName: req.body.fullName || 'Citizen User',
-        age: Number(req.body.age) || 25,
+        age: num(req.body.age, 25),
         gender: req.body.gender || 'All',
         state: req.body.state || 'All India',
         occupation: req.body.occupation || 'General Citizen',
-        annualIncome: Number(req.body.annualIncome) || 250000,
+        annualIncome: num(req.body.annualIncome, 250000),
         category: req.body.category || 'General',
-        landHoldingAcres: Number(req.body.landHoldingAcres) || 0,
+        landHoldingAcres: num(req.body.landHoldingAcres, 0),
         hasDisability: Boolean(req.body.hasDisability),
         isBPL: Boolean(req.body.isBPL),
         residenceType: req.body.residenceType || 'All'
       };
 
-      let schemes = (await SchemeModel.find().lean()) as any[];
-      if (!schemes || schemes.length === 0) {
-        schemes = VERIFIED_SCHEMES_100 as any[];
-      }
+      const schemes = await SchemeStore.getAll();
 
       const results = schemes.map((scheme: Scheme) => RuleEngineService.evaluateSchemeEligibility(scheme, profile));
 

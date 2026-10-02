@@ -21,7 +21,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     if (fullName) {
       updateProfile({ fullName });
     }
-    setSuccessMsg(`Welcome to GoodSchemeAI, ${fullName || 'Citizen'}! Your profile has been authenticated.`);
+    setSuccessMsg(`Welcome to GoodBridgeScheme AI, ${fullName || 'Citizen'}! Your profile has been authenticated.`);
     setTimeout(() => {
       setSuccessMsg('');
       onClose();

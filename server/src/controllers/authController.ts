@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserProfileModel } from '../models/UserProfile';
+import { isDatabaseConnected } from '../config/database';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'goodscheme_secret_2026';
 
@@ -12,6 +13,11 @@ const JWT_SECRET = process.env.JWT_SECRET || 'goodscheme_secret_2026';
 export class AuthController {
   public static async register(req: Request, res: Response): Promise<void> {
     try {
+      if (!isDatabaseConnected()) {
+        res.status(503).json({ success: false, message: 'Registration is unavailable right now (database offline). Use demo sign-in instead.' });
+        return;
+      }
+
       const { fullName, email, mobile, password, age, gender, state, occupation, annualIncome, category } = req.body;
 
       let passwordHash = undefined;
@@ -24,11 +30,11 @@ export class AuthController {
         email,
         mobile,
         passwordHash,
-        age: age || 25,
+        age: age ?? 25,
         gender: gender || 'All',
         state: state || 'All India',
         occupation: occupation || 'General Citizen',
-        annualIncome: annualIncome || 250000,
+        annualIncome: annualIncome ?? 250000,
         category: category || 'General'
       });
 
@@ -51,9 +57,11 @@ export class AuthController {
     try {
       const { email, mobile, password } = req.body;
 
-      const user = await UserProfileModel.findOne({
-        $or: [{ email: email || 'never_match' }, { mobile: mobile || 'never_match' }]
-      });
+      const user = isDatabaseConnected()
+        ? await UserProfileModel.findOne({
+            $or: [{ email: email || 'never_match' }, { mobile: mobile || 'never_match' }]
+          })
+        : null;
 
       if (!user) {
         // Return demo token for seamless hackathon UX
@@ -69,8 +77,8 @@ export class AuthController {
         return;
       }
 
-      if (user.passwordHash && password) {
-        const isMatch = await bcrypt.compare(password, user.passwordHash);
+      if (user.passwordHash) {
+        const isMatch = password ? await bcrypt.compare(password, user.passwordHash) : false;
         if (!isMatch) {
           res.status(401).json({ success: false, message: 'Invalid credentials' });
           return;

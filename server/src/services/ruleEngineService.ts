@@ -145,13 +145,71 @@ export class RuleEngineService {
       }
     }
 
+    // 7. Social Category (SC / ST / OBC / EWS)
+    if (rules.categoriesAllowed && rules.categoriesAllowed.length > 0 && !rules.categoriesAllowed.includes('All')) {
+      totalWeight += 20;
+      if (rules.categoriesAllowed.includes(profile.category)) {
+        metWeight += 20;
+        criteriaMet.push({
+          criterion: 'Social Category',
+          isMet: true,
+          details: `Your category (${profile.category}) is eligible.`
+        });
+      } else {
+        criteriaFailed.push({
+          criterion: 'Social Category',
+          isMet: false,
+          details: `Only for ${rules.categoriesAllowed.join(', ')} category. Profile category: ${profile.category}.`
+        });
+      }
+    }
+
+    // 8. Disability
+    if (rules.disabilityRequired) {
+      totalWeight += 10;
+      if (profile.hasDisability) {
+        metWeight += 10;
+        criteriaMet.push({ criterion: 'Disability', isMet: true, details: 'Person with disability status matches.' });
+      } else {
+        criteriaFailed.push({ criterion: 'Disability', isMet: false, details: 'Scheme is for persons with benchmark disability.' });
+      }
+    }
+
+    // 9. Landholding
+    if (rules.minLandHoldingAcres !== undefined || rules.maxLandHoldingAcres !== undefined) {
+      totalWeight += 10;
+      const minLand = rules.minLandHoldingAcres ?? 0;
+      const maxLand = rules.maxLandHoldingAcres ?? Infinity;
+      const land = profile.landHoldingAcres ?? 0;
+      const range = maxLand === Infinity ? `at least ${minLand}` : `${minLand}-${maxLand}`;
+      if (land >= minLand && land <= maxLand) {
+        metWeight += 10;
+        criteriaMet.push({ criterion: 'Landholding', isMet: true, details: `Your landholding (${land} acres) is within ${range} acres.` });
+      } else {
+        criteriaFailed.push({ criterion: 'Landholding', isMet: false, details: `Landholding must be ${range} acres. Profile: ${land} acres.` });
+      }
+    }
+
+    // 10. Urban / Rural residence
+    if (rules.urbanRural && rules.urbanRural !== 'All' && profile.residenceType && profile.residenceType !== 'All') {
+      totalWeight += 10;
+      if (profile.residenceType === rules.urbanRural) {
+        metWeight += 10;
+        criteriaMet.push({ criterion: 'Residence', isMet: true, details: `Scheme applies to ${rules.urbanRural} residents.` });
+      } else {
+        criteriaFailed.push({ criterion: 'Residence', isMet: false, details: `Only for ${rules.urbanRural} residents. Profile: ${profile.residenceType}.` });
+      }
+    }
+
     // Calculate Final Match Percentage
     const matchScorePercentage = totalWeight > 0 ? Math.round((metWeight / totalWeight) * 100) : 100;
     const isEligible = criteriaFailed.length === 0;
 
     // Generate Human-friendly Explanation
     const aiSimplifiedExplanation = isEligible
-      ? `You qualify 100% for ${scheme.name}! You meet all ${criteriaMet.length} eligibility criteria including age, income, and category.`
+      ? criteriaMet.length > 0
+        ? `You qualify for ${scheme.name}! You meet every eligibility condition: ${criteriaMet.map((c) => c.criterion).join(', ')}.`
+        : `You qualify for ${scheme.name}! This scheme has no restrictive eligibility conditions.`
       : `You match ${matchScorePercentage}% of criteria for ${scheme.name}. Satisfied: ${criteriaMet.length} conditions. Action needed for: ${criteriaFailed.map((c) => c.criterion).join(', ')}.`;
 
     return {

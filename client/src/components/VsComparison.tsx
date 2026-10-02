@@ -52,11 +52,11 @@ export const VsComparison: React.FC = () => {
           </ul>
         </div>
 
-        {/* GoodSchemeAI Platform */}
+        {/* GoodBridgeScheme AI Platform */}
         <div className="glass-card p-6 rounded-3xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-950/40 space-y-4 shadow-xl">
           <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-extrabold text-lg border-b border-emerald-200 dark:border-emerald-800 pb-3">
             <Sparkles className="w-5 h-5 text-emerald-500" />
-            <span>GoodSchemeAI Platform (Our AI Solution)</span>
+            <span>GoodBridgeScheme AI Platform (Our AI Solution)</span>
           </div>
 
           <ul className="space-y-2.5 text-xs text-slate-700 dark:text-slate-200 font-semibold">

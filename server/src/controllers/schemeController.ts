@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { SchemeModel } from '../models/Scheme';
-import { VERIFIED_SCHEMES_100 } from '../scripts/seedSchemes';
+import { SchemeStore } from '../services/schemeStore';
 
 /**
  * Scheme Controller
@@ -11,10 +10,7 @@ export class SchemeController {
     try {
       const { category, state, search, level } = req.query;
 
-      let schemes = await SchemeModel.find().lean();
-      if (!schemes || schemes.length === 0) {
-        schemes = VERIFIED_SCHEMES_100 as any;
-      }
+      const schemes = await SchemeStore.getAll();
 
       let filtered = [...schemes];
 
@@ -48,11 +44,7 @@ export class SchemeController {
   public static async getSchemeById(req: Request, res: Response): Promise<void> {
     try {
       const { schemeId } = req.params;
-      let scheme = await SchemeModel.findOne({ schemeId }).lean();
-
-      if (!scheme) {
-        scheme = (VERIFIED_SCHEMES_100.find((s) => s.schemeId === schemeId) as any) || null;
-      }
+      const scheme = await SchemeStore.getById(schemeId);
 
       if (!scheme) {
         res.status(404).json({ success: false, message: 'Scheme not found' });

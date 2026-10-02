@@ -1,6 +1,7 @@
+// Load .env before any module reads process.env (e.g. config/gemini.ts)
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { connectDatabase } from './config/database';
 import { seedDatabase } from './scripts/seedSchemes';
 import schemeRoutes from './routes/schemeRoutes';
@@ -8,9 +9,6 @@ import recommendationRoutes from './routes/recommendationRoutes';
 import aiRoutes from './routes/aiRoutes';
 import authRoutes from './routes/authRoutes';
 import { errorHandler } from './middleware/errorHandler';
-
-// Load environment variables
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,7 +21,7 @@ app.use(express.json());
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'online',
-    platform: 'GoodSchemeAI API Server',
+    platform: 'GoodBridgeScheme AI API Server',
     version: '1.0.0',
     timestamp: new Date().toISOString()
   });
@@ -46,7 +44,7 @@ const startServer = async () => {
   }
 
   app.listen(PORT, () => {
-    console.log(`🚀 GoodSchemeAI Backend REST API Server running on port ${PORT}`);
+    console.log(`🚀 GoodBridgeScheme AI Backend REST API Server running on port ${PORT}`);
     console.log(`📡 Health Check: http://localhost:${PORT}/api/health`);
   });
 };

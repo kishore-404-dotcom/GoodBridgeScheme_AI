@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Zap, CheckCircle2, AlertCircle, ArrowRight, RotateCcw, Filter } from 'lucide-react';
+import { Zap, CheckCircle2, RotateCcw, Filter, ArrowRight } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
+import { useLanguage } from '../context/LanguageContext';
 import { ApiService } from '../services/apiService';
 import { EligibilityEvaluationResult } from '../../../shared/types';
 
@@ -9,53 +10,66 @@ interface QuickEligibilityCardProps {
 }
 
 export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSelectScheme }) => {
-  const { profile, updateProfile } = useProfile();
+  const { profile, updateProfile, confirmProfile } = useProfile();
+  const { t } = useLanguage();
   const [evalResults, setEvalResults] = useState<EligibilityEvaluationResult[] | null>(null);
+  const [totalEligible, setTotalEligible] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleEvaluate = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     const res = await ApiService.evaluateEligibility(profile);
-    setEvalResults(res.allEvaluations.slice(0, 6)); // Top 6 matching schemes
+    if (res) {
+      confirmProfile();
+      setEvalResults(res.allEvaluations.slice(0, 6)); // Top 6 matching schemes
+      setTotalEligible(res.eligibleSchemes.length);
+    } else {
+      setEvalResults(null);
+      setError('Could not check eligibility because the server is not reachable. Please make sure the backend is running and try again.');
+    }
     setLoading(false);
   };
 
   return (
-    <section id="eligibility-checker" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="glass-card rounded-3xl p-6 sm:p-8 border border-emerald-500/30 shadow-2xl relative overflow-hidden">
+    <section id="eligibility-checker" className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 py-10">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
         {/* Top Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
           <div>
-            <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                <Zap className="w-5 h-5 fill-emerald-500 text-emerald-500" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400">
+                <Zap className="w-6 h-6 fill-emerald-500 text-emerald-500" />
               </div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
-                Embedded Citizen Eligibility Assessment Engine
-              </h2>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+                  {t('eligTitle')}
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                  {t('eligSubtitle')}
+                </p>
+              </div>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Enter basic details below for an instant deterministic match against 100 verified central & state schemes.
-            </p>
           </div>
 
           {evalResults && (
             <button
               onClick={() => setEvalResults(null)}
-              className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800"
+              className="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
             >
-              <RotateCcw className="w-3.5 h-3.5" /> Reset Questionnaire
+              <RotateCcw className="w-4 h-4" /> Reset Filters
             </button>
           )}
         </div>
 
         {/* Form Inputs */}
-        <form onSubmit={handleEvaluate} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <form onSubmit={handleEvaluate} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Age */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-              Age (Years): <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">{profile.age} yrs</span>
+          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">
+              Citizen Age: <span className="text-emerald-600 dark:text-emerald-400 font-extrabold text-sm">{profile.age} Years</span>
             </label>
             <input
               type="range"
@@ -68,12 +82,12 @@ export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSe
           </div>
 
           {/* State */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">State / UT</label>
+          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">State Domicile</label>
             <select
               value={profile.state}
               onChange={(e) => updateProfile({ state: e.target.value })}
-              className="w-full text-xs font-semibold p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
+              className="w-full text-xs font-bold p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
             >
               <option value="All India">All India (Central Schemes)</option>
               <option value="Uttar Pradesh">Uttar Pradesh</option>
@@ -91,12 +105,12 @@ export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSe
           </div>
 
           {/* Occupation */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Occupation / Status</label>
+          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Occupation / Status</label>
             <select
               value={profile.occupation}
               onChange={(e) => updateProfile({ occupation: e.target.value })}
-              className="w-full text-xs font-semibold p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
+              className="w-full text-xs font-bold p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
             >
               <option value="Student">Student</option>
               <option value="Farmer">Farmer / Agricultural Worker</option>
@@ -109,9 +123,9 @@ export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSe
           </div>
 
           {/* Annual Income */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-              Annual Family Income: <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">₹{profile.annualIncome.toLocaleString('en-IN')}</span>
+          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">
+              Annual Family Income: <span className="text-emerald-600 dark:text-emerald-400 font-extrabold text-sm">₹{profile.annualIncome.toLocaleString('en-IN')}</span>
             </label>
             <input
               type="range"
@@ -124,13 +138,13 @@ export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSe
             />
           </div>
 
-          {/* Social Category */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Category</label>
+          {/* Category */}
+          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Social Category</label>
             <select
               value={profile.category}
               onChange={(e) => updateProfile({ category: e.target.value as any })}
-              className="w-full text-xs font-semibold p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
+              className="w-full text-xs font-bold p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
             >
               <option value="General">General</option>
               <option value="OBC">OBC (Other Backward Classes)</option>
@@ -141,12 +155,12 @@ export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSe
           </div>
 
           {/* Gender */}
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Gender</label>
+          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Gender</label>
             <select
               value={profile.gender}
               onChange={(e) => updateProfile({ gender: e.target.value as any })}
-              className="w-full text-xs font-semibold p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
+              className="w-full text-xs font-bold p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500"
             >
               <option value="All">All Genders</option>
               <option value="Female">Female</option>
@@ -155,65 +169,71 @@ export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSe
           </div>
 
           {/* Special Status Toggles */}
-          <div className="sm:col-span-2 lg:col-span-3 flex flex-wrap gap-4 pt-2">
-            <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={profile.isBPL}
-                onChange={(e) => updateProfile({ isBPL: e.target.checked })}
-                className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500"
-              />
-              <span>Holds BPL Ration Card (Below Poverty Line)</span>
-            </label>
+          <div className="sm:col-span-2 lg:col-span-3 flex flex-wrap items-center justify-between gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-6">
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={profile.isBPL}
+                  onChange={(e) => updateProfile({ isBPL: e.target.checked })}
+                  className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 accent-emerald-600"
+                />
+                <span>Holds BPL Ration Card</span>
+              </label>
 
-            <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={profile.hasDisability}
-                onChange={(e) => updateProfile({ hasDisability: e.target.checked })}
-                className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500"
-              />
-              <span>Person with Benchmark Disability (Divyangjan)</span>
-            </label>
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={profile.hasDisability}
+                  onChange={(e) => updateProfile({ hasDisability: e.target.checked })}
+                  className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 accent-emerald-600"
+                />
+                <span>Person with Benchmark Disability (Divyangjan)</span>
+              </label>
+            </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="ml-auto px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2"
+              className="px-8 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-xl shadow-emerald-600/30 transition-all flex items-center gap-2"
             >
               <Filter className="w-4 h-4" />
-              <span>{loading ? 'Evaluating Rules...' : 'Run Eligibility Check'}</span>
+              <span>{loading ? t('eligCalculating') : t('eligFindBtn')}</span>
             </button>
           </div>
         </form>
 
+        {error && (
+          <div role="alert" className="mt-8 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 text-sm font-semibold text-rose-800 dark:text-rose-300">
+            ⚠️ {error}
+          </div>
+        )}
+
         {/* Results Panel */}
         {evalResults && (
-          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                <span>Instant Diagnostic Results ({evalResults.filter((r) => r.isEligible).length} Eligible Schemes Found)</span>
-              </h3>
-            </div>
+          <div className="mt-10 pt-8 border-t border-slate-200 dark:border-slate-800 space-y-6">
+            <h3 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+              <CheckCircle2 className="w-6 h-6 text-emerald-500" />
+              <span>{t('eligFound', { count: totalEligible })}</span>
+            </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {evalResults.map((item) => (
                 <div
                   key={item.scheme.schemeId}
                   onClick={() => onSelectScheme(item.scheme.schemeId)}
-                  className={`p-4 rounded-2xl border transition-all cursor-pointer hover:shadow-lg ${
+                  className={`p-6 rounded-2xl border transition-all cursor-pointer hover:shadow-xl ${
                     item.isEligible
-                      ? 'bg-emerald-50/60 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800'
-                      : 'bg-amber-50/60 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800'
+                      ? 'bg-emerald-50/70 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800'
+                      : 'bg-amber-50/70 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                       {item.scheme.category}
                     </span>
                     <span
-                      className={`text-xs font-extrabold px-2 py-0.5 rounded-full ${
+                      className={`text-xs font-black px-3 py-1 rounded-full ${
                         item.isEligible ? 'bg-emerald-600 text-white' : 'bg-amber-500 text-white'
                       }`}
                     >
@@ -221,19 +241,19 @@ export const QuickEligibilityCard: React.FC<QuickEligibilityCardProps> = ({ onSe
                     </span>
                   </div>
 
-                  <h4 className="font-bold text-sm text-slate-900 dark:text-white line-clamp-1 mb-1">
+                  <h4 className="font-extrabold text-base text-slate-900 dark:text-white line-clamp-1 mb-2">
                     {item.scheme.name}
                   </h4>
-                  <p className="text-xs text-emerald-700 dark:text-emerald-300 font-extrabold mb-2">
+                  <p className="text-xs text-emerald-700 dark:text-emerald-300 font-extrabold mb-3">
                     💰 {item.scheme.financialBenefit}
                   </p>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-3">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 mb-4 leading-relaxed">
                     {item.aiSimplifiedExplanation}
                   </p>
 
-                  <div className="flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                    <span>View Scheme Details & Apply</span>
+                  <div className="flex items-center justify-between text-xs font-extrabold text-emerald-600 dark:text-emerald-400 pt-2 border-t border-slate-200/60 dark:border-slate-800">
+                    <span>Check Application Steps</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>

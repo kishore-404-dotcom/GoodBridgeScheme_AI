@@ -4,7 +4,7 @@ import { SUPPORTED_LANGUAGES, LanguageOption, getTranslation } from '../utils/ve
 interface LanguageContextType {
   currentLanguage: LanguageOption;
   setLanguageCode: (code: string) => void;
-  t: (key: string) => string;
+  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
@@ -21,7 +21,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setCurrentLanguage(found);
   };
 
-  const t = (key: string) => getTranslation(currentLanguage.code, key);
+  const t = (key: string, vars?: Record<string, string | number>) => getTranslation(currentLanguage.code, key, vars);
 
   return (
     <LanguageContext.Provider value={{ currentLanguage, setLanguageCode, t }}>

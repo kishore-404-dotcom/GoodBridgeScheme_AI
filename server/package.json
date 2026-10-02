@@ -1,7 +1,7 @@
 {
   "name": "goodscheme-ai-backend",
   "version": "1.0.0",
-  "description": "GoodSchemeAI Backend REST API Server - Node.js + Express + TypeScript + MongoDB Atlas + Gemini AI RAG",
+  "description": "GoodBridgeScheme AI Backend REST API Server - Node.js + Express + TypeScript + MongoDB Atlas + Gemini AI RAG",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -10,7 +10,7 @@
     "seed": "ts-node src/scripts/seedSchemes.ts"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.11.0",
+    "@google/genai": "^2.27.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

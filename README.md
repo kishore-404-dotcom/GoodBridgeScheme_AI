@@ -1,6 +1,6 @@
-# GoodSchemeAI - Vernacular Government Scheme Assistant (ZABR-003)
+# GoodBridgeScheme AI - Vernacular Government Scheme Assistant (ZABR-003)
 
-**GoodSchemeAI** is a production-grade AI platform designed to bridge awareness and accessibility gaps for government welfare programs across India. It empowers citizens to discover, assess eligibility, understand, and apply for schemes in their preferred regional language via voice and text.
+**GoodBridgeScheme AI** is a production-grade AI platform designed to bridge awareness and accessibility gaps for government welfare programs across India. It empowers citizens to discover, assess eligibility, understand, and apply for schemes in their preferred regional language via voice and text.
 
 ---
 
@@ -11,7 +11,7 @@
 2. **Deterministic Eligibility Rule Engine**:
    - Evaluates citizen profile parameters (Age, Income, Gender, State, Occupation, Category, Landholding, Disability, BPL) to calculate a **0-100% eligibility match score** with criterion-by-criterion status.
 3. **Grounded Gemini RAG Assistant**:
-   - Powered by Google Gemini API (`@google/genai`) over 100 verified official myScheme records for accurate, hallucination-free scheme guidance.
+   - Powered by Google Gemini API (`@google/genai`), grounded on a curated catalogue of central schemes sourced from official scheme portals, with conversation memory and automatic model fallback.
 4. **Document Readiness & Missing Paper Detector**:
    - Analyzes document availability before application submission, flagging missing papers in advance.
 5. **Pre-Filled Regional Draft Generator**:
@@ -40,7 +40,7 @@
 ## 📁 Directory Architecture
 
 ```
-GoodSchemeAI/
+GoodBridgeScheme AI/
 ├── client/                          # React + TypeScript + Tailwind CSS Frontend
 │   ├── src/
 │   │   ├── components/              # UI components (Navbar, Hero, QuickEligibilityCard, CategoryGrid, VoiceChatWidget)
@@ -61,7 +61,7 @@ GoodSchemeAI/
 │   │   ├── models/                  # Scheme.ts, UserProfile.ts
 │   │   ├── routes/                  # schemeRoutes, recommendationRoutes, aiRoutes, authRoutes
 │   │   ├── services/                # ruleEngineService.ts, ragService.ts, geminiAiService.ts, documentCheckService.ts
-│   │   ├── scripts/                 # seedSchemes.ts (100 verified myScheme dataset seeder)
+│   │   ├── scripts/                 # seedSchemes.ts (scheme dataset seeder)
 │   │   └── index.ts
 │   ├── tsconfig.json
 │   └── package.json

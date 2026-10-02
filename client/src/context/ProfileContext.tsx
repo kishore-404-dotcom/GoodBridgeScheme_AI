@@ -7,6 +7,9 @@ interface ProfileContextType {
   savedSchemeIds: string[];
   toggleSaveScheme: (schemeId: string) => void;
   isSchemeSaved: (schemeId: string) => boolean;
+  /** True once the citizen has run the eligibility check, so the chat can use their profile */
+  profileConfirmed: boolean;
+  confirmProfile: () => void;
 }
 
 const DEFAULT_PROFILE: UserProfile = {
@@ -14,7 +17,7 @@ const DEFAULT_PROFILE: UserProfile = {
   age: 25,
   gender: 'All',
   state: 'Uttar Pradesh',
-  occupation: 'Small Farmer',
+  occupation: 'Farmer',
   annualIncome: 180000,
   category: 'OBC',
   landHoldingAcres: 1.5,
@@ -29,12 +32,15 @@ const ProfileContext = createContext<ProfileContextType>({
   updateProfile: () => {},
   savedSchemeIds: [],
   toggleSaveScheme: () => {},
-  isSchemeSaved: () => false
+  isSchemeSaved: () => false,
+  profileConfirmed: false,
+  confirmProfile: () => {}
 });
 
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [profile, setProfile] = useState<UserProfile>(DEFAULT_PROFILE);
-  const [savedSchemeIds, setSavedSchemeIds] = useState<string[]>(['SCH-001', 'SCH-021', 'SCH-046']);
+  const [savedSchemeIds, setSavedSchemeIds] = useState<string[]>([]);
+  const [profileConfirmed, setProfileConfirmed] = useState(false);
 
   const updateProfile = (updates: Partial<UserProfile>) => {
     setProfile((prev) => ({ ...prev, ...updates }));
@@ -55,7 +61,9 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
         updateProfile,
         savedSchemeIds,
         toggleSaveScheme,
-        isSchemeSaved
+        isSchemeSaved,
+        profileConfirmed,
+        confirmProfile: () => setProfileConfirmed(true)
       }}
     >
       {children}

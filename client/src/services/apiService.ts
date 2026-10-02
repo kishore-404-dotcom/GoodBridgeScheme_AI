@@ -1,4 +1,4 @@
-import { Scheme, UserProfile, EligibilityEvaluationResult, ApplicationDraft } from '../../../shared/types';
+import { Scheme, UserProfile, EligibilityEvaluationResult, ApplicationDraft, ChatHistoryTurn } from '../../../shared/types';
 
 const API_BASE = (import.meta as any).env?.VITE_API_BASE_URL || '/api';
 
@@ -26,11 +26,12 @@ export class ApiService {
     return null;
   }
 
+  /** Returns null when the server could not evaluate, so the UI can show an error instead of "0 matches" */
   public static async evaluateEligibility(profile: UserProfile): Promise<{
     eligibleSchemes: EligibilityEvaluationResult[];
     partialMatches: EligibilityEvaluationResult[];
     allEvaluations: EligibilityEvaluationResult[];
-  }> {
+  } | null> {
     try {
       const res = await fetch(`${API_BASE}/recommendations/evaluate`, {
         method: 'POST',
@@ -48,10 +49,15 @@ export class ApiService {
     } catch (err) {
       console.warn('Backend evaluation API error:', err);
     }
-    return { eligibleSchemes: [], partialMatches: [], allEvaluations: [] };
+    return null;
   }
 
-  public static async sendChatMessage(message: string, language: string): Promise<{
+  public static async sendChatMessage(
+    message: string,
+    language: string,
+    history: ChatHistoryTurn[] = [],
+    profile?: UserProfile
+  ): Promise<{
     assistantResponse: string;
     suggestedSchemes: Scheme[];
   }> {
@@ -59,7 +65,7 @@ export class ApiService {
       const res = await fetch(`${API_BASE}/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, language })
+        body: JSON.stringify({ message, language, history, profile })
       });
       const json = await res.json();
       if (json.success) {
@@ -72,7 +78,7 @@ export class ApiService {
       console.warn('Backend AI Chat API error:', err);
     }
     return {
-      assistantResponse: `Thank you for reaching out to GoodSchemeAI in ${language}. Please check the eligibility module above to get instant matches!`,
+      assistantResponse: '⚠️ Sorry, I could not reach the GoodBridgeScheme AI server. Please check your connection and try again, or use the eligibility checker on this page.',
       suggestedSchemes: []
     };
   }

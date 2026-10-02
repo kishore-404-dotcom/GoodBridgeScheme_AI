@@ -105,7 +105,7 @@ const MainAppContent: React.FC = () => {
           onSelectCategory={(cat) => setSelectedCategory(cat)}
         />
 
-        {/* 5. Value Beyond Existing Portals (myScheme vs GoodSchemeAI) */}
+        {/* 5. Value Beyond Existing Portals (myScheme vs GoodBridgeScheme AI) */}
         <VsComparison />
 
         {/* 6. Easy Steps to Apply (How It Works 3-Step Guide) */}
@@ -129,7 +129,7 @@ const MainAppContent: React.FC = () => {
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-extrabold text-lg text-white">GoodSchemeAI</span>
+              <span className="font-extrabold text-lg text-white">GoodBridgeScheme AI</span>
               <p className="text-xs text-slate-500">Vernacular Citizen Government Welfare Assistant</p>
             </div>
           </div>

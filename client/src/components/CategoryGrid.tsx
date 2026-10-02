@@ -1,6 +1,7 @@
 import React from 'react';
 import { GraduationCap, Tractor, Briefcase, Heart, UserCheck, Wrench, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { VERIFIED_SCHEMES_100 } from '../data/seedSchemes';
 
 interface CategoryGridProps {
   selectedCategory: string;
@@ -8,12 +9,12 @@ interface CategoryGridProps {
 }
 
 export const CATEGORIES_LIST = [
-  { id: 'Student / Education', title: 'Student / Education', count: 25, icon: GraduationCap, color: 'text-blue-500 bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-800' },
-  { id: 'Agriculture / Farmers', title: 'Agriculture / Farmers', count: 20, icon: Tractor, color: 'text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' },
-  { id: 'Entrepreneurship / MSME', title: 'Entrepreneurship / MSME', count: 20, icon: Briefcase, color: 'text-amber-500 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800' },
-  { id: 'Women / Family Welfare', title: 'Women / Family Welfare', count: 15, icon: Heart, color: 'text-rose-500 bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800' },
-  { id: 'Senior Citizens / Social Welfare', title: 'Senior Citizens / Social Welfare', count: 10, icon: UserCheck, color: 'text-purple-500 bg-purple-50 dark:bg-purple-950/50 border-purple-200 dark:border-purple-800' },
-  { id: 'Employment / Skill Development', title: 'Employment / Skill Development', count: 10, icon: Wrench, color: 'text-cyan-500 bg-cyan-50 dark:bg-cyan-950/50 border-cyan-200 dark:border-cyan-800' }
+  { id: 'Student / Education', title: 'Student / Education', icon: GraduationCap, color: 'text-blue-500 bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-800' },
+  { id: 'Agriculture / Farmers', title: 'Agriculture / Farmers', icon: Tractor, color: 'text-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800' },
+  { id: 'Entrepreneurship / MSME', title: 'Entrepreneurship / MSME', icon: Briefcase, color: 'text-amber-500 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800' },
+  { id: 'Women / Family Welfare', title: 'Women / Family Welfare', icon: Heart, color: 'text-rose-500 bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800' },
+  { id: 'Senior Citizens / Social Welfare', title: 'Senior Citizens / Social Welfare', icon: UserCheck, color: 'text-purple-500 bg-purple-50 dark:bg-purple-950/50 border-purple-200 dark:border-purple-800' },
+  { id: 'Employment / Skill Development', title: 'Employment / Skill Development', icon: Wrench, color: 'text-cyan-500 bg-cyan-50 dark:bg-cyan-950/50 border-cyan-200 dark:border-cyan-800' }
 ];
 
 export const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, onSelectCategory }) => {
@@ -26,7 +27,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, on
           {t('findCategoriesTitle')}
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Explore 100 verified central & state welfare programs grouped by beneficiary sector.
+          Explore {VERIFIED_SCHEMES_100.length} central welfare programs grouped by beneficiary sector.
         </p>
       </div>
 
@@ -51,7 +52,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, on
 
               <div>
                 <span className={`text-[11px] font-extrabold block ${isSelected ? 'text-emerald-100' : 'text-slate-400 dark:text-slate-500'}`}>
-                  {cat.count} Verified Schemes
+                  {VERIFIED_SCHEMES_100.filter((s) => s.category === cat.id).length} Schemes
                 </span>
                 <h4 className={`text-xs font-extrabold leading-tight mt-0.5 ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
                   {cat.title}

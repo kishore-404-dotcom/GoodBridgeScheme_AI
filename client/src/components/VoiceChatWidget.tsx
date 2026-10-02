@@ -3,7 +3,12 @@ import { MessageSquare, Mic, Send, X, Volume2, Sparkles, User, Bot, VolumeX } fr
 import { ApiService } from '../services/apiService';
 import { SpeechService } from '../services/speechService';
 import { useLanguage } from '../context/LanguageContext';
+import { useProfile } from '../context/ProfileContext';
 import { ChatMessage, Scheme } from '../../../shared/types';
+
+/** Renders **bold** segments from assistant replies without showing the asterisks */
+const renderFormatted = (text: string) =>
+  text.split('**').map((part, i) => (i % 2 === 1 ? <strong key={i}>{part}</strong> : part));
 
 interface VoiceChatWidgetProps {
   isOpen: boolean;
@@ -16,12 +21,13 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
   onClose,
   onSelectScheme
 }) => {
-  const { currentLanguage } = useLanguage();
+  const { currentLanguage, t } = useLanguage();
+  const { profile, profileConfirmed } = useProfile();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-init',
       sender: 'assistant',
-      text: `Hello! I am your GoodSchemeAI Vernacular Assistant. How can I help you find government schemes today in ${currentLanguage.name}?`,
+      text: '', // greeting is rendered from translations so it follows the selected language
       language: currentLanguage.code,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
@@ -50,13 +56,20 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
+    // Earlier turns (minus the canned greeting) so the assistant remembers the conversation
+    const history = messages
+      .filter((m) => m.id !== 'msg-init')
+      .map((m) => ({ sender: m.sender, text: m.text }));
+
     setMessages((prev) => [...prev, userMsg]);
     setInputText('');
     setLoading(true);
 
     const { assistantResponse, suggestedSchemes } = await ApiService.sendChatMessage(
       textToSend,
-      currentLanguage.name
+      currentLanguage.name,
+      history,
+      profileConfirmed ? profile : undefined
     );
 
     const assistantMsg: ChatMessage = {
@@ -73,7 +86,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
 
     // Speak response automatically
     setIsSpeaking(true);
-    SpeechService.speak(assistantResponse, currentLanguage.code, () => setIsSpeaking(false));
+    SpeechService.speak(assistantResponse.replace(/[*#•]/g, ''), currentLanguage.code, () => setIsSpeaking(false));
   };
 
   const handleMicClick = () => {
@@ -107,7 +120,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
           </div>
           <div>
             <h3 className="font-bold text-sm leading-none flex items-center gap-1.5">
-              <span>GoodScheme Vernacular Voice AI</span>
+              <span>GoodBridgeScheme AI Voice Assistant</span>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             </h3>
             <p className="text-[11px] text-slate-400 mt-1">
@@ -173,7 +186,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
                   : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-tl-none shadow-sm'
               }`}
             >
-              <p className="whitespace-pre-line leading-relaxed">{msg.text}</p>
+              <p className="whitespace-pre-line leading-relaxed">{msg.id === 'msg-init' ? t('chatGreeting') : renderFormatted(msg.text)}</p>
 
               {/* Suggested Scheme Pills */}
               {msg.suggestedSchemes && msg.suggestedSchemes.length > 0 && (
@@ -200,7 +213,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
         {loading && (
           <div className="flex items-center gap-2 text-xs text-slate-400 italic">
             <Sparkles className="w-4 h-4 animate-spin text-emerald-500" />
-            <span>Consulting RAG grounding database in {currentLanguage.name}...</span>
+            <span>{t('chatThinking')}</span>
           </div>
         )}
         <div ref={chatEndRef} />
@@ -245,7 +258,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          placeholder={`Type or speak in ${currentLanguage.nativeName}...`}
+          placeholder={t('chatPlaceholder')}
           className="flex-1 text-xs p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
         />
 

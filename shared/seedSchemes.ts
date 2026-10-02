@@ -276,7 +276,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
       maxAge: 65,
       genderAllowed: ['Female', 'All'],
       categoriesAllowed: ['SC', 'ST', 'General'],
-      occupationsAllowed: ['Entrepreneur', 'Business Owner'],
+      occupationsAllowed: ['Entrepreneur', 'Business Owner', 'Self-Employed'],
       statesAllowed: ['All India']
     },
     documentsRequired: ['Aadhaar Card', 'PAN Card', 'Caste Cert (if SC/ST)', 'Project Report', 'Rent / Land Document'],

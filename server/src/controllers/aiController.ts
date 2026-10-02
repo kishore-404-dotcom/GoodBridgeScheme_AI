@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { GeminiAiService } from '../services/geminiAiService';
 import { DocumentCheckService } from '../services/documentCheckService';
-import { SchemeModel } from '../models/Scheme';
-import { VERIFIED_SCHEMES_100 } from '../scripts/seedSchemes';
+import { SchemeStore } from '../services/schemeStore';
 
 /**
  * AI & Guidance Controller
@@ -11,19 +10,22 @@ import { VERIFIED_SCHEMES_100 } from '../scripts/seedSchemes';
 export class AIController {
   public static async chatAssistant(req: Request, res: Response): Promise<void> {
     try {
-      const { message, language = 'English' } = req.body;
+      const { message, language = 'English', history = [], profile } = req.body;
 
       if (!message) {
         res.status(400).json({ success: false, message: 'Message parameter is required' });
         return;
       }
 
-      let schemes = (await SchemeModel.find().lean()) as any[];
-      if (!schemes || schemes.length === 0) {
-        schemes = VERIFIED_SCHEMES_100 as any[];
-      }
+      const schemes = await SchemeStore.getAll();
 
-      const { responseText, relevantSchemes } = await GeminiAiService.generateVernacularAnswer(message, language, schemes);
+      const { responseText, relevantSchemes } = await GeminiAiService.generateVernacularAnswer(
+        message,
+        language,
+        schemes,
+        Array.isArray(history) ? history : [],
+        profile && typeof profile === 'object' ? profile : undefined
+      );
 
       res.status(200).json({
         success: true,
@@ -41,10 +43,7 @@ export class AIController {
     try {
       const { schemeId, applicantName = 'Citizen Applicant', language = 'English', profileData = {} } = req.body;
 
-      let scheme = (await SchemeModel.findOne({ schemeId }).lean()) as any;
-      if (!scheme) {
-        scheme = VERIFIED_SCHEMES_100.find((s) => s.schemeId === schemeId);
-      }
+      const scheme = await SchemeStore.getById(schemeId);
 
       if (!scheme) {
         res.status(404).json({ success: false, message: 'Scheme not found' });

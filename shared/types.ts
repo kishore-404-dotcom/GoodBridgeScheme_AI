@@ -1,5 +1,5 @@
 /**
- * GoodSchemeAI - Shared TypeScript Type Definitions
+ * GoodBridgeScheme AI - Shared TypeScript Type Definitions
  * Unified data contract between Client (React) and Server (Node.js/Express)
  */
 
@@ -109,6 +109,12 @@ export interface ChatMessage {
   timestamp: string;
   suggestedSchemes?: Scheme[];
   audioPlaybackAvailable?: boolean;
+}
+
+/** Prior chat turn sent to the server so the assistant remembers the conversation */
+export interface ChatHistoryTurn {
+  sender: 'user' | 'assistant';
+  text: string;
 }
 
 export interface DocumentVerificationStatus {
