@@ -2,9 +2,23 @@ import { Type } from '@google/genai';
 import { aiClient, GEMINI_MODEL, GEMINI_FALLBACK_MODELS, GEMINI_TIMEOUT_MS } from '../config/gemini';
 import { RAGService } from './ragService';
 import { RuleEngineService } from './ruleEngineService';
-import { Scheme, ChatHistoryTurn, UserProfile } from '../../../shared/types';
+import { INDIAN_STATES } from '../../../shared/eligibilityOptions';
+import { Scheme, ChatHistoryTurn, UserProfile, EligibilityEvaluationResult } from '../../../shared/types';
 
 const MAX_HISTORY_TURNS = 10;
+
+// The catalogue has hundreds of schemes; each request is grounded on a relevant subset only
+const MAX_CONTEXT_SCHEMES = 25;
+const KEYWORD_SCHEMES = 10;
+const ELIGIBLE_SCHEMES = 12;
+const NEAR_SCHEMES = 5;
+
+/** True when the text is mostly in a non-Latin script (Hindi, Tamil, ...), where keyword search can't match */
+const isNonLatin = (text: string) => {
+  const letters = text.replace(/[^\p{L}]/gu, '');
+  const latin = letters.replace(/[^A-Za-z]/g, '');
+  return letters.length > 0 && latin.length / letters.length < 0.5;
+};
 
 /** Fallback labels so the offline answer still matches the citizen's language */
 const FALLBACK_LABELS: Record<string, { scheme: string; benefit: string; summary: string; docs: string; portal: string; askProfile: string }> = {
@@ -53,24 +67,26 @@ export class GeminiAiService {
     history: ChatHistoryTurn[],
     profile?: UserProfile
   ): Promise<{ responseText: string; relevantSchemes: Scheme[] }> {
-    // The catalogue is small enough to ground on in full, which also lets Gemini
-    // match questions asked in any Indian language (keyword search only handles English).
-    const groundingContext = RAGService.buildGroundingContext(allSchemes);
+    const verdicts = profile ? this.evaluateProfile(profile, allSchemes) : null;
+    const contextSchemes = await this.selectContextSchemes(userMessage, allSchemes, history, profile, verdicts);
+    const groundingContext = RAGService.buildGroundingContext(contextSchemes);
 
     const systemInstruction = `You are GoodBridgeScheme AI, an independent, trustworthy assistant that helps Indian citizens understand government schemes. You are not an official government service.
 
 Always reply in ${language}, using simple, friendly words a first-time user can understand. Keep scheme names recognisable (you may add the English name in brackets).
 
-Base every fact strictly on the scheme catalogue below. Never invent schemes, amounts, eligibility rules or URLs. If no scheme fits, say so honestly.
+Base every fact strictly on the schemes listed below: a pre-selected subset of the ${allSchemes.length} official schemes we cover. Never invent schemes, amounts, eligibility rules or URLs. If none of the listed schemes fits, say so honestly and suggest the citizen use the eligibility check on this website or rephrase the question.
 
 If you need details to judge eligibility (age, state, occupation, annual income, gender, social category, BPL status), ask the citizen one or two short follow-up questions instead of guessing.
 
 When recommending schemes, mention the benefit (₹), the key eligibility rules, the documents needed and how to apply. Use short bullet points.
 
---- SCHEME CATALOGUE ---
+Never write scheme IDs (like MS-pm-kisan) in the answer text; they are internal and belong only in schemeIds.
+
+--- RELEVANT SCHEMES ---
 ${groundingContext}
 ------------------------
-${profile ? this.buildProfileContext(profile, allSchemes) : ''}`;
+${profile && verdicts ? this.buildProfileContext(profile, verdicts) : ''}`;
 
     const contents = [
       ...history.slice(-MAX_HISTORY_TURNS).map((turn) => ({
@@ -94,7 +110,7 @@ ${profile ? this.buildProfileContext(profile, allSchemes) : ''}`;
             schemeIds: {
               type: Type.ARRAY,
               items: { type: Type.STRING },
-              description: 'IDs (e.g. SCH-001) of the schemes recommended in the answer, most relevant first. Empty if none.'
+              description: 'IDs (exactly as given in the scheme list) of the schemes recommended in the answer, most relevant first. Empty if none.'
             }
           },
           required: ['answer', 'schemeIds']
@@ -119,29 +135,110 @@ ${profile ? this.buildProfileContext(profile, allSchemes) : ''}`;
     if (!parsed.answer) throw new Error('Empty Gemini response');
 
     const relevantSchemes = (parsed.schemeIds || [])
-      .map((id) => allSchemes.find((s) => s.schemeId === id))
+      .map((id) => contextSchemes.find((s) => s.schemeId === id))
       .filter((s): s is Scheme => Boolean(s))
       .slice(0, 4);
 
-    return { responseText: parsed.answer, relevantSchemes };
+    // Internal ids sometimes leak into the prose despite the instruction; strip "(MS-x)", "[MS-x]", "ID: MS-x"
+    const responseText = parsed.answer
+      .replace(/[ \t]*(?:[Ii][Dd]:\s*)?[[(]?\bMS-[a-z0-9]+(?:-[a-z0-9]+)*\b[\])]?/g, '')
+      .replace(/[ \t]+([,.;:।])/g, '$1');
+
+    return { responseText, relevantSchemes };
+  }
+
+  /** Rule-engine verdicts for the citizen, best matches first */
+  private static evaluateProfile(profile: UserProfile, allSchemes: Scheme[]) {
+    const results = allSchemes.map((s) => RuleEngineService.evaluateSchemeEligibility(s, profile));
+    const byScore = (a: EligibilityEvaluationResult, b: EligibilityEvaluationResult) =>
+      b.matchScorePercentage - a.matchScorePercentage || b.scheme.financialBenefitAmount - a.scheme.financialBenefitAmount;
+    return {
+      eligible: results.filter((r) => r.isEligible).sort(byScore).slice(0, ELIGIBLE_SCHEMES),
+      near: results
+        .filter((r) => !r.isEligible && r.criteriaFailed.length === 1 && r.criteriaFailed[0].criterion !== 'Occupation')
+        .sort(byScore)
+        .slice(0, NEAR_SCHEMES)
+    };
+  }
+
+  /**
+   * Picks the schemes Gemini sees: keyword matches for the question (and the previous turn,
+   * so follow-ups like "that one" resolve), then the citizen's eligible and almost-eligible schemes.
+   */
+  private static async selectContextSchemes(
+    userMessage: string,
+    allSchemes: Scheme[],
+    history: ChatHistoryTurn[],
+    profile?: UserProfile,
+    verdicts?: { eligible: EligibilityEvaluationResult[]; near: EligibilityEvaluationResult[] } | null
+  ): Promise<Scheme[]> {
+    const lastAssistant = [...history].reverse().find((t) => t.sender === 'assistant')?.text || '';
+    const lastUser = [...history].reverse().find((t) => t.sender === 'user')?.text || '';
+    const question = isNonLatin(userMessage)
+      ? await this.toEnglishSearchQuery(`${lastUser}\n${userMessage}`)
+      : `${lastUser} ${userMessage}`;
+    // A state named in the question wins over the profile, so other states' schemes don't crowd it out
+    const mentionedState = INDIAN_STATES.find((st) => question.toLowerCase().includes(st.toLowerCase()));
+    const state = mentionedState || profile?.state || undefined;
+
+    const picked = [
+      ...RAGService.retrieveRelevantSchemes(question, allSchemes, KEYWORD_SCHEMES, { state }),
+      // Scheme names mentioned in the previous answer
+      ...RAGService.retrieveRelevantSchemes(lastAssistant.slice(0, 1500), allSchemes, 3, { state }),
+      ...(verdicts?.eligible.map((r) => r.scheme) || []),
+      ...(verdicts?.near.map((r) => r.scheme) || [])
+    ];
+
+    const unique = [...new Map(picked.map((s) => [s.schemeId, s])).values()].slice(0, MAX_CONTEXT_SCHEMES);
+    // Never ground on nothing: fall back to the state's and the flagship central schemes
+    if (unique.length === 0) unique.push(...RAGService.defaultSchemes(allSchemes, 15, state));
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`Chat grounding: ${unique.length} of ${allSchemes.length} schemes (search: "${question.slice(0, 80)}")`);
+    }
+    return unique;
+  }
+
+  /** Short English keyword query for non-English questions, so keyword retrieval can work */
+  private static async toEnglishSearchQuery(text: string): Promise<string> {
+    if (!aiClient) return text;
+    for (const model of [...GEMINI_FALLBACK_MODELS, GEMINI_MODEL]) {
+      try {
+        const res = await aiClient.models.generateContent({
+          model,
+          contents: text,
+          config: {
+            httpOptions: { timeout: GEMINI_TIMEOUT_MS },
+            temperature: 0,
+            maxOutputTokens: 60,
+            systemInstruction:
+              'Translate this question from an Indian citizen about government schemes into a short English keyword search query: beneficiary type, benefit type, scheme names and state if mentioned. Reply with the keywords only.'
+          }
+        });
+        if (res.text?.trim()) return res.text.trim();
+      } catch (err) {
+        console.warn(`Query translation with ${model} failed:`, (err as Error).message.slice(0, 120));
+      }
+    }
+    return text;
   }
 
   /**
    * Eligibility is decided by the deterministic rule engine, never by the LLM.
    * Gemini only receives the verdicts so it can explain them in the citizen's language.
    */
-  private static buildProfileContext(profile: UserProfile, allSchemes: Scheme[]): string {
-    const results = allSchemes.map((s) => RuleEngineService.evaluateSchemeEligibility(s, profile));
-    const eligible = results.filter((r) => r.isEligible);
-    const near = results.filter((r) => !r.isEligible && r.matchScorePercentage >= 50);
+  private static buildProfileContext(
+    profile: UserProfile,
+    { eligible, near }: { eligible: EligibilityEvaluationResult[]; near: EligibilityEvaluationResult[] }
+  ): string {
 
     return `
 --- CITIZEN PROFILE (from the eligibility form) ---
-Age: ${profile.age}, Gender: ${profile.gender}, State: ${profile.state}, Occupation: ${profile.occupation}, Annual income: ₹${profile.annualIncome}, Social category: ${profile.category}, BPL card: ${profile.isBPL ? 'Yes' : 'No'}, Disability: ${profile.hasDisability ? 'Yes' : 'No'}
+Age: ${profile.age}, Gender: ${profile.gender}, State: ${profile.state}, Occupation: ${profile.occupation}, Annual income: ₹${profile.annualIncome}, Social category: ${profile.category}, BPL card: ${profile.isBPL ? 'Yes' : 'No'}, Disability: ${profile.hasDisability ? 'Yes' : 'No'}${profile.district ? `, District: ${profile.district}` : ''}${profile.education ? `, Education: ${profile.education}` : ''}${profile.isMinority ? ', Minority community: Yes' : ''}${profile.interests?.length ? `, Looking for: ${profile.interests.join(', ')}` : ''}
 
 --- RULE ENGINE VERDICTS (authoritative, do not contradict) ---
-Eligible: ${eligible.map((r) => `${r.scheme.schemeId} ${r.scheme.name}`).join('; ') || 'none'}
+Eligible (top matches): ${eligible.map((r) => `${r.scheme.schemeId} ${r.scheme.name}${r.criteriaMet.some((c) => c.criterion === 'To confirm') ? ' [has extra conditions to confirm]' : ''}`).join('; ') || 'none'}
 Not yet eligible: ${near.map((r) => `${r.scheme.schemeId} ${r.scheme.name} (fails: ${r.criteriaFailed.map((c) => c.details).join(' ')})`).join('; ') || 'none'}
+Schemes not listed here were not checked for this conversation; do not claim eligibility for them.
 
 Use this profile instead of asking for details the citizen already gave. When you say whether the citizen qualifies for a scheme, follow these verdicts exactly.
 ---------------------------------------------------`;

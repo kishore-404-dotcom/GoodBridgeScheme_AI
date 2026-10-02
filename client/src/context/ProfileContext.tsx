@@ -1,69 +1,62 @@
-import React, { createContext, useContext, useState } from 'react';
-import { UserProfile, Scheme } from '../../../shared/types';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { UserProfile } from '../../../shared/types';
+import { readStore, writeStore } from '../utils/storage';
 
 interface ProfileContextType {
   profile: UserProfile;
   updateProfile: (updates: Partial<UserProfile>) => void;
-  savedSchemeIds: string[];
-  toggleSaveScheme: (schemeId: string) => void;
-  isSchemeSaved: (schemeId: string) => boolean;
   /** True once the citizen has run the eligibility check, so the chat can use their profile */
   profileConfirmed: boolean;
   confirmProfile: () => void;
+  resetProfile: () => void;
 }
 
-const DEFAULT_PROFILE: UserProfile = {
+export const DEFAULT_PROFILE: UserProfile = {
   fullName: 'Citizen User',
   age: 25,
   gender: 'All',
-  state: 'Uttar Pradesh',
-  occupation: 'Farmer',
-  annualIncome: 180000,
-  category: 'OBC',
-  landHoldingAcres: 1.5,
+  state: '',
+  occupation: '',
+  annualIncome: 0,
+  category: 'General',
+  landHoldingAcres: 0,
   hasDisability: false,
-  isBPL: true,
+  isBPL: false,
   residenceType: 'Rural',
-  savedSchemeIds: []
+  interests: []
 };
 
 const ProfileContext = createContext<ProfileContextType>({
   profile: DEFAULT_PROFILE,
   updateProfile: () => {},
-  savedSchemeIds: [],
-  toggleSaveScheme: () => {},
-  isSchemeSaved: () => false,
   profileConfirmed: false,
-  confirmProfile: () => {}
+  confirmProfile: () => {},
+  resetProfile: () => {}
 });
 
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [profile, setProfile] = useState<UserProfile>(DEFAULT_PROFILE);
-  const [savedSchemeIds, setSavedSchemeIds] = useState<string[]>([]);
-  const [profileConfirmed, setProfileConfirmed] = useState(false);
+  // Answers survive a page refresh via localStorage
+  const [profile, setProfile] = useState<UserProfile>(() => ({ ...DEFAULT_PROFILE, ...readStore('profile', {}) }));
+  const [profileConfirmed, setProfileConfirmed] = useState<boolean>(() => readStore('profileConfirmed', false));
+
+  useEffect(() => writeStore('profile', profile), [profile]);
+  useEffect(() => writeStore('profileConfirmed', profileConfirmed), [profileConfirmed]);
 
   const updateProfile = (updates: Partial<UserProfile>) => {
     setProfile((prev) => ({ ...prev, ...updates }));
   };
-
-  const toggleSaveScheme = (schemeId: string) => {
-    setSavedSchemeIds((prev) =>
-      prev.includes(schemeId) ? prev.filter((id) => id !== schemeId) : [...prev, schemeId]
-    );
-  };
-
-  const isSchemeSaved = (schemeId: string) => savedSchemeIds.includes(schemeId);
 
   return (
     <ProfileContext.Provider
       value={{
         profile,
         updateProfile,
-        savedSchemeIds,
-        toggleSaveScheme,
-        isSchemeSaved,
         profileConfirmed,
-        confirmProfile: () => setProfileConfirmed(true)
+        confirmProfile: () => setProfileConfirmed(true),
+        resetProfile: () => {
+          setProfile(DEFAULT_PROFILE);
+          setProfileConfirmed(false);
+        }
       }}
     >
       {children}

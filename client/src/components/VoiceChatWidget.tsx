@@ -4,6 +4,7 @@ import { ApiService } from '../services/apiService';
 import { SpeechService } from '../services/speechService';
 import { useLanguage } from '../context/LanguageContext';
 import { useProfile } from '../context/ProfileContext';
+import { useSiteText } from '../hooks/useSiteText';
 import { ChatMessage, Scheme } from '../../../shared/types';
 
 /** Renders **bold** segments from assistant replies without showing the asterisks */
@@ -36,7 +37,10 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
+  const recognitionRef = useRef<{ stop: () => void } | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const st = useSiteText();
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -84,19 +88,22 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
     setMessages((prev) => [...prev, assistantMsg]);
     setLoading(false);
 
-    // Speak response automatically
+    // Speak the response when this device has a voice for the language; otherwise say so once
     setIsSpeaking(true);
-    SpeechService.speak(assistantResponse.replace(/[*#•]/g, ''), currentLanguage.code, () => setIsSpeaking(false));
+    const spoken = SpeechService.speak(assistantResponse.replace(/[*#•]/g, ''), currentLanguage.code, () => setIsSpeaking(false));
+    setVoiceNotice(spoken ? null : st('voiceUnavailable', { lang: currentLanguage.nativeName }));
   };
 
   const handleMicClick = () => {
     if (isListening) {
+      recognitionRef.current?.stop();
       setIsListening(false);
       return;
     }
 
+    setVoiceNotice(null);
     setIsListening(true);
-    SpeechService.startListening(
+    recognitionRef.current = SpeechService.startListening(
       currentLanguage.code,
       (transcript) => {
         setIsListening(false);
@@ -105,7 +112,8 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
       },
       (err) => {
         setIsListening(false);
-        console.warn('Voice error:', err);
+        if (err === 'aborted') return;
+        setVoiceNotice(err === 'not-allowed' || err === 'service-not-allowed' ? st('micBlocked') : st('micFailed'));
       }
     );
   };
@@ -159,6 +167,15 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
           <div className="w-1.5 bg-emerald-400 rounded-full animate-bar-3" />
           <div className="w-1.5 bg-emerald-400 rounded-full animate-bar-4" />
           <div className="w-1.5 bg-emerald-400 rounded-full animate-bar-5" />
+        </div>
+      )}
+
+      {voiceNotice && (
+        <div role="status" className="px-4 py-2 text-[11px] font-semibold bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 border-b border-amber-200 dark:border-amber-900 flex items-start justify-between gap-2">
+          <span>{voiceNotice}</span>
+          <button onClick={() => setVoiceNotice(null)} className="shrink-0 opacity-70 hover:opacity-100" aria-label="Dismiss">
+            <X className="w-3.5 h-3.5" />
+          </button>
         </div>
       )}
 

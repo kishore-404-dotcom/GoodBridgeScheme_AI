@@ -6,6 +6,15 @@
 
 ## 🌟 Key Features
 
+0. **Guided Eligibility Assessment → Eligibility Report** (core flow):
+   - Welcome screen with privacy promise (no name, phone or address; answers stay on the device).
+   - 5-step wizard with progress bar: role → state, district & rural/urban → age, gender, education → income band, social category, BPL/disability/minority → up to 3 interests.
+   - "Analysing your eligibility" screen while the rule engine checks every scheme.
+   - Report: eligible and almost-eligible schemes with match %, *why you match* / *what is missing*, benefits, required documents, **Apply Officially**, how-to-apply, save and share, plus a summary sidebar.
+   - **Download PDF Report** via the browser's print → Save as PDF (prints only the report, works in all 10 scripts).
+   - Answers, report, saved schemes and language persist in localStorage; *Edit Answers* / *Start New Assessment*.
+   - *Ask AI about my results* opens the chat, which already knows the profile: the rule engine decides, Gemini explains.
+
 1. **Multilingual Vernacular Voice Core**:
    - Native voice synthesis & speech recognition supporting **10 Indian Regional Languages**: English, Hindi (हिन्दी), Tamil (தமிழ்), Telugu (తెలుగు), Marathi (मराठी), Bengali (বাংলা), Kannada (ಕನ್ನಡ), Gujarati (ગુજરાતી), Malayalam (മലയാളം), Punjabi (ਪੰਜਾਬੀ).
 2. **Deterministic Eligibility Rule Engine**:
@@ -16,10 +25,9 @@
    - Analyzes document availability before application submission, flagging missing papers in advance.
 5. **Pre-Filled Regional Draft Generator**:
    - Auto-populates application previews ready for printing or offline CSC / Jan Seva Kendra submission.
-6. **myScheme Inspired Landing Page**:
+6. **Landing Page**:
    - Sun ☀️ / Moon 🌙 Dark & Light theme switcher in the header.
-   - Embedded main page eligibility checker wizard.
-   - "Find schemes based on categories" grid (Student: 25, Agriculture: 20, MSME: 20, Women: 15, Senior: 10, Skill: 10).
+   - "Find schemes based on categories" grid with live scheme counts.
    - 3-step guided roadmap & Student, Farmer, Entrepreneur persona quick-launchers.
 
 ---

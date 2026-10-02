@@ -27,6 +27,11 @@ export interface EligibilityRules {
   categoriesAllowed?: SocialCategory[];
   disabilityRequired?: boolean;
   bplRequired?: boolean;
+  minorityRequired?: boolean;
+  /** Highest completed education levels that qualify (ids from EDUCATION_LEVELS) */
+  educationAllowed?: string[];
+  /** Official requirements the checker cannot verify; shown as "confirm before applying" */
+  otherConditions?: string[];
   urbanRural?: UrbanRuralOption;
 }
 
@@ -67,6 +72,18 @@ export interface Scheme {
   translations?: MultilingualTranslation;
   isVerified: boolean;
   lastCheckedDate: string;
+  // Official content as published on myScheme / state portals (optional for older records)
+  shortTitle?: string;
+  /** State name for state schemes */
+  state?: string;
+  /** myScheme page the record was taken from */
+  sourceUrl?: string;
+  detailsText?: string[];
+  benefitsText?: string[];
+  eligibilityText?: string[];
+  exclusionsText?: string[];
+  references?: { title: string; url: string }[];
+  applicationModes?: string[];
 }
 
 export interface UserProfile {
@@ -83,6 +100,13 @@ export interface UserProfile {
   isBPL: boolean;
   residenceType: UrbanRuralOption;
   savedSchemeIds?: string[];
+  // Guided assessment answers (optional so older clients keep working)
+  roleId?: string;
+  district?: string;
+  incomeBandId?: string;
+  education?: string;
+  isMinority?: boolean;
+  interests?: string[];
 }
 
 export interface CriterionStatus {
@@ -99,6 +123,8 @@ export interface EligibilityEvaluationResult {
   criteriaFailed: CriterionStatus[];
   missingDocuments: string[];
   aiSimplifiedExplanation: string;
+  /** Ids of the citizen's selected interests this scheme serves */
+  matchedInterests?: string[];
 }
 
 export interface ChatMessage {

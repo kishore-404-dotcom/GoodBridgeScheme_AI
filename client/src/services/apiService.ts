@@ -30,7 +30,6 @@ export class ApiService {
   public static async evaluateEligibility(profile: UserProfile): Promise<{
     eligibleSchemes: EligibilityEvaluationResult[];
     partialMatches: EligibilityEvaluationResult[];
-    allEvaluations: EligibilityEvaluationResult[];
   } | null> {
     try {
       const res = await fetch(`${API_BASE}/recommendations/evaluate`, {
@@ -42,8 +41,7 @@ export class ApiService {
       if (json.success) {
         return {
           eligibleSchemes: json.eligibleSchemes,
-          partialMatches: json.partialMatches,
-          allEvaluations: json.allEvaluations
+          partialMatches: json.partialMatches
         };
       }
     } catch (err) {

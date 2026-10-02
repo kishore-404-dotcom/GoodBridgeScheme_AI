@@ -164,6 +164,28 @@ export class RuleEngineService {
       }
     }
 
+    // 7b. Minority community
+    if (rules.minorityRequired) {
+      totalWeight += 10;
+      if (profile.isMinority) {
+        metWeight += 10;
+        criteriaMet.push({ criterion: 'Minority', isMet: true, details: 'You belong to a minority community.' });
+      } else {
+        criteriaFailed.push({ criterion: 'Minority', isMet: false, details: 'Scheme is for minority communities.' });
+      }
+    }
+
+    // 7c. Education (highest completed level from the guided assessment)
+    if (rules.educationAllowed && rules.educationAllowed.length > 0 && profile.education) {
+      totalWeight += 15;
+      if (rules.educationAllowed.includes(profile.education)) {
+        metWeight += 15;
+        criteriaMet.push({ criterion: 'Education', isMet: true, details: 'Your education level matches the scheme requirement.' });
+      } else {
+        criteriaFailed.push({ criterion: 'Education', isMet: false, details: 'Your education level does not match the level this scheme is for.' });
+      }
+    }
+
     // 8. Disability
     if (rules.disabilityRequired) {
       totalWeight += 10;
@@ -201,8 +223,18 @@ export class RuleEngineService {
       }
     }
 
+    // Official conditions the checker cannot verify are listed for the citizen to confirm,
+    // and cap the score so fully verified matches rank first
+    const toConfirm = rules.otherConditions || [];
+    if (toConfirm.length > 0) {
+      criteriaMet.push({ criterion: 'To confirm', isMet: true, details: `Confirm before applying: ${toConfirm.join('; ')}.` });
+    }
+
     // Calculate Final Match Percentage
-    const matchScorePercentage = totalWeight > 0 ? Math.round((metWeight / totalWeight) * 100) : 100;
+    // A scheme with no checkable conditions is open to all, but it is not a verified match,
+    // so it ranks below schemes whose conditions the citizen was actually checked against
+    const rawScore = totalWeight > 0 ? Math.round((metWeight / totalWeight) * 100) : 80;
+    const matchScorePercentage = toConfirm.length > 0 ? Math.min(rawScore, 90) : rawScore;
     const isEligible = criteriaFailed.length === 0;
 
     // Generate Human-friendly Explanation

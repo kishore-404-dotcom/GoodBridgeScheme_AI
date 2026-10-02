@@ -1,7 +1,19 @@
 import { Request, Response } from 'express';
 import { RuleEngineService } from '../services/ruleEngineService';
 import { SchemeStore } from '../services/schemeStore';
-import { UserProfile, Scheme } from '../../../shared/types';
+import { UserProfile, Scheme, EligibilityEvaluationResult } from '../../../shared/types';
+import { matchingInterests } from '../../../shared/eligibilityOptions';
+
+const MAX_PARTIAL_MATCHES = 30;
+
+/**
+ * Drops the long official texts from a result: the report only needs the summary fields,
+ * and the full scheme page loads its own data. Keeps responses and saved reports small.
+ */
+const slimResult = (r: EligibilityEvaluationResult): EligibilityEvaluationResult => {
+  const { detailsText, benefitsText, eligibilityText, exclusionsText, references, ...scheme } = r.scheme;
+  return { ...r, scheme: { ...scheme, applicationSteps: [] } };
+};
 
 /**
  * Recommendation Controller
@@ -27,18 +39,36 @@ export class RecommendationController {
         landHoldingAcres: num(req.body.landHoldingAcres, 0),
         hasDisability: Boolean(req.body.hasDisability),
         isBPL: Boolean(req.body.isBPL),
-        residenceType: req.body.residenceType || 'All'
+        residenceType: req.body.residenceType || 'All',
+        roleId: req.body.roleId,
+        incomeBandId: req.body.incomeBandId,
+        education: req.body.education,
+        isMinority: Boolean(req.body.isMinority),
+        interests: Array.isArray(req.body.interests) ? req.body.interests.map(String) : []
       };
 
       const schemes = await SchemeStore.getAll();
 
-      const results = schemes.map((scheme: Scheme) => RuleEngineService.evaluateSchemeEligibility(scheme, profile));
+      const results = schemes.map((scheme: Scheme) => {
+        const result = RuleEngineService.evaluateSchemeEligibility(scheme, profile);
+        // Interests only rank and explain results; they never change eligibility
+        result.matchedInterests = matchingInterests(scheme, profile.interests);
+        return result;
+      });
 
-      // Sort by matchScorePercentage descending, then financialBenefitAmount
-      results.sort((a, b) => b.matchScorePercentage - a.matchScorePercentage || b.scheme.financialBenefitAmount - a.scheme.financialBenefitAmount);
+      // Sort by match score, then schemes matching the citizen's interests, then benefit value
+      results.sort(
+        (a, b) =>
+          b.matchScorePercentage - a.matchScorePercentage ||
+          (b.matchedInterests?.length ?? 0) - (a.matchedInterests?.length ?? 0) ||
+          b.scheme.financialBenefitAmount - a.scheme.financialBenefitAmount
+      );
 
       const eligibleOnly = results.filter((r) => r.isEligible);
-      const partialMatches = results.filter((r) => !r.isEligible && r.matchScorePercentage >= 50);
+      // "Almost eligible" = misses exactly one condition, and not because the scheme targets another role
+      const partialMatches = results
+        .filter((r) => !r.isEligible && r.criteriaFailed.length === 1 && r.criteriaFailed[0].criterion !== 'Occupation')
+        .slice(0, MAX_PARTIAL_MATCHES);
 
       res.status(200).json({
         success: true,
@@ -48,9 +78,8 @@ export class RecommendationController {
           totalEligible: eligibleOnly.length,
           totalPartialMatches: partialMatches.length
         },
-        eligibleSchemes: eligibleOnly,
-        partialMatches,
-        allEvaluations: results
+        eligibleSchemes: eligibleOnly.map(slimResult),
+        partialMatches: partialMatches.map(slimResult)
       });
     } catch (error) {
       res.status(500).json({ success: false, message: 'Eligibility evaluation failed', error });
