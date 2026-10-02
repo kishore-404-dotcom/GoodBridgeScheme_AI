@@ -2,6 +2,7 @@
   "name": "goodscheme-ai-backend",
   "version": "1.0.0",
   "description": "GoodBridgeScheme AI Backend REST API Server - Node.js + Express + TypeScript + MongoDB Atlas + Gemini AI RAG",
+  "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
