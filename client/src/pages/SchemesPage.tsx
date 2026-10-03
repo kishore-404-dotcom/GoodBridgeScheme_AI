@@ -35,14 +35,6 @@ const pageItems = (current: number, total: number): (number | null)[] => {
 // Option values match the values used in the scheme eligibility rules
 const GENDER_OPTIONS = ['Female', 'Male'];
 const SOCIAL_OPTIONS = ['General', 'OBC', 'SC', 'ST', 'EWS'];
-const OCCUPATION_OPTIONS = [
-  { value: 'Student', labelKey: 'occStudent' },
-  { value: 'Farmer', labelKey: 'occFarmer' },
-  { value: 'Self-Employed', labelKey: 'occSelfEmployed' },
-  { value: 'Artisan', labelKey: 'occArtisan' },
-  { value: 'Homemaker', labelKey: 'occHomemaker' },
-  { value: 'Rural Laborer', labelKey: 'occRuralWorker' }
-];
 
 /** A rule list with no entries (or an "All" entry) means the scheme is open to everyone */
 const allows = (list: string[] | undefined, value: string, openValues: string[] = ['All']): boolean =>
@@ -61,7 +53,6 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
   const [category, setCategory] = useState(initialCategory);
   const [gender, setGender] = useState('');
   const [social, setSocial] = useState('');
-  const [occupation, setOccupation] = useState('');
   const [sort, setSort] = useState<SortKey>('relevance');
 
   const results = useMemo(() => {
@@ -72,8 +63,7 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
         (!q || matchesQuery(s, q)) &&
         (!category || s.category === category) &&
         (!gender || allows(rules.genderAllowed, gender)) &&
-        (!social || allows(rules.categoriesAllowed, social)) &&
-        (!occupation || allows(rules.occupationsAllowed, occupation, ['All', 'All Citizens']))
+        (!social || allows(rules.categoriesAllowed, social))
       );
     });
 
@@ -84,7 +74,7 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
       return [...filtered].sort((a, b) => Number(b.name.toLowerCase().includes(q)) - Number(a.name.toLowerCase().includes(q)));
     }
     return filtered;
-  }, [schemes, query, category, gender, social, occupation, sort]);
+  }, [schemes, query, category, gender, social, sort]);
 
   const [page, setPage] = useState(1);
   const resultsTopRef = useRef<HTMLDivElement>(null);
@@ -99,12 +89,11 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
     resultsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const activeFilterCount = [category, gender, social, occupation].filter(Boolean).length;
+  const activeFilterCount = [category, gender, social].filter(Boolean).length;
   const clearAll = () => {
     setCategory('');
     setGender('');
     setSocial('');
-    setOccupation('');
   };
 
   const radioGroup = (
@@ -183,7 +172,6 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
           )}
           {radioGroup('gender', st('filterGender'), gender, setGender, GENDER_OPTIONS.map((g) => ({ value: g, label: st(g === 'Female' ? 'genderFemale' : 'genderMale') })))}
           {radioGroup('social', st('filterSocialCategory'), social, setSocial, SOCIAL_OPTIONS.map((c) => ({ value: c, label: c === 'General' ? st('socialGeneral') : c })))}
-          {radioGroup('occupation', st('filterOccupation'), occupation, setOccupation, OCCUPATION_OPTIONS.map((o) => ({ value: o.value, label: st(o.labelKey) })))}
           </div>
         </aside>
 
