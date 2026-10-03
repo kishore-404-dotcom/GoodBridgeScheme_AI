@@ -5,6 +5,11 @@
  */
 export const SITE_STRINGS: Record<string, Record<string, string>> = {
   en: {
+    prevPage: 'Previous',
+    nextPage: 'Next',
+    pageRange: 'Showing {from}–{to} of {total} schemes',
+    pageNav: 'Scheme pages',
+    goToPage: 'Go to page {page}',
     showMore: 'Show {count} more schemes',
     catStudent: 'Student / Education',
     catAgri: 'Agriculture / Farmers',
@@ -112,6 +117,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     footerDisclaimer: 'GoodBridgeScheme AI is an independent assistant and is not affiliated with the Government of India. Scheme information is reproduced from myScheme (myscheme.gov.in), the Government of India’s official scheme platform, and official state portals; always confirm details on the official website before applying.'
   },
   hi: {
+    prevPage: 'पिछला',
+    nextPage: 'अगला',
+    pageRange: '{total} में से {from}–{to} योजनाएं दिखाई जा रही हैं',
+    pageNav: 'योजना पृष्ठ',
+    goToPage: 'पृष्ठ {page} पर जाएं',
     showMore: '{count} और योजनाएं दिखाएं',
     catStudent: 'छात्र / शिक्षा',
     catAgri: 'कृषि / किसान',
@@ -219,6 +229,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना नहीं मिली।'
   },
   ta: {
+    prevPage: 'முந்தைய',
+    nextPage: 'அடுத்து',
+    pageRange: '{total} திட்டங்களில் {from}–{to} காட்டப்படுகின்றன',
+    pageNav: 'திட்டப் பக்கங்கள்',
+    goToPage: 'பக்கம் {page}க்குச் செல்',
     showMore: 'மேலும் {count} திட்டங்களைக் காட்டு',
     catStudent: 'மாணவர் / கல்வி',
     catAgri: 'வேளாண்மை / விவசாயிகள்',
@@ -326,6 +341,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'திட்டம் கிடைக்கவில்லை.'
   },
   te: {
+    prevPage: 'మునుపటి',
+    nextPage: 'తదుపరి',
+    pageRange: '{total} పథకాలలో {from}–{to} చూపబడుతున్నాయి',
+    pageNav: 'పథకాల పేజీలు',
+    goToPage: 'పేజీ {page}కి వెళ్లండి',
     showMore: 'మరో {count} పథకాలు చూపించు',
     catStudent: 'విద్యార్థి / విద్య',
     catAgri: 'వ్యవసాయం / రైతులు',
@@ -433,6 +453,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'పథకం కనబడలేదు.'
   },
   mr: {
+    prevPage: 'मागील',
+    nextPage: 'पुढील',
+    pageRange: '{total} पैकी {from}–{to} योजना दाखवत आहे',
+    pageNav: 'योजना पृष्ठे',
+    goToPage: 'पृष्ठ {page} वर जा',
     showMore: 'आणखी {count} योजना दाखवा',
     catStudent: 'विद्यार्थी / शिक्षण',
     catAgri: 'कृषी / शेतकरी',
@@ -540,6 +565,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना सापडली नाही.'
   },
   bn: {
+    prevPage: 'আগের',
+    nextPage: 'পরের',
+    pageRange: '{total}টির মধ্যে {from}–{to} প্রকল্প দেখানো হচ্ছে',
+    pageNav: 'প্রকল্পের পৃষ্ঠা',
+    goToPage: 'পৃষ্ঠা {page}-এ যান',
     showMore: 'আরও {count}টি প্রকল্প দেখান',
     catStudent: 'ছাত্র / শিক্ষা',
     catAgri: 'কৃষি / কৃষক',
@@ -647,6 +677,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'প্রকল্প পাওয়া যায়নি।'
   },
   kn: {
+    prevPage: 'ಹಿಂದಿನ',
+    nextPage: 'ಮುಂದಿನ',
+    pageRange: '{total} ಯೋಜನೆಗಳಲ್ಲಿ {from}–{to} ತೋರಿಸಲಾಗುತ್ತಿದೆ',
+    pageNav: 'ಯೋಜನೆಯ ಪುಟಗಳು',
+    goToPage: 'ಪುಟ {page} ಕ್ಕೆ ಹೋಗಿ',
     showMore: 'ಇನ್ನೂ {count} ಯೋಜನೆಗಳನ್ನು ತೋರಿಸಿ',
     catStudent: 'ವಿದ್ಯಾರ್ಥಿ / ಶಿಕ್ಷಣ',
     catAgri: 'ಕೃಷಿ / ರೈತರು',
@@ -754,6 +789,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'ಯೋಜನೆ ಸಿಗಲಿಲ್ಲ.'
   },
   gu: {
+    prevPage: 'પાછળ',
+    nextPage: 'આગળ',
+    pageRange: '{total} માંથી {from}–{to} યોજનાઓ બતાવી રહ્યા છીએ',
+    pageNav: 'યોજનાનાં પાનાં',
+    goToPage: 'પાનું {page} પર જાઓ',
     showMore: 'વધુ {count} યોજનાઓ બતાવો',
     catStudent: 'વિદ્યાર્થી / શિક્ષણ',
     catAgri: 'કૃષિ / ખેડૂતો',
@@ -861,6 +901,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'યોજના મળી નથી.'
   },
   ml: {
+    prevPage: 'മുമ്പത്തെ',
+    nextPage: 'അടുത്തത്',
+    pageRange: '{total} പദ്ധതികളിൽ {from}–{to} കാണിക്കുന്നു',
+    pageNav: 'പദ്ധതി പേജുകൾ',
+    goToPage: 'പേജ് {page} ലേക്ക് പോകുക',
     showMore: '{count} പദ്ധതികൾ കൂടി കാണിക്കുക',
     catStudent: 'വിദ്യാർത്ഥി / വിദ്യാഭ്യാസം',
     catAgri: 'കൃഷി / കർഷകർ',
@@ -968,6 +1013,11 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'പദ്ധതി കണ്ടെത്തിയില്ല.'
   },
   pa: {
+    prevPage: 'ਪਿਛਲਾ',
+    nextPage: 'ਅਗਲਾ',
+    pageRange: '{total} ਵਿੱਚੋਂ {from}–{to} ਯੋਜਨਾਵਾਂ ਵਿਖਾਈਆਂ ਜਾ ਰਹੀਆਂ ਹਨ',
+    pageNav: 'ਯੋਜਨਾ ਪੰਨੇ',
+    goToPage: 'ਪੰਨਾ {page} ਤੇ ਜਾਓ',
     showMore: '{count} ਹੋਰ ਯੋਜਨਾਵਾਂ ਵਿਖਾਓ',
     catStudent: 'ਵਿਦਿਆਰਥੀ / ਸਿੱਖਿਆ',
     catAgri: 'ਖੇਤੀਬਾੜੀ / ਕਿਸਾਨ',

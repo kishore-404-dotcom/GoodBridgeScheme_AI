@@ -1,5 +1,5 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { Search, SlidersHorizontal, ArrowRight, ExternalLink, X } from 'lucide-react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
+import { Search, SlidersHorizontal, ArrowRight, ExternalLink, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Scheme } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
@@ -14,8 +14,23 @@ interface SchemesPageProps {
 
 type SortKey = 'relevance' | 'benefit' | 'name';
 
-/** Cards rendered (and translated) at a time; "Show more" reveals the next page */
+/** Schemes per page (only the current page is rendered and translated) */
 const PAGE_SIZE = 20;
+
+/** Page numbers to show: first, last, and the current page's neighbours, with gaps as null */
+const pageItems = (current: number, total: number): (number | null)[] => {
+  const wanted = new Set([1, total, current - 1, current, current + 1].filter((n) => n >= 1 && n <= total));
+  // Avoid a lone gap: show page 2 / total-1 instead of "…" when only one page is skipped
+  if (wanted.has(3)) wanted.add(2);
+  if (wanted.has(total - 2)) wanted.add(total - 1);
+  const sorted = [...wanted].sort((a, b) => a - b);
+  const items: (number | null)[] = [];
+  sorted.forEach((n, i) => {
+    if (i > 0 && n - sorted[i - 1] > 1) items.push(null);
+    items.push(n);
+  });
+  return items;
+};
 
 // Option values match the values used in the scheme eligibility rules
 const GENDER_OPTIONS = ['Female', 'Male'];
@@ -71,10 +86,18 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
     return filtered;
   }, [schemes, query, category, gender, social, occupation, sort]);
 
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [page, setPage] = useState(1);
+  const resultsTopRef = useRef<HTMLDivElement>(null);
   // Start from the first page whenever the search or filters change
-  useEffect(() => setVisibleCount(PAGE_SIZE), [results]);
-  const { schemes: visibleSchemes, loading: translating } = useSchemeTranslations(results.slice(0, visibleCount), 'card');
+  useEffect(() => setPage(1), [results]);
+  const pageCount = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+  const firstIndex = (page - 1) * PAGE_SIZE;
+  const { schemes: visibleSchemes, loading: translating } = useSchemeTranslations(results.slice(firstIndex, firstIndex + PAGE_SIZE), 'card');
+
+  const goToPage = (n: number) => {
+    setPage(Math.min(Math.max(n, 1), pageCount));
+    resultsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const activeFilterCount = [category, gender, social, occupation].filter(Boolean).length;
   const clearAll = () => {
@@ -163,7 +186,7 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
         </aside>
 
         {/* Results */}
-        <div className="space-y-5 min-w-0">
+        <div ref={resultsTopRef} className="space-y-5 min-w-0 scroll-mt-36">
           {/* Search + Sort Bar */}
           <div className="flex flex-col md:flex-row gap-3">
             <div className="flex-1 flex items-center gap-2 px-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500">
@@ -260,15 +283,47 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
               ))}
             </ul>
           )}
-          {results.length > visibleCount && (
-            <div className="text-center pt-2">
-              <button
-                onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
-                className="px-6 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-emerald-500 font-bold text-sm transition-colors"
-              >
-                {st('showMore', { count: Math.min(PAGE_SIZE, results.length - visibleCount) })}
-              </button>
-            </div>
+          {pageCount > 1 && (
+            <nav aria-label={st('pageNav')} className="flex flex-col items-center gap-3 pt-4">
+              <div className="flex flex-wrap items-center justify-center gap-1.5">
+                <button
+                  onClick={() => goToPage(page - 1)}
+                  disabled={page === 1}
+                  className="h-10 px-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold flex items-center gap-1 hover:border-emerald-500 disabled:opacity-40 disabled:hover:border-slate-300 transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4" /> {st('prevPage')}
+                </button>
+                {pageItems(page, pageCount).map((n, i) =>
+                  n === null ? (
+                    <span key={`gap-${i}`} className="w-8 text-center text-slate-400" aria-hidden="true">…</span>
+                  ) : (
+                    <button
+                      key={n}
+                      onClick={() => goToPage(n)}
+                      aria-current={n === page ? 'page' : undefined}
+                      aria-label={st('goToPage', { page: n })}
+                      className={`h-10 min-w-10 px-3 rounded-xl text-sm font-extrabold border transition-colors ${
+                        n === page
+                          ? 'bg-emerald-600 border-emerald-600 text-white shadow-md shadow-emerald-600/25'
+                          : 'border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-emerald-500'
+                      }`}
+                    >
+                      {n}
+                    </button>
+                  )
+                )}
+                <button
+                  onClick={() => goToPage(page + 1)}
+                  disabled={page === pageCount}
+                  className="h-10 px-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold flex items-center gap-1 hover:border-emerald-500 disabled:opacity-40 disabled:hover:border-slate-300 transition-colors"
+                >
+                  {st('nextPage')} <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                {st('pageRange', { from: firstIndex + 1, to: Math.min(firstIndex + PAGE_SIZE, results.length), total: results.length })}
+              </p>
+            </nav>
           )}
         </div>
       </div>
