@@ -1,15 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageSquare, Mic, Send, X, Volume2, Sparkles, User, Bot, VolumeX } from 'lucide-react';
+import { MessageSquare, Mic, Send, X, Volume2, Sparkles, User, Bot, VolumeX, GripHorizontal, RotateCcw } from 'lucide-react';
 import { ApiService } from '../services/apiService';
 import { SpeechService } from '../services/speechService';
 import { useLanguage } from '../context/LanguageContext';
 import { useProfile } from '../context/ProfileContext';
 import { useSiteText } from '../hooks/useSiteText';
+import { useFloatingPanel, ResizeEdge } from '../hooks/useFloatingPanel';
 import { ChatMessage, Scheme } from '../../../shared/types';
 
 /** Renders **bold** segments from assistant replies without showing the asterisks */
 const renderFormatted = (text: string) =>
   text.split('**').map((part, i) => (i % 2 === 1 ? <strong key={i}>{part}</strong> : part));
+
+/** Thin invisible strips on the edges, larger squares on the corners */
+const RESIZE_HANDLES: { edge: ResizeEdge; className: string }[] = [
+  { edge: 'n', className: 'top-0 left-4 right-4 h-1.5 cursor-ns-resize' },
+  { edge: 's', className: 'bottom-0 left-4 right-4 h-1.5 cursor-ns-resize' },
+  { edge: 'w', className: 'left-0 top-4 bottom-4 w-1.5 cursor-ew-resize' },
+  { edge: 'e', className: 'right-0 top-4 bottom-4 w-1.5 cursor-ew-resize' },
+  { edge: 'nw', className: 'top-0 left-0 w-4 h-4 cursor-nwse-resize' },
+  { edge: 'ne', className: 'top-0 right-0 w-4 h-4 cursor-nesw-resize' },
+  { edge: 'sw', className: 'bottom-0 left-0 w-4 h-4 cursor-nesw-resize' },
+  { edge: 'se', className: 'bottom-0 right-0 w-5 h-5 cursor-nwse-resize' }
+];
 
 interface VoiceChatWidgetProps {
   isOpen: boolean;
@@ -41,6 +54,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
   const recognitionRef = useRef<{ stop: () => void } | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const st = useSiteText();
+  const panel = useFloatingPanel('chatPanel');
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -119,16 +133,38 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-full max-w-md h-[550px] glass-card rounded-3xl border border-emerald-500/40 shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5">
-      {/* Widget Header */}
-      <div className="bg-slate-900 text-white p-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <div
+      role="dialog"
+      aria-label="GoodBridgeScheme AI Voice Assistant"
+      style={panel.style}
+      className={`fixed z-50 glass-card rounded-3xl border border-emerald-500/40 shadow-2xl flex flex-col overflow-hidden ${
+        panel.isInteracting ? 'select-none' : 'animate-in fade-in slide-in-from-bottom-5'
+      }`}
+    >
+      {/* Resize grips on every edge and corner (floating mode only) */}
+      {panel.isFloating &&
+        RESIZE_HANDLES.map(({ edge, className }) => (
+          <div key={edge} onPointerDown={panel.startResize(edge)} className={`absolute z-10 touch-none ${className}`} aria-hidden="true" />
+        ))}
+
+      {/* Widget Header: drag to move; arrow keys move, Shift+arrows resize */}
+      <div
+        onPointerDown={panel.startDrag}
+        onKeyDown={panel.onKeyDown}
+        tabIndex={panel.isFloating ? 0 : -1}
+        title={panel.isFloating ? 'Drag to move. Drag the edges or corners to resize.' : undefined}
+        className={`bg-slate-900 text-white p-4 flex items-center justify-between touch-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 ${
+          panel.isFloating ? (panel.isInteracting ? 'cursor-grabbing' : 'cursor-grab') : ''
+        }`}
+      >
+        <div className="flex items-center gap-3 min-w-0">
           <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold">
             <Sparkles className="w-5 h-5 animate-pulse" />
           </div>
-          <div>
+          <div className="min-w-0">
             <h3 className="font-bold text-sm leading-none flex items-center gap-1.5">
-              <span>GoodBridgeScheme AI Voice Assistant</span>
+              {panel.isFloating && <GripHorizontal className="w-4 h-4 text-slate-500 shrink-0" aria-hidden="true" />}
+              <span className="truncate">GoodBridgeScheme AI Voice Assistant</span>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             </h3>
             <p className="text-[11px] text-slate-400 mt-1">
@@ -137,7 +173,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {isSpeaking && (
             <button
               onClick={() => {
@@ -150,7 +186,17 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
               <VolumeX className="w-3.5 h-3.5" /> Stop
             </button>
           )}
-          <button onClick={onClose} className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+          {panel.isFloating && (
+            <button
+              onClick={panel.reset}
+              className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
+              title="Reset size and position"
+              aria-label="Reset size and position"
+            >
+              <RotateCcw className="w-4 h-4" />
+            </button>
+          )}
+          <button onClick={onClose} className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white" aria-label="Close">
             <X className="w-4 h-4" />
           </button>
         </div>
