@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { aiClient, GEMINI_FALLBACK_MODELS, GEMINI_MODEL, GEMINI_TIMEOUT_MS } from '../config/gemini';
 import { reportModelFailure, usableModels } from '../config/modelHealth';
+import { isDatabaseConnected } from '../config/database';
+import { TranslationModel } from '../models/Translation';
 import { Scheme, SchemeStep } from '../../../shared/types';
 
 /** Language codes the site supports (English is the source language) */
@@ -76,6 +78,44 @@ const persist = () => {
 };
 
 const key = (lang: string, mode: TranslationMode, id: string) => `${lang}:${mode}:${id}`;
+
+/** Saves one translation to MongoDB (shared by all servers, survives redeploys); best effort */
+const saveToDb = (k: string, value: SchemeTranslation) => {
+  if (!isDatabaseConnected()) return;
+  const [lang, mode, ...rest] = k.split(':');
+  TranslationModel.updateOne({ key: k }, { $set: { key: k, lang, mode: mode as TranslationMode, schemeId: rest.join(':'), data: value } }, { upsert: true }).catch((err) =>
+    console.warn('Could not save translation to MongoDB:', (err as Error).message)
+  );
+};
+
+/**
+ * Merges translations stored in MongoDB into the cache, and uploads translations that exist only
+ * in the shipped file, so the database ends up with everything. Call once after connecting.
+ */
+export const syncTranslationsWithDb = async (): Promise<void> => {
+  if (!isDatabaseConnected()) return;
+  try {
+    const rows = await TranslationModel.find({}, { _id: 0, key: 1, data: 1 }).lean();
+    const inDb = new Set<string>();
+    for (const row of rows as { key: string; data: SchemeTranslation }[]) {
+      inDb.add(row.key);
+      cache.set(row.key, row.data);
+    }
+    const missing = [...cache.entries()].filter(([k]) => !inDb.has(k));
+    if (missing.length) {
+      await TranslationModel.bulkWrite(
+        missing.map(([k, data]) => {
+          const [lang, mode, ...rest] = k.split(':');
+          return { updateOne: { filter: { key: k }, update: { $set: { key: k, lang, mode: mode as TranslationMode, schemeId: rest.join(':'), data } }, upsert: true } };
+        }),
+        { ordered: false }
+      );
+    }
+    console.log(`🌐 Translations synced with MongoDB: ${rows.length} loaded, ${missing.length} uploaded (${cache.size} total)`);
+  } catch (err) {
+    console.warn('Translation sync with MongoDB failed:', (err as Error).message);
+  }
+};
 
 /** The English source fields sent for translation */
 const sourceFields = (s: Scheme, mode: TranslationMode): SchemeTranslation =>
@@ -205,7 +245,10 @@ Rules:
         const tooBroken = total > 0 && replaced / total > 0.5;
         // Rejected output is not cached, so the retry below (or a later request) translates it again
         if (tooBroken || isUntranslated(clean, lang)) console.warn(`Discarded garbled/untranslated ${lang} translation for ${t.id}`);
-        else cache.set(key(lang, mode, t.id), clean);
+        else {
+          cache.set(key(lang, mode, t.id), clean);
+          saveToDb(key(lang, mode, t.id), clean);
+        }
       }
       persist();
       // Done when every scheme got a clean translation; otherwise try the next model for the rest

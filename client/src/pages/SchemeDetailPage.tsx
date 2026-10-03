@@ -8,6 +8,8 @@ import { useSiteText } from '../hooks/useSiteText';
 import { applyLink } from '../utils/applyLink';
 import { ApplyButton } from '../components/ApplyButton';
 import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
+import { SchemeFeedback } from '../components/SchemeFeedback';
+import { ApiService } from '../services/apiService';
 import { SpeechService } from '../services/speechService';
 import { readStore, writeStore } from '../utils/storage';
 import { categoryLabelKey } from '../components/CategoryGrid';
@@ -66,6 +68,12 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
   const hasTranslation = !!officialScheme && translation.isTranslated(officialScheme.schemeId);
   const scheme = officialScheme && hasTranslation && !showOriginal ? translation.schemes[0] : officialScheme;
   const apply = officialScheme ? applyLink(officialScheme) : null;
+
+  // Anonymous view counter, once per scheme opened
+  useEffect(() => {
+    if (officialScheme) ApiService.trackEvent('scheme_view', currentLanguage.code);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [officialScheme?.schemeId]);
 
   // Reset per-scheme state when navigating between schemes
   useEffect(() => {
@@ -460,6 +468,10 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
             </p>
           )}
         </aside>
+      </div>
+
+      <div className="mt-8 lg:w-[calc(100%-392px)]">
+        <SchemeFeedback key={scheme.schemeId} schemeId={scheme.schemeId} />
       </div>
     </div>
   );

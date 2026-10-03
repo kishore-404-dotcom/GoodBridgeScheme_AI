@@ -4,6 +4,7 @@ import { DocumentCheckService } from '../services/documentCheckService';
 import { SchemeStore } from '../services/schemeStore';
 import { TranslationService, TranslationMode, TRANSLATION_LANGUAGES } from '../services/translationService';
 import { TtsService, MAX_TTS_CHARS } from '../services/ttsService';
+import { StatsService } from '../services/statsService';
 
 const MAX_TRANSLATE_IDS = { card: 30, full: 3 };
 
@@ -24,6 +25,7 @@ export class AIController {
       const all = await SchemeStore.getAll();
       const schemes = ids.map((id) => all.find((s) => s.schemeId === id)).filter((s): s is NonNullable<typeof s> => Boolean(s));
       const translations = await TranslationService.translate(schemes, language, mode as TranslationMode);
+      StatsService.track('translation', language);
       res.status(200).json({ success: true, language, mode, translations });
     } catch (error) {
       res.status(500).json({ success: false, message: 'Translation failed' });
@@ -44,6 +46,7 @@ export class AIController {
         return;
       }
       const audio = await TtsService.synthesize(text.slice(0, MAX_TTS_CHARS), languageName);
+      StatsService.track('voice', language);
       res.setHeader('Content-Type', 'audio/wav');
       res.setHeader('Cache-Control', 'private, max-age=3600');
       res.send(audio);
@@ -63,6 +66,9 @@ export class AIController {
 
       const schemes = await SchemeStore.getAll();
 
+      // Chat sends the language name ("Tamil"); stats use the code ("ta")
+      const langCode = language === 'English' ? 'en' : Object.entries(TRANSLATION_LANGUAGES).find(([, name]) => name === language)?.[0];
+      StatsService.track('chat', langCode);
       const { responseText, relevantSchemes } = await GeminiAiService.generateVernacularAnswer(
         message,
         language,

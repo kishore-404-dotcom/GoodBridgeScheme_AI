@@ -1,6 +1,6 @@
 # GoodBridgeScheme AI: Vernacular Government Scheme Assistant (ZABR-003)
 
-**GoodBridgeScheme AI** helps Indian citizens **discover, understand and prepare to apply for government schemes in their own language**. It covers 508 central and state schemes taken from **myScheme**, the Government of India's official scheme platform. Citizens can search, check their eligibility in five simple steps, and ask an AI assistant by text or voice in 10 Indian languages. When ready, they apply on the **official** portal.
+**GoodBridgeScheme AI** helps Indian citizens **discover, understand and prepare to apply for government schemes in their own language**. It covers 508 central and state schemes taken from **myScheme**, the Government of India's official scheme platform. Citizens can search, check their eligibility and document readiness in six simple steps, and ask an AI assistant by text or voice in 10 Indian languages. When ready, they are guided to the **official** application portal, or to the offline steps when a scheme has no online application.
 
 > ⚠️ This is an **independent** project. It is **not** an official Government of India website. Always apply on the official scheme portal linked from each scheme.
 
@@ -12,18 +12,24 @@ Awareness and accessibility gaps stop many eligible citizens from benefiting fro
 
 | Expected solution | How GoodBridgeScheme AI delivers it |
 | :--- | :--- |
-| **Scheme recommendation engine** | Search with filters (category, gender, social category, occupation), plus ranked recommendations from the eligibility rule engine |
+| **Scheme recommendation engine** | Search with filters (category, level, state, gender, social category), plus ranked recommendations from the eligibility rule engine |
 | **Multilingual conversational assistant** | Gemini-powered chat in 10 languages, grounded on the official scheme data, with conversation memory, voice input and voice output |
-| **Eligibility assessment module** | A 5-step guided assessment (role → location → personal details → eligibility → interests) checked by a **deterministic rule engine**, with match %, "why you match", "what's missing" and a PDF report |
-| **Application guidance platform** | Each scheme page has benefits, eligibility, exclusions, step-by-step application process, a document checklist, official links and a "View on myScheme" source link |
+| **Eligibility assessment module** | A 6-step guided assessment (role → location → personal details → eligibility → interests → documents) checked by a **deterministic rule engine**, with an overall match %, "why you match", "what's missing", missing documents and a PDF report |
+| **Application guidance platform** | Each scheme page has benefits, eligibility, exclusions, step-by-step application process, a document checklist, a **checked** official application link with a "before you go" guide, and a "View on myScheme" source link |
 
 ---
 
 ## Features
 
 - **myScheme-style website**: home page with search and categories, a schemes page with filter sidebar, and scheme pages with tabs (Details, Benefits, Eligibility, Application Process, Documents Required).
-- **Guided eligibility assessment**: welcome screen with a privacy promise, 5 steps, analysis screen, then a report with match percentage, reasons, missing conditions, benefits, documents, "Apply Officially" and a printable PDF (browser *Print → Save as PDF*). Answers stay on the device (localStorage).
-- **AI assistant**: answers in the citizen's language using only the scheme data. When the citizen has completed the assessment, the rule engine's verdicts are passed to the AI, so the **AI explains but never decides** eligibility.
+- **Guided eligibility assessment**: welcome screen with a privacy promise, 6 steps, analysis screen, then a report with match percentage, reasons, missing conditions, benefits, documents, apply guidance and a printable PDF (browser *Print → Save as PDF*). Answers stay on the device (localStorage).
+- **Document check**: in the last step the citizen ticks which of 15 common documents they hold (Aadhaar, bank account, income/caste/residence certificates, ration card, land records …). Nothing is uploaded. Each scheme's official document list is matched to these types by a deterministic classifier (`shared/documents.ts`), and the report shows per scheme:
+  - **Overall match = 70% eligibility + 30% documents ready**, with the split shown;
+  - documents ready and **missing ("get these before applying")**; scheme-specific documents as "also prepare"; "if applicable" documents not counted;
+  - a **"Documents to get"** panel ranking missing documents by how many of the citizen's schemes need them.
+- **Apply guidance with checked links**: the apply link comes from myScheme's official application-process data and every link was tested to load. Dead links, error pages and hijacked domains were removed. Buttons say what the link is (*Apply online*, *Go to official portal*, *Download application form*); clicking shows a short guide (what to choose on the portal and the official steps). Schemes without an online application show **Apply offline** with the official steps.
+- **AI assistant**: answers in the citizen's language using only the scheme data. When the citizen has completed the assessment, the rule engine's verdicts are passed to the AI, so the **AI explains but never decides** eligibility. The chat window can be moved and resized, and **Clear chat** starts a fresh conversation.
+- **Citizen feedback** (with MongoDB): "Was this helpful?" and "Report wrong information" on every scheme page. Messages are only readable through an admin token.
 - **Voice**: speech input through the browser. Answers and scheme pages are read aloud with the browser's voice when it has one for the language (usually English and Hindi); otherwise the server generates the speech with Gemini text-to-speech.
 - **Translated scheme content**: scheme names, descriptions, benefits, eligibility, documents and steps are translated on demand from the official English text with AI, cached, and clearly marked, with a one-click "Show original (English)".
 - **10 languages**: English, Hindi, Tamil, Telugu, Marathi, Bengali, Kannada, Gujarati, Malayalam and Punjabi, with a light/dark theme.
@@ -60,7 +66,7 @@ Awareness and accessibility gaps stop many eligible citizens from benefiting fro
 | **Eligibility** | Deterministic TypeScript rule engine (`server/src/services/ruleEngineService.ts`) |
 | **AI** | Google Gemini API (`@google/genai`), grounded on a relevant subset of schemes per question, with model fallback |
 | **Voice** | Browser Web Speech API (`SpeechRecognition` & `SpeechSynthesis`) |
-| **Database** | Optional MongoDB Atlas; without it the server uses the built-in scheme data |
+| **Database** | MongoDB Atlas (Mongoose): scheme catalog, translations, citizen feedback and anonymous daily usage counts. Optional: without it the server uses the built-in data and translation file |
 | **Deployment** | Frontend on **Vercel**, backend on **Render** |
 
 ---
@@ -72,20 +78,25 @@ GoodBridgeScheme_AI/
 ├── client/                         # React website (Vercel)
 │   └── src/
 │       ├── pages/                  # SchemesPage, SchemeDetailPage
-│       ├── components/             # Navbar, HeroBanner, CategoryGrid, HowItWorks,
-│       │                           # EligibilityAssessment, EligibilityReport, VoiceChatWidget
+│       ├── components/             # Navbar, HeroBanner, CategoryGrid, HowItWorks, EligibilityAssessment,
+│       │                           # EligibilityReport, VoiceChatWidget, ApplyButton, SchemeFeedback
 │       ├── context/                # Theme, Language, Profile
-│       ├── hooks/                  # useHashRoute (#/ pages), useSiteText
+│       ├── hooks/                  # useHashRoute (#/ pages), useSiteText, useSchemeTranslations, useFloatingPanel
 │       ├── services/               # apiService, speechService
-│       └── utils/                  # vernacularDictionary, siteStrings (UI text in 10 languages), storage
+│       └── utils/                  # vernacularDictionary, siteStrings (UI text in 10 languages), applyLink, storage
 ├── server/                         # Express API (Render)
+│   ├── data/translations.json      # Cached scheme translations (also synced to MongoDB)
 │   └── src/
-│       ├── controllers/ routes/    # schemes, recommendations, AI chat
-│       ├── services/               # ruleEngineService, geminiAiService, ragService, schemeStore
-│       └── config/                 # gemini.ts, database.ts
+│       ├── controllers/ routes/    # schemes, recommendations, AI chat/translate/voice, feedback & stats
+│       ├── services/               # ruleEngineService, geminiAiService, ragService, schemeStore,
+│       │                           # translationService, ttsService, statsService
+│       ├── models/                 # Scheme, Translation, Feedback, UsageStat (MongoDB)
+│       ├── middleware/             # rateLimit, adminOnly
+│       └── config/                 # gemini.ts, modelHealth.ts, database.ts
 └── shared/                         # Used by both client and server
     ├── types.ts                    # Scheme, EligibilityRules, UserProfile …
     ├── eligibilityOptions.ts       # Roles, income bands, education levels, states, interests
+    ├── documents.ts                # Document types, classifier and readiness score
     └── seedSchemes.ts              # The 508 official schemes (generated)
 ```
 
@@ -109,7 +120,11 @@ NODE_ENV=development
 GEMINI_MODEL=gemini-flash-latest
 GEMINI_FALLBACK_MODELS=gemini-flash-lite-latest
 MONGODB_URI=
+MONGODB_DB=goodbridge
+ADMIN_TOKEN=
 ```
+
+With `MONGODB_URI` set, the server copies the 508 schemes and the cached translations into the database on start; feedback and usage counts are stored as people use the site. Without it, everything except feedback and stats still works.
 
 Start the backend and frontend, each in its own terminal:
 
@@ -143,9 +158,12 @@ Deploy the **backend first**, because the frontend needs its URL.
 | `NODE_ENV` | Recommended | `production` |
 | `GEMINI_MODEL` | Optional | `gemini-flash-latest` |
 | `GEMINI_FALLBACK_MODELS` | Optional | `gemini-flash-lite-latest` |
-| `MONGODB_URI` | Optional | Leave unset to use the built-in data |
+| `MONGODB_URI` | Recommended | MongoDB Atlas connection string. Needed for feedback, usage stats and translations that survive restarts |
+| `MONGODB_DB` | Optional | Database name (default `goodbridge`) |
+| `JWT_SECRET` | Recommended | Any long random text |
+| `ADMIN_TOKEN` | Optional | Long random text; enables `GET /api/feedback/summary` with `Authorization: Bearer <token>` |
 
-Render sets `PORT` automatically. Free instances sleep after about 15 minutes idle and take 30–50 s to wake, so open the site a few minutes before a demo.
+In MongoDB Atlas, allow access from anywhere (`0.0.0.0/0`) under **Network Access**, because Render's addresses change. Render sets `PORT` automatically. Free instances sleep after about 15 minutes idle and take 30–50 s to wake, so open the site a few minutes before a demo.
 
 ### Frontend: Vercel
 

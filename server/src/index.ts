@@ -2,12 +2,14 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { connectDatabase } from './config/database';
-import { seedDatabase } from './scripts/seedSchemes';
+import { connectDatabase, isDatabaseConnected } from './config/database';
+import { syncSchemes } from './scripts/seedSchemes';
+import { syncTranslationsWithDb } from './services/translationService';
 import schemeRoutes from './routes/schemeRoutes';
 import recommendationRoutes from './routes/recommendationRoutes';
 import aiRoutes from './routes/aiRoutes';
 import authRoutes from './routes/authRoutes';
+import feedbackRoutes from './routes/feedbackRoutes';
 import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
@@ -21,6 +23,7 @@ app.use(express.json());
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'online',
+    database: isDatabaseConnected() ? 'connected' : 'not connected (using built-in data)',
     platform: 'GoodBridgeScheme AI API Server',
     version: '1.0.0',
     timestamp: new Date().toISOString()
@@ -32,6 +35,7 @@ app.use('/api/schemes', schemeRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api', feedbackRoutes);
 
 // Global Error Handler Middleware
 app.use(errorHandler);
@@ -40,7 +44,8 @@ app.use(errorHandler);
 const startServer = async () => {
   const isDbConnected = await connectDatabase();
   if (isDbConnected) {
-    await seedDatabase();
+    await syncSchemes();
+    await syncTranslationsWithDb();
   }
 
   app.listen(PORT, () => {

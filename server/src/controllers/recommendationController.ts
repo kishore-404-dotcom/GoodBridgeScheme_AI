@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { RuleEngineService } from '../services/ruleEngineService';
 import { SchemeStore } from '../services/schemeStore';
+import { StatsService } from '../services/statsService';
 import { UserProfile, Scheme, EligibilityEvaluationResult } from '../../../shared/types';
 import { matchingInterests } from '../../../shared/eligibilityOptions';
 import { DOCUMENT_TYPES } from '../../../shared/documents';
@@ -52,6 +53,7 @@ export class RecommendationController {
           : undefined
       };
 
+      StatsService.track('eligibility_check');
       const schemes = await SchemeStore.getAll();
 
       const results = schemes.map((scheme: Scheme) => {

@@ -6,6 +6,7 @@ import { useSiteText } from '../hooks/useSiteText';
 import { applyLink, howToApplyHref } from '../utils/applyLink';
 import { ApplyButton } from '../components/ApplyButton';
 import { useSchemeTranslations, prefetchSchemeTranslation } from '../hooks/useSchemeTranslations';
+import { ApiService } from '../services/apiService';
 import { CATEGORIES_LIST, categoryLabelKey } from '../components/CategoryGrid';
 
 interface SchemesPageProps {
@@ -77,6 +78,14 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
     }
     return filtered;
   }, [schemes, query, category, gender, social, sort]);
+
+  // Anonymous search counter: once per search, after typing pauses
+  useEffect(() => {
+    if (query.trim().length < 2) return;
+    const timer = setTimeout(() => ApiService.trackEvent('search', currentLanguage.code), 1500);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   const [page, setPage] = useState(1);
   const resultsTopRef = useRef<HTMLDivElement>(null);

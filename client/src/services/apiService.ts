@@ -8,7 +8,39 @@ export type SchemeTranslation = Partial<
   Pick<Scheme, 'name' | 'ministryOrDepartment' | 'description' | 'summaryText' | 'financialBenefit' | 'tags' | 'detailsText' | 'benefitsText' | 'eligibilityText' | 'exclusionsText' | 'documentsRequired' | 'applicationSteps'>
 >;
 
+export type FeedbackType = 'helpful' | 'not_helpful' | 'wrong_info';
+export type FeedbackResult = 'saved' | 'unavailable' | 'error';
+
 export class ApiService {
+  /** Citizen feedback on a scheme page */
+  public static async sendFeedback(schemeId: string, type: FeedbackType, language: string, message?: string): Promise<FeedbackResult> {
+    try {
+      const res = await fetch(`${API_BASE}/feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ schemeId, type, language, message })
+      });
+      if (res.ok) return 'saved';
+      return res.status === 503 ? 'unavailable' : 'error';
+    } catch {
+      return 'error';
+    }
+  }
+
+  /** Anonymous usage counter (fire and forget; never blocks the page) */
+  public static trackEvent(event: 'search' | 'scheme_view', language: string): void {
+    try {
+      fetch(`${API_BASE}/stats/event`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event, language }),
+        keepalive: true
+      }).catch(() => undefined);
+    } catch {
+      // Tracking must never affect the user
+    }
+  }
+
   /** AI translation of official scheme text; returns {} on failure so callers fall back to English */
   public static async translateSchemes(language: string, schemeIds: string[], mode: TranslationMode): Promise<Record<string, SchemeTranslation>> {
     try {
