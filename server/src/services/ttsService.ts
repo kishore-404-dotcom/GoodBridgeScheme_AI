@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { aiClient } from '../config/gemini';
+import { reportModelFailure, usableModels } from '../config/modelHealth';
 
 /**
  * Server-side text-to-speech with Gemini, used when the citizen's browser has no voice
@@ -48,13 +49,16 @@ export class TtsService {
     if (hit) return hit;
 
     let lastErr: unknown;
-    for (const model of TTS_MODELS) {
+    // Each model gets a second try when it answers without audio (occasional empty responses)
+    const attempts = usableModels(TTS_MODELS).flatMap((m) => [m, m]);
+    for (const [attempt, model] of attempts.entries()) {
+      if (attempt % 2 === 1 && !/No audio returned/.test(String((lastErr as Error)?.message))) continue;
       try {
         const res = await aiClient.models.generateContent({
           model,
           contents: [{ parts: [{ text: `Read this aloud clearly and warmly in ${languageName}:\n\n${clipped}` }] }],
           config: {
-            httpOptions: { timeout: 45000 },
+            httpOptions: { timeout: 25000 },
             responseModalities: ['AUDIO'],
             speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: VOICE } } }
           }
@@ -72,6 +76,7 @@ export class TtsService {
         return wav;
       } catch (err) {
         lastErr = err;
+        reportModelFailure(model, err);
         console.warn(`TTS with ${model} failed:`, (err as Error).message.slice(0, 120));
       }
     }

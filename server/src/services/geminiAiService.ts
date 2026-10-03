@@ -1,5 +1,6 @@
 import { Type } from '@google/genai';
 import { aiClient, GEMINI_MODEL, GEMINI_FALLBACK_MODELS, GEMINI_TIMEOUT_MS } from '../config/gemini';
+import { reportModelFailure, usableModels } from '../config/modelHealth';
 import { RAGService } from './ragService';
 import { RuleEngineService } from './ruleEngineService';
 import { INDIAN_STATES } from '../../../shared/eligibilityOptions';
@@ -124,11 +125,12 @@ ${profile && verdicts ? this.buildProfileContext(profile, verdicts) : ''}`;
 
     let response;
     let lastError: unknown;
-    for (const model of [GEMINI_MODEL, ...GEMINI_FALLBACK_MODELS]) {
+    for (const model of usableModels([GEMINI_MODEL, ...GEMINI_FALLBACK_MODELS])) {
       try {
         response = await aiClient!.models.generateContent({ model, ...request });
         break;
       } catch (err) {
+        reportModelFailure(model, err);
         lastError = err;
         console.warn(`Gemini model ${model} failed, trying next:`, (err as Error).message.slice(0, 120));
       }
@@ -212,7 +214,7 @@ ${profile && verdicts ? this.buildProfileContext(profile, verdicts) : ''}`;
   /** Short English keyword query for non-English questions, so keyword retrieval can work */
   private static async toEnglishSearchQuery(text: string): Promise<string> {
     if (!aiClient) return text;
-    for (const model of [...GEMINI_FALLBACK_MODELS, GEMINI_MODEL]) {
+    for (const model of usableModels([...GEMINI_FALLBACK_MODELS, GEMINI_MODEL])) {
       try {
         const res = await aiClient.models.generateContent({
           model,
@@ -227,6 +229,7 @@ ${profile && verdicts ? this.buildProfileContext(profile, verdicts) : ''}`;
         });
         if (res.text?.trim()) return res.text.trim();
       } catch (err) {
+        reportModelFailure(model, err);
         console.warn(`Query translation with ${model} failed:`, (err as Error).message.slice(0, 120));
       }
     }

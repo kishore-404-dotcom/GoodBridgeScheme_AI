@@ -2,9 +2,23 @@ import { useEffect, useMemo, useState } from 'react';
 import { Scheme } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { ApiService, SchemeTranslation, TranslationMode } from '../services/apiService';
+import { readStore, writeStore } from '../utils/storage';
 
-/** Session-wide cache shared by every component: `${lang}:${mode}:${schemeId}` -> translation */
-const cache = new Map<string, SchemeTranslation>();
+/**
+ * Cache shared by every component: `${lang}:${mode}:${schemeId}` -> translation.
+ * Persisted in localStorage so translations seen once are instant on later visits.
+ */
+const STORE_KEY = 'translations';
+const MAX_STORED = 400;
+const cache = new Map<string, SchemeTranslation>(readStore<[string, SchemeTranslation][]>(STORE_KEY, []));
+let saveTimer: ReturnType<typeof setTimeout> | null = null;
+const persist = () => {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    // Most recently added entries are kept when trimming
+    writeStore(STORE_KEY, [...cache.entries()].slice(-MAX_STORED));
+  }, 1000);
+};
 /** Keys with a request currently in flight (never requested twice at once) */
 const inFlight = new Set<string>();
 /** Components re-render when any translation lands */
@@ -19,10 +33,17 @@ async function fetchBatch(lang: string, mode: TranslationMode, ids: string[]) {
   notify();
   const translations = await ApiService.translateSchemes(lang, ids, mode);
   Object.entries(translations).forEach(([id, t]) => cache.set(key(lang, mode, id), t));
+  if (Object.keys(translations).length) persist();
   // Ids the server could not translate this time are released, so a later visit can retry
   ids.forEach((id) => inFlight.delete(key(lang, mode, id)));
   notify();
 }
+
+/** Starts translating in the background (e.g. on hover) so the page is ready when opened */
+export const prefetchSchemeTranslation = (lang: string, schemeId: string, mode: TranslationMode): void => {
+  if (lang === 'en' || cache.has(key(lang, mode, schemeId)) || inFlight.has(key(lang, mode, schemeId))) return;
+  fetchBatch(lang, mode, [schemeId]);
+};
 
 /** Overlays translated text onto the official scheme; untranslated fields stay in English */
 const merge = (s: Scheme, t: SchemeTranslation | undefined): Scheme => {

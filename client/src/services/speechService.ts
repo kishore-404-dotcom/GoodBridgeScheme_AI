@@ -7,6 +7,46 @@ import { ApiService } from './apiService';
  * Voice output only works when the device/browser has a voice for the language,
  * so callers can check hasVoice() and fall back to text.
  */
+/** Recently generated server audio, reused when the same text is read again */
+const audioCache = new Map<string, Blob>();
+const AUDIO_CACHE_LIMIT = 40;
+const rememberAudio = (key: string, blob: Blob) => {
+  audioCache.set(key, blob);
+  if (audioCache.size > AUDIO_CACHE_LIMIT) audioCache.delete(audioCache.keys().next().value as string);
+};
+
+const FIRST_CHUNK = 110;
+const CHUNK = 220;
+/** Splits text into speakable pieces at sentence ends (., !, ?, Indic danda), short first piece */
+export const splitForSpeech = (text: string): string[] => {
+  const sentences = text
+    .replace(/\s+/g, ' ')
+    .split(/(?<=[.!?।॥])\s+/)
+    .map((x) => x.trim())
+    .filter(Boolean);
+  const chunks: string[] = [];
+  let current = '';
+  for (const sentence of sentences) {
+    const limit = chunks.length === 0 ? FIRST_CHUNK : CHUNK;
+    if (current && (current + ' ' + sentence).length > limit) {
+      chunks.push(current);
+      current = sentence;
+    } else {
+      current = current ? `${current} ${sentence}` : sentence;
+    }
+    // A single very long sentence is cut at a comma or space
+    while (current.length > (chunks.length === 0 ? FIRST_CHUNK : CHUNK) * 1.5) {
+      const max = chunks.length === 0 ? FIRST_CHUNK : CHUNK;
+      const cut = Math.max(current.lastIndexOf(',', max), current.lastIndexOf(' ', max));
+      const at = cut > max / 2 ? cut + 1 : max;
+      chunks.push(current.slice(0, at).trim());
+      current = current.slice(at).trim();
+    }
+  }
+  if (current) chunks.push(current);
+  return chunks;
+};
+
 export class SpeechService {
   private static synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
   private static voices: SpeechSynthesisVoice[] = [];
@@ -73,32 +113,63 @@ export class SpeechService {
     return true;
   }
 
+  /**
+   * Server voice, chunked: generation time grows steeply with text length, so the text is split
+   * into sentence-sized pieces. The first piece is kept short so audio starts quickly, and each
+   * next piece is generated while the current one plays.
+   */
   private static async speakFromServer(text: string, langCode: string, onEnd?: () => void, onFail?: () => void) {
     const abort = new AbortController();
     this.fetchAbort = abort;
-    const blob = await ApiService.textToSpeech(text, langCode, abort.signal);
-    if (abort.signal.aborted) return; // stopped while loading
-    this.fetchAbort = null;
-    if (!blob) {
-      onEnd?.();
-      onFail?.();
-      return;
+    const chunks = splitForSpeech(text);
+    const fetchChunk = (chunk: string): Promise<Blob | null> => {
+      const cacheKey = `${langCode}|${chunk}`;
+      const cached = audioCache.get(cacheKey);
+      if (cached) return Promise.resolve(cached);
+      const attempt = () => ApiService.textToSpeech(chunk, langCode, abort.signal);
+      return attempt()
+        .then((blob) => blob || (abort.signal.aborted ? null : attempt()))
+        .then((blob) => {
+          if (blob) rememberAudio(cacheKey, blob);
+          return blob;
+        });
+    };
+
+    // Each piece takes longer to generate than to play, so the next pieces are generated in parallel ahead of playback
+    const LOOKAHEAD = 2;
+    let played = 0;
+    const pending: Promise<Blob | null>[] = [];
+    const piece = (i: number) => (pending[i] ??= fetchChunk(chunks[i]));
+    for (let i = 0; i < chunks.length; i++) {
+      for (let j = i; j <= Math.min(i + LOOKAHEAD, chunks.length - 1); j++) piece(j);
+      const blob = await piece(i);
+      if (abort.signal.aborted) return; // stopped by the user or a newer request
+      // A piece that still failed is skipped so the rest of the text is still read
+      if (!blob) continue;
+      const ok = await this.playBlob(blob, abort.signal);
+      if (abort.signal.aborted) return;
+      if (ok) played++;
     }
-    this.audioUrl = URL.createObjectURL(blob);
-    const audio = new Audio(this.audioUrl);
-    this.audio = audio;
-    const finish = () => {
-      if (this.audio === audio) this.releaseAudio();
-      onEnd?.();
-    };
-    audio.onended = finish;
-    audio.onerror = () => {
-      finish();
-      onFail?.();
-    };
-    audio.play().catch(() => {
-      finish();
-      onFail?.();
+    if (played === 0) onFail?.();
+    if (this.fetchAbort === abort) this.fetchAbort = null;
+    onEnd?.();
+  }
+
+  /** Plays one audio blob; resolves true when it finished, false if it could not play */
+  private static playBlob(blob: Blob, signal: AbortSignal): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.releaseAudio();
+      this.audioUrl = URL.createObjectURL(blob);
+      const audio = new Audio(this.audioUrl);
+      this.audio = audio;
+      const done = (ok: boolean) => {
+        if (this.audio === audio) this.releaseAudio();
+        resolve(ok);
+      };
+      signal.addEventListener('abort', () => done(false), { once: true });
+      audio.onended = () => done(true);
+      audio.onerror = () => done(false);
+      audio.play().catch(() => done(false));
     });
   }
 

@@ -3,7 +3,7 @@ import { Search, SlidersHorizontal, ArrowRight, ExternalLink, X, ChevronLeft, Ch
 import { Scheme } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
-import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
+import { useSchemeTranslations, prefetchSchemeTranslation } from '../hooks/useSchemeTranslations';
 import { CATEGORIES_LIST, categoryLabelKey } from '../components/CategoryGrid';
 
 interface SchemesPageProps {
@@ -47,7 +47,7 @@ const matchesQuery = (s: Scheme, q: string): boolean =>
     .includes(q);
 
 export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery, initialCategory }) => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const st = useSiteText();
   const [query, setQuery] = useState(initialQuery);
   const [category, setCategory] = useState(initialCategory);
@@ -222,7 +222,11 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
             <ul className="space-y-4">
               {visibleSchemes.map((scheme) => (
                 <li key={scheme.schemeId}>
-                  <article className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500/60 hover:shadow-lg transition-all p-6 flex flex-col md:flex-row md:items-start gap-5">
+                  <article
+                    // Hovering or focusing a card starts translating its full page, so it opens translated
+                    onMouseEnter={() => prefetchSchemeTranslation(currentLanguage.code, scheme.schemeId, 'full')}
+                    onFocus={() => prefetchSchemeTranslation(currentLanguage.code, scheme.schemeId, 'full')}
+                    className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500/60 hover:shadow-lg transition-all p-6 flex flex-col md:flex-row md:items-start gap-5">
                     <div className="flex-1 min-w-0 space-y-2">
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="text-[11px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">

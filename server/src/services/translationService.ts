@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { aiClient, GEMINI_FALLBACK_MODELS, GEMINI_MODEL, GEMINI_TIMEOUT_MS } from '../config/gemini';
+import { reportModelFailure, usableModels } from '../config/modelHealth';
 import { Scheme, SchemeStep } from '../../../shared/types';
 
 /** Language codes the site supports (English is the source language) */
@@ -42,7 +43,9 @@ const MODELS = [...new Set(['gemini-flash-lite-latest', GEMINI_MODEL, ...GEMINI_
 const RETRY_MODELS = [
   ...new Set([...(process.env.GEMINI_TRANSLATE_RETRY_MODELS || 'gemini-3.5-flash-lite,gemini-3.6-flash').split(',').map((m) => m.trim()), ...MODELS])
 ];
-const CACHE_FILE = path.join(__dirname, '../../.cache/translations.json');
+// Kept in the repository (server/data) so translations made once ship with every deploy;
+// resolved from the server folder because compiled code runs from dist/
+const CACHE_FILE = path.resolve(process.cwd(), 'data/translations.json');
 
 const cache = new Map<string, SchemeTranslation>();
 const inFlight = new Map<string, Promise<void>>();
@@ -62,7 +65,10 @@ const persist = () => {
   saveTimer = setTimeout(() => {
     try {
       fs.mkdirSync(path.dirname(CACHE_FILE), { recursive: true });
-      fs.writeFileSync(CACHE_FILE, JSON.stringify(Object.fromEntries(cache)));
+      const entries = [...cache.entries()].sort(([a], [b]) => a.localeCompare(b));
+      // One entry per line with sorted keys keeps the committed file's diffs small
+      const body = entries.map(([k, v]) => `${JSON.stringify(k)}: ${JSON.stringify(v)}`).join(',\n');
+      fs.writeFileSync(CACHE_FILE, `{\n${body}\n}\n`);
     } catch (err) {
       console.warn('Could not save translation cache:', (err as Error).message);
     }
@@ -105,41 +111,62 @@ const isUntranslated = (t: SchemeTranslation, lang: string): boolean => {
   return !SCRIPT[lang]?.test(prose) || (nameNeedsScript && !SCRIPT[lang]?.test(t.name || ""));
 };
 
-/** All strings inside a translation (lists and step objects included) */
-const allText = (t: SchemeTranslation): string[] =>
-  Object.values(t).flatMap((v) => (Array.isArray(v) ? v : [v])).flatMap((item) =>
-    typeof item === "string" ? [item] : item && typeof item === "object" ? Object.values(item).filter((x): x is string => typeof x === "string") : []
-  );
-
 /**
  * Garbled output: lowercase Latin glued to Indic letters inside a word ("কisan"; uppercase acronyms with
  * grammatical endings like "KCCর" are normal), or letters from another script (e.g. Arabic in Gurmukhi).
  */
 const MIXED_LATIN = /[a-z][ऀ-෿]|[ऀ-෿][a-z]/;
 const OTHER_SCRIPTS = /[؀-ۿݐ-ݿऀ-ॣ०-෿]/;
-const isGarbled = (t: SchemeTranslation, lang: string): boolean =>
-  allText(t).some((text) => {
-    if (MIXED_LATIN.test(text)) return true;
-    // Remove the target script (the shared danda punctuation is outside OTHER_SCRIPTS); anything left is foreign
-    const target = SCRIPT[lang];
-    const rest = target ? text.replace(new RegExp(target.source, "g"), "") : text;
-    return OTHER_SCRIPTS.test(rest);
-  });
+const isGarbledText = (text: string, lang: string): boolean => {
+  if (MIXED_LATIN.test(text)) return true;
+  const target = SCRIPT[lang];
+  const rest = target ? text.replace(new RegExp(target.source, 'g'), '') : text;
+  return OTHER_SCRIPTS.test(rest);
+};
 
-const sanitize = (t: SchemeTranslation, src: SchemeTranslation): SchemeTranslation => ({
-  name: t.name?.trim() || undefined,
-  ministryOrDepartment: t.ministryOrDepartment?.trim() || undefined,
-  description: t.description?.trim() || undefined,
-  summaryText: t.summaryText?.trim() || undefined,
-  financialBenefit: t.financialBenefit?.trim() || undefined,
-  tags: sameLength(t.tags, src.tags),
-  detailsText: sameLength(t.detailsText, src.detailsText),
-  benefitsText: sameLength(t.benefitsText, src.benefitsText),
-  eligibilityText: sameLength(t.eligibilityText, src.eligibilityText),
-  exclusionsText: sameLength(t.exclusionsText, src.exclusionsText),
-  documentsRequired: sameLength(t.documentsRequired, src.documentsRequired),
-  applicationSteps: sameLength(t.applicationSteps, src.applicationSteps)
-});
+/**
+ * Lines up the translation with the official text. A garbled line (e.g. a half-transliterated word)
+ * falls back to its official English line, so one bad word doesn't discard the whole page.
+ * `replaced` counts those fallbacks.
+ */
+const sanitize = (t: SchemeTranslation, src: SchemeTranslation, lang: string): { clean: SchemeTranslation; replaced: number; total: number } => {
+  let replaced = 0;
+  let total = 0;
+  const text = (value: string | undefined, original: string | undefined): string | undefined => {
+    const v = value?.trim();
+    if (!v || original === undefined) return undefined;
+    total++;
+    if (isGarbledText(v, lang)) {
+      replaced++;
+      return undefined; // field falls back to English
+    }
+    return v;
+  };
+  const list = (values: string[] | undefined, originals: string[] | undefined): string[] | undefined => {
+    const aligned = sameLength(values, originals);
+    if (!aligned || !originals) return undefined;
+    return aligned.map((v, i) => text(String(v), originals[i]) ?? originals[i]);
+  };
+  const steps = sameLength(t.applicationSteps, src.applicationSteps)?.map((step, i) => {
+    const o = src.applicationSteps![i];
+    return { stepNumber: o.stepNumber, title: text(step.title, o.title) ?? o.title, description: text(step.description, o.description) ?? o.description };
+  });
+  const clean: SchemeTranslation = {
+    name: text(t.name, src.name),
+    ministryOrDepartment: text(t.ministryOrDepartment, src.ministryOrDepartment),
+    description: text(t.description, src.description),
+    summaryText: text(t.summaryText, src.summaryText),
+    financialBenefit: text(t.financialBenefit, src.financialBenefit),
+    tags: list(t.tags, src.tags),
+    detailsText: list(t.detailsText, src.detailsText),
+    benefitsText: list(t.benefitsText, src.benefitsText),
+    eligibilityText: list(t.eligibilityText, src.eligibilityText),
+    exclusionsText: list(t.exclusionsText, src.exclusionsText),
+    documentsRequired: list(t.documentsRequired, src.documentsRequired),
+    applicationSteps: steps
+  };
+  return { clean, replaced, total };
+};
 
 async function translateBatch(schemes: Scheme[], lang: string, mode: TranslationMode, models: string[] = MODELS): Promise<void> {
   const language = TRANSLATION_LANGUAGES[lang];
@@ -155,7 +182,7 @@ Rules:
 - Return a JSON array with one object per input object: the same keys, the same "id" and "stepNumber" values, and every list with exactly the same number of items in the same order.`;
 
   let lastErr: unknown;
-  for (const model of models) {
+  for (const model of usableModels(models)) {
     try {
       const res = await aiClient!.models.generateContent({
         model,
@@ -173,9 +200,11 @@ Rules:
       for (const t of translated) {
         const src = items.find((i) => i.id === t.id);
         if (!src) continue;
-        const clean = sanitize(t, src);
-        // Garbled output is not cached, so the retry below (or a later request) translates it again
-        if (isGarbled(clean, lang) || isUntranslated(clean, lang)) console.warn(`Discarded garbled/untranslated ${lang} translation for ${t.id}`);
+        const { clean, replaced, total } = sanitize(t, src, lang);
+        // Mostly-garbled output is rejected so another model retries; a few bad lines are tolerated
+        const tooBroken = total > 0 && replaced / total > 0.5;
+        // Rejected output is not cached, so the retry below (or a later request) translates it again
+        if (tooBroken || isUntranslated(clean, lang)) console.warn(`Discarded garbled/untranslated ${lang} translation for ${t.id}`);
         else cache.set(key(lang, mode, t.id), clean);
       }
       persist();
@@ -184,6 +213,7 @@ Rules:
       lastErr = new Error(`incomplete or garbled ${lang} output from ${model}`);
     } catch (err) {
       lastErr = err;
+      reportModelFailure(model, err);
       console.warn(`Translation with ${model} failed:`, (err as Error).message.slice(0, 120));
     }
   }
@@ -199,7 +229,13 @@ export class TranslationService {
    * Returns translations for the given schemes, translating (and caching) any that are missing.
    * Schemes that fail to translate are simply absent from the result, so the client shows English.
    */
-  public static async translate(schemes: Scheme[], lang: string, mode: TranslationMode): Promise<Record<string, SchemeTranslation>> {
+  public static async translate(
+    schemes: Scheme[],
+    lang: string,
+    mode: TranslationMode,
+    /** Override the model order (e.g. offline pre-translation on models the live chat does not use) */
+    models: string[] = MODELS
+  ): Promise<Record<string, SchemeTranslation>> {
     if (!aiClient || !this.isSupported(lang)) return {};
 
     const missing = schemes.filter((s) => !cache.has(key(lang, mode, s.schemeId)));
@@ -212,7 +248,7 @@ export class TranslationService {
       if (!inFlight.has(jobKey)) {
         inFlight.set(
           jobKey,
-          translateBatch(batch, lang, mode)
+          translateBatch(batch, lang, mode, models)
             .catch((err) => console.warn('Translation batch failed:', (err as Error).message?.slice(0, 120)))
             .finally(() => inFlight.delete(jobKey))
         );
