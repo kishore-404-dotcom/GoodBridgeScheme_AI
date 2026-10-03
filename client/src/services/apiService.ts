@@ -1,6 +1,14 @@
 import { Scheme, UserProfile, EligibilityEvaluationResult, ApplicationDraft, ChatHistoryTurn } from '../../../shared/types';
 
-const API_BASE = (import.meta as any).env?.VITE_API_BASE_URL || '/api';
+/**
+ * Backend base URL. Accepts the Render address with or without "/api" (and a trailing slash),
+ * since leaving off "/api" is an easy mistake that makes every request 404.
+ */
+const API_BASE = (() => {
+  const configured = String((import.meta as any).env?.VITE_API_BASE_URL || '').trim().replace(/\/+$/, '');
+  if (!configured) return '/api';
+  return /\/api$/i.test(configured) ? configured : `${configured}/api`;
+})();
 
 export type TranslationMode = 'card' | 'full';
 /** Translated scheme text from /api/ai/translate; missing fields mean "use the English original" */
