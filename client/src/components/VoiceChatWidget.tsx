@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageSquare, Mic, Send, X, Volume2, Sparkles, User, Bot, VolumeX, GripHorizontal, RotateCcw } from 'lucide-react';
+import { MessageSquare, Mic, Send, X, Volume2, Sparkles, User, Bot, VolumeX, GripHorizontal, RotateCcw, Trash2 } from 'lucide-react';
 import { ApiService } from '../services/apiService';
 import { SpeechService } from '../services/speechService';
 import { useLanguage } from '../context/LanguageContext';
@@ -37,7 +37,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
 }) => {
   const { currentLanguage, t } = useLanguage();
   const { profile, profileConfirmed } = useProfile();
-  const [messages, setMessages] = useState<ChatMessage[]>([
+  const greeting = (): ChatMessage[] => [
     {
       id: 'msg-init',
       sender: 'assistant',
@@ -45,7 +45,10 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
       language: currentLanguage.code,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
-  ]);
+  ];
+  const [messages, setMessages] = useState<ChatMessage[]>(greeting);
+  /** Bumped on "Clear chat" so a reply still in flight for the old conversation is dropped */
+  const conversationRef = useRef(0);
   const [inputText, setInputText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -82,6 +85,20 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
 
   if (!isOpen) return null;
 
+  /** Starts a fresh conversation: clears messages and stops any speech, listening or pending reply */
+  const clearChat = () => {
+    conversationRef.current += 1;
+    SpeechService.stop();
+    recognitionRef.current?.stop();
+    setIsListening(false);
+    setIsSpeaking(false);
+    setLoading(false);
+    setInputText('');
+    setVoiceNotice(null);
+    setMessages(greeting());
+  };
+  const hasConversation = messages.some((m) => m.id !== 'msg-init');
+
   const handleSendMessage = async (customText?: string) => {
     const textToSend = customText || inputText;
     if (!textToSend.trim()) return;
@@ -99,6 +116,7 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
       .filter((m) => m.id !== 'msg-init')
       .map((m) => ({ sender: m.sender, text: m.text }));
 
+    const conversation = conversationRef.current;
     setMessages((prev) => [...prev, userMsg]);
     setInputText('');
     setLoading(true);
@@ -109,6 +127,9 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
       history,
       profileConfirmed ? profile : undefined
     );
+
+    // The chat was cleared while this reply was loading: drop it
+    if (conversation !== conversationRef.current) return;
 
     const assistantMsg: ChatMessage = {
       id: `asst-${Date.now()}`,
@@ -209,6 +230,17 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
               title="Stop Speech"
             >
               <VolumeX className="w-3.5 h-3.5" /> Stop
+            </button>
+          )}
+          {hasConversation && (
+            <button
+              onClick={clearChat}
+              className="px-2 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-bold flex items-center gap-1"
+              title={st('clearChat')}
+              aria-label={st('clearChat')}
+            >
+              <Trash2 className="w-4 h-4" />
+              <span className="hidden sm:inline">{st('clearChat')}</span>
             </button>
           )}
           {panel.isFloating && (
