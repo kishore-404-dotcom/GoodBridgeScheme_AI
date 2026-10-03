@@ -9,7 +9,8 @@ export type Route =
   | { page: 'home' }
   | { page: 'schemes'; params: URLSearchParams }
   | { page: 'scheme'; schemeId: string; tab?: string }
-  | { page: 'eligibility' };
+  | { page: 'eligibility' }
+  | { page: 'admin' };
 
 const parseHash = (hash: string): Route => {
   const [path, query = ''] = hash.replace(/^#/, '').split('?');
@@ -18,6 +19,7 @@ const parseHash = (hash: string): Route => {
   if (parts[0] === 'schemes') return { page: 'schemes', params: new URLSearchParams(query) };
   if (parts[0] === 'scheme' && parts[1]) return { page: 'scheme', schemeId: decodeURIComponent(parts[1]), tab: parts[2] };
   if (parts[0] === 'eligibility') return { page: 'eligibility' };
+  if (parts[0] === 'admin') return { page: 'admin' };
   return { page: 'home' };
 };
 

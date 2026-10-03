@@ -29,7 +29,10 @@ Awareness and accessibility gaps stop many eligible citizens from benefiting fro
   - a **"Documents to get"** panel ranking missing documents by how many of the citizen's schemes need them.
 - **Apply guidance with checked links**: the apply link comes from myScheme's official application-process data and every link was tested to load. Dead links, error pages and hijacked domains were removed. Buttons say what the link is (*Apply online*, *Go to official portal*, *Download application form*); clicking shows a short guide (what to choose on the portal and the official steps). Schemes without an online application show **Apply offline** with the official steps.
 - **AI assistant**: answers in the citizen's language using only the scheme data. When the citizen has completed the assessment, the rule engine's verdicts are passed to the AI, so the **AI explains but never decides** eligibility. The chat window can be moved and resized, and **Clear chat** starts a fresh conversation.
-- **Citizen feedback** (with MongoDB): "Was this helpful?" and "Report wrong information" on every scheme page. Messages are only readable through an admin token.
+- **Citizen feedback** (with MongoDB), on every scheme page:
+  - **"Was this information helpful?"** Yes/No vote, remembered on the device; once a scheme has 3+ votes the page shows e.g. *"75% of 4 people found this helpful"*.
+  - **"Report incorrect information"** with a reason (link doesn't work, eligibility, benefit amount, documents, closed/outdated, something else) and optional details. No personal data is asked for or stored.
+- **Feedback dashboard** at **`#/admin`** for the team, protected by the server's `ADMIN_TOKEN` (kept only for the browser session): vote totals and % helpful, error reports filtered by open/resolved/all with **Mark resolved** / **Reopen**, the most-rated schemes, and anonymous usage for the last 30 days (searches, scheme views, eligibility checks, AI chats).
 - **Voice**: speech input through the browser. Answers and scheme pages are read aloud with the browser's voice when it has one for the language (usually English and Hindi); otherwise the server generates the speech with Gemini text-to-speech.
 - **Translated scheme content**: scheme names, descriptions, benefits, eligibility, documents and steps are translated on demand from the official English text with AI, cached, and clearly marked, with a one-click "Show original (English)".
 - **10 languages**: English, Hindi, Tamil, Telugu, Marathi, Bengali, Kannada, Gujarati, Malayalam and Punjabi, with a light/dark theme.
@@ -161,7 +164,7 @@ Deploy the **backend first**, because the frontend needs its URL.
 | `MONGODB_URI` | Recommended | MongoDB Atlas connection string. Needed for feedback, usage stats and translations that survive restarts |
 | `MONGODB_DB` | Optional | Database name (default `goodbridge`) |
 | `JWT_SECRET` | Recommended | Any long random text |
-| `ADMIN_TOKEN` | Optional | Long random text; enables `GET /api/feedback/summary` with `Authorization: Bearer <token>` |
+| `ADMIN_TOKEN` | Optional | Long random text; unlocks the feedback dashboard (`#/admin`) and the admin API |
 
 In MongoDB Atlas, allow access from anywhere (`0.0.0.0/0`) under **Network Access**, because Render's addresses change. Render sets `PORT` automatically. Free instances sleep after about 15 minutes idle and take 30–50 s to wake, so open the site a few minutes before a demo.
 
@@ -180,6 +183,20 @@ In MongoDB Atlas, allow access from anywhere (`0.0.0.0/0`) under **Network Acces
 > 🔒 Never put the Gemini key in a `VITE_` variable. Those values are built into the public website.
 
 The client and server both import from `shared/`, so keep the full repository connected; don't deploy the folders on their own. Page routes use `#/…`, so Vercel needs no rewrite rules.
+
+---
+
+## Feedback API
+
+| Endpoint | Access | Purpose |
+| :--- | :--- | :--- |
+| `POST /api/feedback` | Public (20/hour per IP) | `{ schemeId, type: helpful \| not_helpful \| wrong_info, reason?, message?, language? }` |
+| `GET /api/feedback/scheme/:schemeId` | Public | Vote counts for one scheme (never messages) |
+| `GET /api/feedback/summary?status=open\|resolved\|all` | Admin | Totals, per-scheme counts and error reports |
+| `PATCH /api/feedback/:id` | Admin | `{ resolved: true \| false }`: mark a report fixed or reopen it |
+| `GET /api/stats?days=30` | Public | Anonymous daily usage counts |
+
+Admin endpoints need `Authorization: Bearer <ADMIN_TOKEN>`; they are disabled when `ADMIN_TOKEN` is not set.
 
 ---
 

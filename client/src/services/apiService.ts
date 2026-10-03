@@ -10,20 +10,95 @@ export type SchemeTranslation = Partial<
 
 export type FeedbackType = 'helpful' | 'not_helpful' | 'wrong_info';
 export type FeedbackResult = 'saved' | 'unavailable' | 'error';
+export const REPORT_REASONS = ['link', 'eligibility', 'benefit', 'documents', 'outdated', 'other'] as const;
+export type ReportReason = (typeof REPORT_REASONS)[number];
+
+export interface FeedbackReport {
+  _id: string;
+  schemeId: string;
+  schemeName: string;
+  reason?: ReportReason;
+  message?: string;
+  language?: string;
+  resolved: boolean;
+  createdAt: string;
+}
+
+export interface FeedbackSummary {
+  totals: { helpful: number; notHelpful: number; reports: number; openReports: number };
+  schemes: { schemeId: string; name: string; total: number; counts: Partial<Record<FeedbackType, number>> }[];
+  reports: FeedbackReport[];
+}
+
+export interface UsageStats {
+  days: number;
+  totals: Record<string, number>;
+  byDay: { day: string; counts: Record<string, number> }[];
+}
+
+/** Admin calls fail with a reason the dashboard can show */
+export type AdminResult<T> = { ok: true; data: T } | { ok: false; reason: 'unauthorized' | 'unavailable' | 'error' };
+
+const adminFetch = async <T,>(path: string, token: string, init: RequestInit = {}): Promise<AdminResult<T>> => {
+  try {
+    const res = await fetch(`${API_BASE}${path}`, {
+      ...init,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...(init.headers || {}) }
+    });
+    if (res.status === 401 || res.status === 404) return { ok: false, reason: 'unauthorized' };
+    if (res.status === 503) return { ok: false, reason: 'unavailable' };
+    if (!res.ok) return { ok: false, reason: 'error' };
+    return { ok: true, data: (await res.json()) as T };
+  } catch {
+    return { ok: false, reason: 'error' };
+  }
+};
 
 export class ApiService {
-  /** Citizen feedback on a scheme page */
-  public static async sendFeedback(schemeId: string, type: FeedbackType, language: string, message?: string): Promise<FeedbackResult> {
+  /** Citizen feedback on a scheme page; reports carry a reason */
+  public static async sendFeedback(schemeId: string, type: FeedbackType, language: string, message?: string, reason?: ReportReason): Promise<FeedbackResult> {
     try {
       const res = await fetch(`${API_BASE}/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ schemeId, type, language, message })
+        body: JSON.stringify({ schemeId, type, language, message, reason })
       });
       if (res.ok) return 'saved';
       return res.status === 503 ? 'unavailable' : 'error';
     } catch {
       return 'error';
+    }
+  }
+
+  /** Public "helpful" vote counts for a scheme; null when unavailable */
+  public static async getFeedbackScore(schemeId: string): Promise<{ helpful: number; notHelpful: number } | null> {
+    try {
+      const res = await fetch(`${API_BASE}/feedback/scheme/${encodeURIComponent(schemeId)}`);
+      const json = await res.json();
+      return json.success && json.available ? { helpful: json.helpful, notHelpful: json.notHelpful } : null;
+    } catch {
+      return null;
+    }
+  }
+
+  /** Admin: feedback totals, per-scheme counts and error reports */
+  public static getFeedbackSummary(token: string, status: 'open' | 'resolved' | 'all'): Promise<AdminResult<FeedbackSummary>> {
+    return adminFetch<FeedbackSummary>(`/feedback/summary?status=${status}`, token);
+  }
+
+  /** Admin: mark an error report as resolved, or reopen it */
+  public static setReportResolved(token: string, id: string, resolved: boolean): Promise<AdminResult<{ report: FeedbackReport }>> {
+    return adminFetch(`/feedback/${encodeURIComponent(id)}`, token, { method: 'PATCH', body: JSON.stringify({ resolved }) });
+  }
+
+  /** Anonymous usage totals (public) */
+  public static async getUsageStats(days = 30): Promise<UsageStats | null> {
+    try {
+      const res = await fetch(`${API_BASE}/stats?days=${days}`);
+      const json = await res.json();
+      return json.success ? (json as UsageStats) : null;
+    } catch {
+      return null;
     }
   }
 

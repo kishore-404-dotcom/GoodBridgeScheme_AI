@@ -10,6 +10,7 @@ import { HowItWorks } from './components/HowItWorks';
 import { VoiceChatWidget } from './components/VoiceChatWidget';
 import { SchemesPage } from './pages/SchemesPage';
 import { SchemeDetailPage } from './pages/SchemeDetailPage';
+import { AdminPage } from './pages/AdminPage';
 import { ApiService } from './services/apiService';
 import { VERIFIED_SCHEMES_100 } from './data/seedSchemes';
 import { useHashRoute, navigate } from './hooks/useHashRoute';
@@ -48,6 +49,8 @@ const MainAppContent: React.FC = () => {
         );
       case 'scheme':
         return <SchemeDetailPage scheme={allSchemes.find((s) => s.schemeId === route.schemeId) || null} initialTab={route.tab} onOpenChat={openChat} />;
+      case 'admin':
+        return <AdminPage />;
       case 'eligibility':
         // The assessment report is the only content printed ("Download PDF Report")
         return <EligibilityAssessment onSelectScheme={openScheme} onOpenChat={openChat} />;

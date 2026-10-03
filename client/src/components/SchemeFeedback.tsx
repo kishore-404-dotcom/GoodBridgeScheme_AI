@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThumbsUp, ThumbsDown, Flag, CheckCircle2 } from 'lucide-react';
-import { ApiService, FeedbackType } from '../services/apiService';
+import { ApiService, FeedbackType, REPORT_REASONS, ReportReason } from '../services/apiService';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
 import { readStore, writeStore } from '../utils/storage';
@@ -23,18 +23,35 @@ export const SchemeFeedback: React.FC<SchemeFeedbackProps> = ({ schemeId }) => {
   const [status, setStatus] = useState<Status>('idle');
   const [reporting, setReporting] = useState(false);
   const [message, setMessage] = useState('');
+  const [reason, setReason] = useState<ReportReason | null>(null);
+  const [score, setScore] = useState<{ helpful: number; notHelpful: number } | null>(null);
+
+  // Public helpful score; hidden when the database is unavailable
+  useEffect(() => {
+    let active = true;
+    ApiService.getFeedbackScore(schemeId).then((s) => active && setScore(s));
+    return () => {
+      active = false;
+    };
+  }, [schemeId]);
+  const votes = score ? score.helpful + score.notHelpful : 0;
+
+  // A reason is required; a description only for "something else"
+  const canReport = reason !== null && (reason !== 'other' || message.trim().length >= 5);
 
   const send = async (type: FeedbackType, text?: string) => {
     setStatus('sending');
-    const result = await ApiService.sendFeedback(schemeId, type, currentLanguage.code, text);
+    const result = await ApiService.sendFeedback(schemeId, type, currentLanguage.code, text, type === 'wrong_info' ? reason ?? 'other' : undefined);
     if (result === 'saved') {
       setStatus('thanks');
       if (type !== 'wrong_info') {
         setVoted(type);
         writeStore(voteKey, type);
+        setScore((s) => (s ? { ...s, [type === 'helpful' ? 'helpful' : 'notHelpful']: s[type === 'helpful' ? 'helpful' : 'notHelpful'] + 1 } : s));
       } else {
         setReporting(false);
         setMessage('');
+        setReason(null);
       }
     } else {
       setStatus(result === 'unavailable' ? 'unavailable' : 'error');
@@ -69,6 +86,12 @@ export const SchemeFeedback: React.FC<SchemeFeedbackProps> = ({ schemeId }) => {
         )}
       </div>
 
+      {votes >= 3 && (
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          {st('feedbackScore', { pct: Math.round((score!.helpful / votes) * 100), count: votes })}
+        </p>
+      )}
+
       {!reporting ? (
         <button
           onClick={() => {
@@ -83,12 +106,32 @@ export const SchemeFeedback: React.FC<SchemeFeedbackProps> = ({ schemeId }) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            if (message.trim().length >= 5) send('wrong_info', message.trim());
+            if (canReport) send('wrong_info', message.trim() || undefined);
           }}
           className="space-y-3"
         >
+          <fieldset>
+            <legend className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{st('reportReasonPrompt')}</legend>
+            <div className="flex flex-wrap gap-2">
+              {REPORT_REASONS.map((r) => (
+                <button
+                  key={r}
+                  type="button"
+                  aria-pressed={reason === r}
+                  onClick={() => setReason(r)}
+                  className={`px-3 py-1.5 rounded-full border text-xs font-bold transition-colors ${
+                    reason === r
+                      ? 'bg-emerald-600 border-emerald-600 text-white'
+                      : 'border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-500'
+                  }`}
+                >
+                  {st(`reportReason_${r}`)}
+                </button>
+              ))}
+            </div>
+          </fieldset>
           <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300" htmlFor={`report-${schemeId}`}>
-            {st('reportPrompt')}
+            {reason === 'other' ? st('reportPrompt') : st('reportDetailsOptional')}
           </label>
           <textarea
             id={`report-${schemeId}`}
@@ -102,12 +145,12 @@ export const SchemeFeedback: React.FC<SchemeFeedbackProps> = ({ schemeId }) => {
           <div className="flex gap-2">
             <button
               type="submit"
-              disabled={status === 'sending' || message.trim().length < 5}
+              disabled={status === 'sending' || !canReport}
               className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-extrabold disabled:opacity-50 transition-colors"
             >
               {st('reportSend')}
             </button>
-            <button type="button" onClick={() => setReporting(false)} className="px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300">
+            <button type="button" onClick={() => { setReporting(false); setReason(null); }} className="px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300">
               {st('reportCancel')}
             </button>
           </div>
