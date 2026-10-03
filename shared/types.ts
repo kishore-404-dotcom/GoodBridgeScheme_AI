@@ -66,7 +66,10 @@ export interface Scheme {
   financialBenefitAmount: number; // For calculator sorting
   eligibilityRules: EligibilityRules;
   documentsRequired: string[];
+  /** Checked official application link; empty when the scheme is applied for offline */
   applicationUrl: string;
+  /** online: application page, portal: the department's portal, form: downloadable application form */
+  applicationLinkType?: 'online' | 'portal' | 'form';
   applicationSteps: SchemeStep[];
   tags: string[];
   translations?: MultilingualTranslation;

@@ -7,6 +7,8 @@ import { Scheme } from './types';
  * with prominent acknowledgement of the source (see each record's sourceUrl).
  * eligibilityRules, financialBenefit and financialBenefitAmount are derived from the official
  * eligibility/benefit text for the eligibility checker. Last checked: 03 Oct 2026.
+ * applicationUrl is the official application link from myScheme's application process, checked
+ * to load (dead and hijacked links removed); empty when the scheme is applied for offline.
  * Generated file: regenerate from source instead of editing by hand.
  */
 export const VERIFIED_SCHEMES_100: Scheme[] = [
@@ -37,7 +39,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Landholding papers",
    "Savings Bank Account."
   ],
-  "applicationUrl": "https://pmkisan.gov.in/registrationformnew.aspx",
+  "applicationUrl": "https://pmkisan.gov.in/RegistrationFormnew.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -160,6 +163,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Declaration about the crop sown/intended to be sown."
   ],
   "applicationUrl": "https://pmfby.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -286,7 +290,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Security documents for loan limit above Rs.1.60 lakhs / Rs.3.00 lakhs, as applicable.",
    "Any other document as per sanction."
   ],
-  "applicationUrl": "https://pib.gov.in/FactsheetDetails.aspx?Id=148600",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -384,7 +388,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card",
    "Savings Bank Account Number along with IFSC Code ( Bank Passbook or Cheque Leaf/book or copy of bank statement as evidence of bank account)."
   ],
-  "applicationUrl": "https://pmkmy.gov.in/scheme/pmkmy",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -517,7 +521,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "The documents may vary for each state. It is recommended to consult with the relevant authorities for detailed information."
   ],
-  "applicationUrl": "https://www.soilhealth.dac.gov.in/assets/Circular%20of%20implementation%20of%20Soil%20Health%20Card.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -619,7 +623,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Agriculture land documents",
    "Domicile Certificate of State/UT"
   ],
-  "applicationUrl": "https://pmksy.gov.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -732,7 +736,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Partnership Deed or Memorandum of Association (MOA)",
    "Note: The exact list of documents required may vary based on the nature and type of the project. It is advisable to check with the concerned authorities or the official PMMSY website for the complete list of documents required for the specific type of project and application process."
   ],
-  "applicationUrl": "https://pmmsy.dof.gov.in/new-download",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -828,7 +832,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "DPR",
    "The specific documents for availing the benefits of the program may vary depending on the type of intervention and the state. It is recommended to consult with the relevant authorities for detailed information on documents to be submitted."
   ],
-  "applicationUrl": "https://darpg.gov.in/sites/default/files/Paramparagat%20Krishi%20Vikas%20Yojana.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -929,7 +933,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Note",
    "Farmer while registering in DBT portal has to select correct District, Sub-District, Block, and Village from the drop down list. The name of farmer should be as per Aadhaar card. The farmer category (SC/ST/General), farmer type (Small/Marginal/Large) and Gender (Male/Female) should be correctly furnished otherwise the application will be debarred at the time of physical verification. This is the responsibility of farmer to furnish the correct details for availing subsidy."
   ],
-  "applicationUrl": "https://agrimachinery.nic.in/Files/Guidelines/SMAMGiudeline2020-21.pdf",
+  "applicationUrl": "https://agrimachinery.nic.in/Index/Index",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1035,7 +1040,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Identity.",
    "Marksheets of the Previous Qualified Examination."
   ],
-  "applicationUrl": "https://education.icar.gov.in/Files/Guidelines/Post-matric-scholarship-guidelines.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1131,7 +1136,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate of the employed parents/guardian issued by their employer.",
    "A consolidated certificate of income of the employed parents/guardian from the Revenue Officer (only in case of any other additional source of income)."
   ],
-  "applicationUrl": "http://socialjustice.gov.in/writereaddata/UploadFile/Scm_guidelines_06092019.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1238,6 +1243,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other documents as required"
   ],
   "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1374,7 +1380,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Domicile Certificate",
    "Any other supporting documents as required"
   ],
-  "applicationUrl": "https://dsel.education.gov.in/en/scheme/nmmss",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1534,6 +1541,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "> Download the Appendix from the link."
   ],
   "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1672,7 +1680,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Annual Family Income Certificate (Appendix-II).",
    "Promotion Certificate in case of renewal (Appendix-III)."
   ],
-  "applicationUrl": "https://www.aicte-india.org/sites/default/files/stdc/AICTE%20Saksham%20Scheme%20Guidelines_Degree.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1764,7 +1773,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "b. RENEWAL: Previous Year Mark Sheet",
    "The copy of above-mentioned documents must be provided to the institutes at the time of verification, if sought for by the Institute Nodal Officer (INO)."
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/CSSS_GUIDLINES_07022024_updated.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -1909,7 +1919,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate (from the designated public authority of the state)",
    "If the QHEI has already accepted some of these documents at the time of admission, the student should submit a certificate from the QHEI regarding the same (proforma given in Annexure 6). Only the remaining documents will have to be submitted by the students to the bank/portal."
   ],
-  "applicationUrl": "https://pmvidyalaxmi.co.in/img/UserManual-Student.pdf?csrt=17538697394644098652",
+  "applicationUrl": "https://pmvidyalaxmi.co.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2061,7 +2072,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "> Upon Selection",
    "Selected candidates will have to upload the required documents on their web portal within the prescribed time limit (time limit mentioned in the offer letter) for further consideration by the Department."
   ],
-  "applicationUrl": "https://online-inspire.gov.in/Content/guidelines.pdf",
+  "applicationUrl": "https://www.online-inspire.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2207,7 +2219,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "For renewals, the annual progress report and continuation of studies will be required to be uploaded/ verified by the concerned University/ Institution/ College.",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/ISHAN_UDAY_GUIDELINE.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2361,7 +2374,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "(iv) 10+2/equivalent and 10th Mark sheet for Degree Level",
    "(v) 10th /equivalent Mark sheet for Diploma Level"
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/AICTE/AICTE_3039_G.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2470,7 +2484,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "9. Family Income Certificate (issued by the Revenue Authorities of the State Govt.) (Refer Source for Format)",
    "10. Employer's NOC Certificate (if the applicant is employed)"
   ],
-  "applicationUrl": "https://nosmsje.gov.in/nosmsje/public/images/NOS-Scheme-Guidelines-2024-25.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2576,7 +2590,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste certificate (issued by SDM or Tehsildar or any competent authority).",
    "Declaration Certificate (issued by HoD or competent authority of the university or institute)."
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/Top_Class_Education_Scheme_2018.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2670,7 +2685,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar card",
    "Passport size photograph"
   ],
-  "applicationUrl": "http://andssw1.and.nic.in/socialwelfare/pdf/FC_disabilities.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2765,7 +2780,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Details of the applicant or of the Parent/Guardian.",
    "The institution in which the candidate is studying should also register itself at NSP and verify the details provided by the candidates."
   ],
-  "applicationUrl": "http://disabilityaffairs.gov.in/upload/uploadfiles/files/scholarship2(1).pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -2875,7 +2891,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Applicant’s recent coloured Photograph (2 copies) not older than 6 months.",
    "Proof of Identity/Address of the Business Enterprise -Copies of relevant licenses/registration certificates/other documents pertaining to the ownership, identity and address of business unit."
   ],
-  "applicationUrl": "https://www.mudra.org.in/Default/DownloadFile/MudraLoan-SalientFeatures-English.pdf",
+  "applicationUrl": "https://www.mudra.org.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3015,7 +3032,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "MNREGA Card",
    "PAN Card"
   ],
-  "applicationUrl": "https://www.pmsvanidhi.mohua.gov.in/Default/ViewFile/?id=PM+SVANidhi+LAF.pdf&path=MiscFiles",
+  "applicationUrl": "https://pmsvanidhi.mohua.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3137,6 +3155,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "> Note: 2 If beneficiary does not have bank account, they will be first required to open a bank account for which hand holding shall be done by the CSC."
   ],
   "applicationUrl": "https://pmvishwakarma.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3269,7 +3288,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Mentioned below a list of documents which required to upload at the time of registration (any one of",
    "these):-"
   ],
-  "applicationUrl": "https://wcd.nic.in/sites/default/files/PMMVY%20Scheme%20Implemetation%20Guidelines%20._0.pdf",
+  "applicationUrl": "https://pmmvy.wcd.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3380,7 +3400,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Address - Aadhaar will be taken as Proof of Identity and Proof of Address if the connection is required in the same address. In that case, only Aadhaar is sufficient.",
    "Bank Account Number and IFSC"
   ],
-  "applicationUrl": "https://www.pmuy.gov.in/index.aspx",
+  "applicationUrl": "https://www.pmuy.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3488,7 +3509,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "d. Job card issued by NREGA signed by the State Government officer",
    "e. Letter issued by the National Population Register containing details of name and address"
   ],
-  "applicationUrl": "https://www.indiapost.gov.in/VAS/DOP_PDFFiles/MSSC/Mahila_Samman_Savings_Certificate_2023_English.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3621,7 +3642,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Vouchers (Issued by the Auxiliary Nurse Midwife to Accredited Social Health Activist for encashment upon certification).",
    "Monitoring and Reporting Stage:"
   ],
-  "applicationUrl": "https://nhm.gov.in/WriteReadData/l892s/97827133331523438951.pdf",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/viewServiceApplicationForm.do?serviceId=14390001&tempId=5028&templStatus=243&state=4&backButtonUrl=",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3744,7 +3766,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Health Check-up Cards – record of routine medical examinations.",
    "Other Relevant Records – any additional documents like CWC orders, foster/adoption records, or special needs certificates."
   ],
-  "applicationUrl": "https://missionvatsalya.wcd.gov.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3853,7 +3875,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ration Card",
    "Affidavit duly attested by Judicial Magistrate/Executive Magistrate that she/he is not in receipt of any pension/ financial assistance from any other source"
   ],
-  "applicationUrl": "https://nsap.nic.in/Guidelines/nsap_guidelines_oct2014.pdf",
+  "applicationUrl": "https://web.umang.gov.in/web_new/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -3938,7 +3961,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "BPL Card.",
    "Age Proof - For age, the birth certificate or school certificate may be relied on. In their absence ration card and EPIC may be considered. If there is no valid document, any Medical Officer of any government hospital may be authorized to issue the age certificate."
   ],
-  "applicationUrl": "https://nsap.nic.in/circular.do?method=faq",
+  "applicationUrl": "https://web.umang.gov.in/web_new/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4023,7 +4047,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability certificate:- Disability certificate (80% and More) issued from Chief Medical Officer, Community Health Centre or Primary Health Centre will be accepted.",
    "Passport Size Photographs."
   ],
-  "applicationUrl": "https://nsap.nic.in/Guidelines/nsap_guidelines_oct2014.pdf",
+  "applicationUrl": "https://web.umang.gov.in/web_new/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4100,7 +4125,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "KYC details are fetched from active Bank/Post Office Savings account."
   ],
-  "applicationUrl": "https://www.npscra.nsdl.co.in/nsdl/scheme-details/APY_Subscribers_Contribution_Chart_1.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4185,7 +4210,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    ]
   },
   "documentsRequired": [],
-  "applicationUrl": "https://jansuraksha.gov.in/Files/PMJJBY/English/Rules.pdf",
+  "applicationUrl": "https://www.jansuraksha.gov.in/Files/PMJJBY/English/ApplicationForm.pdf#zoom=250",
+  "applicationLinkType": "form",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4259,7 +4285,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    ]
   },
   "documentsRequired": [],
-  "applicationUrl": "https://jansuraksha.gov.in/Files/PMSBY/English/Rules.pdf",
+  "applicationUrl": "https://jansuraksha.gov.in/Forms-PMSBY.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4352,7 +4379,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Self-Certification (At the time of enrollment)",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://maandhan.in/showfile.php?lang=1&level=1&ls_id=171&lid=260&page=101",
+  "applicationUrl": "https://maandhan.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4504,7 +4532,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Annual Report for the Year for Which Grant-In-Aid Is Sought.",
    "Annual Report for Last Two Years (If Non-Governmental Organization)."
   ],
-  "applicationUrl": "https://socialjustice.gov.in/schemes/43",
+  "applicationUrl": "https://grants-msje.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4613,6 +4642,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other document as notified by the Central Government in consultation with the Regulator."
   ],
   "applicationUrl": "https://www.pmjdy.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4713,7 +4743,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Monthly income of the patient/parents duly certified by the Block/Mandal Development Officer/ Tehsildar/ SDM/ Special Officer of Municipal Board/ District Officer, certifying that the beneficiary belongs to a family living below poverty line in the area of their jurisdiction indicating source of income . The original certificate is required for the purpose.",
    "Copy of the Ration Card duly attested by a Gazetted Officer with official seal."
   ],
-  "applicationUrl": "https://mohfw.gov.in/sites/default/files/RAN_Guideline_2019_0.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4801,7 +4831,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport-size photographs",
    "Initial deposit slip or cheque"
   ],
-  "applicationUrl": "https://www.indiapost.gov.in/banking-services/savings",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4898,7 +4928,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "As required for the job role."
   ],
-  "applicationUrl": "https://www.pmkvyofficial.org/photos/shares/guidlines/PMKY-Guideline_report_(08-01-2021)V3.pdf",
+  "applicationUrl": "https://www.skillindiadigital.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -4990,7 +5021,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "ST/SC Certificate, issued by competent authority (if applicable)",
    "Self-Certification by the candidate for his/her status as Minority Community (if applicable)"
   ],
-  "applicationUrl": "https://kaushalpanjee.nic.in/ddugky/downloadUserManual.html",
+  "applicationUrl": "https://kaushalpanjee.nic.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5095,7 +5127,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of whether the applicant is a beneficiary of SC / ST / Indira Awaas Yojana (IAY) / Land Reform (LR)",
    "Specimen Signature / Thumb impression"
   ],
-  "applicationUrl": "https://nrega.nic.in/Circular_Archive/archive/Operational_guidelines_4thEdition_eng_2013.pdf",
+  "applicationUrl": "https://web.umang.gov.in/web_new/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5197,7 +5230,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card",
    "Documents required as per selected Trade"
   ],
-  "applicationUrl": "https://naps-cdn.s3.ap-south-1.amazonaws.com/NAPS+2.0_Guidelines_25-08-2023.pdf",
+  "applicationUrl": "https://www.apprenticeshipindia.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5301,7 +5335,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "The applicants will have to submit a written pledge that they were not involved in the violent protests against the Agnipath scheme.",
    "Note: The list of documents required is tentative, the ministry shall release the complete list of the required documents in the public domain in the future."
   ],
-  "applicationUrl": "https://static.mygov.in/rest/s3fs-public/mygov_165520214151307401.pdf",
+  "applicationUrl": "https://joinindianarmy.nic.in/BRAVOUserLogin.htm",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5392,7 +5427,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ration Card",
    "Aadhar Card (if seeded with Ration Card)"
   ],
-  "applicationUrl": "https://www.idfcinstitute.org/site/assets/files/15623/final_white_paper_pmgky-2-1.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5480,7 +5515,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Optional Documents",
    "Bank Account Details (For Direct Benefit Transfer if applicable in future)."
   ],
-  "applicationUrl": "https://pmsma.mohfw.gov.in/wp-content/uploads/2016/09/Pradhan_Mantri_Surakshit_Matritva_Abhiyan-2.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5627,7 +5662,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "At the end of every three months, the fellow shall submit a 'Continuation Certificate' in the prescribed proforma. Annexure-II. This will make the awardee eligible to draw the fellowship for the next three months.",
    "After completion of one year of the award of fellowship, the concerned fellow/awardee shall submit and present its Yearly Progress Report in the proforma prescribed by the UGC as given in Annexure-III."
   ],
-  "applicationUrl": "https://www.ugc.ac.in/pdfnews/1565505_RGNF-SC-Revised.pdf",
+  "applicationUrl": "http://www.ugc.ac.in/ugc_schemes/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5737,7 +5773,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details/Bank Passbook (Aadhaar linked bank account)",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://socialjustice.gov.in/public/ckeditor/upload/44071717524542.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5863,7 +5899,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate of Disability (issued by a competent authority).",
    "Declaration Certificate (issued by HoD or competent authority of the university or institute)."
   ],
-  "applicationUrl": "http://disabilityaffairs.gov.in/upload/uploadfiles/files/scholarship2(1).pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -5980,7 +6017,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport Size Photograph.",
    "Domicile Certificate or Proof of Residence."
   ],
-  "applicationUrl": "https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=153376&ModuleId=3&reg=3&lang=1",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6122,7 +6159,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "National Identity Card of the Differently Abled.",
    "Birth Certificate."
   ],
-  "applicationUrl": "https://cms.tn.gov.in/sites/default/files/documents/wda_e_cc_2022_23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6213,7 +6250,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "Certificate student not availed of similar assistance (issued by the headmaster should certify that not availed similar assistance from other sources)."
   ],
-  "applicationUrl": "https://cms.tn.gov.in/sites/default/files/documents/wda_e_cc_2022_23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6310,7 +6347,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "No-graduate certificate (for BC students)",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://www.tn.gov.in/scheme/data_view/27457",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6407,7 +6444,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Community certificate.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://www.tn.gov.in/scheme/data_view/26799",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6494,7 +6531,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://www.tn.gov.in/scheme/data_view/7053",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6589,7 +6626,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Pass Book.",
    "Aadhar Card of the Bride’s Mother and Father."
   ],
-  "applicationUrl": "https://www.tnsocialwelfare.tn.gov.in/en/specilisationswomen-welfare/marriage-assistance-schemes",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6686,7 +6723,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate.",
    "Certificate showing that the applicant belongs to a District / Place other than the place where the hostel is located."
   ],
-  "applicationUrl": "https://cms.tn.gov.in/sites/default/files/forms/social_welfare_form6.pdf",
+  "applicationUrl": "https://tnega.tn.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6804,7 +6842,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Differently Abled Identity Card issued by a competent authority",
    "Quotation/Pro-forma invoice of the vehicle"
   ],
-  "applicationUrl": "https://govtschemes.in/sites/default/files/2022-05/Amma%20Two%20Wheeler%20Yojana.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -6945,7 +6983,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Birth Certificate.",
    "Any Other Document If Required."
   ],
-  "applicationUrl": "https://cms.tn.gov.in/sites/default/files/documents/wda_e_cc_2022_23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7037,7 +7075,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Khata Extract and Khata Certificate or Mutation.",
    "Nil Encumbrance Certificate in form No.15."
   ],
-  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/login",
+  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7168,7 +7207,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Student Self-declaration Form (Download the from the KMDC Website).- Parents Self-Declaration Form (Download the from the KMDC Website).",
    "College Fee Structure"
   ],
-  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/login",
+  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7305,7 +7345,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of the Bank Passbook",
    "Law Degree Certificate"
   ],
-  "applicationUrl": "https://sw.kar.nic.in/swincentive/LAW/LAWHome.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7422,7 +7462,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income certificate or proof of income (if required for specific program benefits)",
    "Any other supporting documents relevant to the application or specific program requirements"
   ],
-  "applicationUrl": "https://www.myscheme.gov.in/schemes/madilu",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7530,7 +7570,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of seedlings (species, number of seedlings, size of poly-bags, etc.)",
    "Details of the applicant’s bank account."
   ],
-  "applicationUrl": "https://rtc.karnataka.gov.in/Service78/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7631,7 +7671,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste Certificate (in case of SC/ST applicants).",
    "Quotations for Machinery, Equipment, and other Capital Expenses"
   ],
-  "applicationUrl": "https://kswdc.karnataka.gov.in/21/udyogini/en",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7735,7 +7775,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Detailed Project Report .",
    "Loan documents."
   ],
-  "applicationUrl": "https://schemes.lidkar.com/schemes/self-employment-programs/",
+  "applicationUrl": "https://sevasindhu.karnataka.gov.in/Sevasindhu/English",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -7865,7 +7906,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "> For the Renewal Process:",
    "Employment Certificate/90 Days Work Certificate (Form V(A)/V(B)/V(C)/V(D))."
   ],
-  "applicationUrl": "https://kbocwwb.karnataka.gov.in/pension",
+  "applicationUrl": "https://kbocwwb.karnataka.gov.in/login",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8002,7 +8044,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Employment Certificate/90 Days Work Certificate (Form V(A)/V(B)/V(C)/V(D)).",
    "> Note: Living Certificate to be submitted every year."
   ],
-  "applicationUrl": "https://karbwwb.karnataka.gov.in/42/schemes/en",
+  "applicationUrl": "https://kbocwwb.karnataka.gov.in/login",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8142,7 +8185,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Passbook- Joint bank account details of student and parent",
    "Other documents, if any"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=MTU3c1Y4dXFSI3Z5",
+  "applicationUrl": "https://suneethi.sjd.kerala.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8290,7 +8334,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate from Head of School/College1. Bank details- Copy of Pass Book",
    "Other documents, if any"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=MTMxc1Y4dXFSI3Z5",
+  "applicationUrl": "https://suneethi.sjd.kerala.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8433,7 +8478,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Residence proof",
    "Physical Disability Certificate, if applicable"
   ],
-  "applicationUrl": "https://bcdd.kerala.gov.in/en/schemes/educational-schemes/oec-prematric-educational-assistance/",
+  "applicationUrl": "https://www.egrantz.kerala.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8532,7 +8578,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Residence in Kerala",
    "Aadhaar Number (to be submitted at the time of installation)"
   ],
-  "applicationUrl": "https://shm.kerala.gov.in/arka-vertical-garden/",
+  "applicationUrl": "https://www.serviceonline.gov.in/login.do",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8649,7 +8696,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of bank passbook",
    "Other documents, if any"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=MTE4c1Y4dXFSI3Z5",
+  "applicationUrl": "https://suneethi.sjd.kerala.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8782,7 +8830,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of 3-wheeler license",
    "Copy of Medical Board certificate of PwD"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=MTczc1Y4dXFSI3Z5",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8881,7 +8929,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate/Copy of Ration card (If applicable)",
    "Bank account details"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=MTE3c1Y4dXFSI3Z5",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -8975,7 +9023,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Passbook- Bank account details",
    "Other documents, if any"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=MTcyc1Y4dXFSI3Z5",
+  "applicationUrl": "https://suneethi.sjd.kerala.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9111,7 +9160,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "The applicant should be studying in a Sainik School recognized/approved by the Govt. of Maharashtra.",
    "The applicant should not already be availing the benefits of the scheme."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/education-training",
+  "applicationUrl": "https://mahadbt.maharashtra.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9221,7 +9271,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Pursuance of a Post-Matric Qualification (Fee Receipt, etc)",
    "Any other document required by the School/College or the District Social Welfare Office."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/disability-welfare?&Submit=Submit&page=1",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9336,7 +9386,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of the Bank Account (Bank Name, Branch Name, Address, IFSC, etc).",
    "Any other document required by the District Social Welfare Office."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/disability-welfare",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9435,7 +9485,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details.",
    "Passport-sized Photograph."
   ],
-  "applicationUrl": "https://mahadbt.maharashtra.gov.in/login/login",
+  "applicationUrl": "https://mahadbt.maharashtra.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9539,7 +9590,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ferfar,",
    "Ration card etc"
   ],
-  "applicationUrl": "http://nsmny.mahait.org/",
+  "applicationUrl": "https://fw.pmkisan.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9667,7 +9719,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Applicant’s name, joint name with husband, or husband’s name (with affidavit) for agricultural loans.",
    "Knowledge or experience proof relevant to the proposed business/project."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/employment",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9768,7 +9820,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "The applicant must provide an income and caste certificate issued by an authorized government officer."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/employment",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9863,7 +9915,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "School Leaving Certificate",
    "Residence Proof"
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/education-training",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -9948,7 +10000,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of the Bank Account (Bank Name, Branch Name, Address, IFSC, etc).",
    "Any other document required by the Child Welfare Committee."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/disability-welfare",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10052,7 +10104,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Air Ticket.",
    "Parents’/Guardian’s Property Documents (And Valuation Report)."
   ],
-  "applicationUrl": "https://www.esamajkalyan.gujarat.gov.in/index.aspx?ServiceID=PEwi/uTynrH3XQkd5KlDcQ==",
+  "applicationUrl": "https://esamajkalyan.gujarat.gov.in/index.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10195,7 +10248,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Education Loan Disbursement Letter (As per KCG format, signed and stamped by Bank Manager).",
    "Statement of Education Loan Account from first withdrawal date till current date (Signed and Stamped by Bank Manager)."
   ],
-  "applicationUrl": "https://isel.guj.nic.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10322,7 +10375,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "PH Identity Card",
    "School Leaving"
   ],
-  "applicationUrl": "https://sje.gujarat.gov.in/dscw/schemes/1479?lang=english",
+  "applicationUrl": "https://esamajkalyan.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10442,7 +10496,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card.",
    "Bank Pass Book/Cancelled Cheque."
   ],
-  "applicationUrl": "https://ikhedut.gujarat.gov.in/site/iKhedut%202.0%20User%20Manual%20PPT_Gujarati.pdf",
+  "applicationUrl": "https://ikhedut.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10557,7 +10612,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card.",
    "Bank Passbook or Cancelled Cheque."
   ],
-  "applicationUrl": "https://ikhedut.gujarat.gov.in/site/iKhedut%202.0%20User%20Manual%20PPT_Gujarati.pdf",
+  "applicationUrl": "https://ikhedut.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10684,7 +10740,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "School Leaving Certificate",
    "Copy of Electricity Bill"
   ],
-  "applicationUrl": "https://sje.gujarat.gov.in/gapb/home?lang=English",
+  "applicationUrl": "https://daadconline.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10802,7 +10859,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Identity Card",
    "Passport Size Photo"
   ],
-  "applicationUrl": "https://sycd.gujarat.gov.in/schemes.htm",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -10891,7 +10948,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate",
    "Marriage Certificate"
   ],
-  "applicationUrl": "https://mariyojana.gujarat.gov.in/MoreDetails.aspx",
+  "applicationUrl": "https://esamajkalyan.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11020,7 +11078,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Fee Receipt",
    "Jan Aadhar/Bhamashah Card Copy"
   ],
-  "applicationUrl": "https://jankalyanfile.rajasthan.gov.in//Content/UploadFolder/Scheme/College_Education/widow/DOC_175_e0b64382-045a-4562-9c5a-437cf9e694d3.pdf",
+  "applicationUrl": "https://hte.rajasthan.gov.in/scholarship.php",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11102,7 +11161,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Jan Aadhar/Bhamashah Card Copy.",
    "Aadhar Card Copy."
   ],
-  "applicationUrl": "https://sso.rajasthan.gov.in/signin",
+  "applicationUrl": "https://sso.rajasthan.gov.in/register",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11200,7 +11260,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "10th and 12th mark sheet.",
    "Passport."
   ],
-  "applicationUrl": "https://schemes.rajasthan.gov.in/scheme/detail/332",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11282,7 +11342,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Educational Qualification Marksheet/Certificate: Final Examination. pass mark sheet.",
    "Copy of Bank Passbook."
   ],
-  "applicationUrl": "https://schemes.rajasthan.gov.in/scheme/detail/488",
+  "applicationUrl": "https://rajkisan.rajasthan.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11354,7 +11415,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Jamabandi (not more than six months old)",
    "Quotation from approved firm"
   ],
-  "applicationUrl": "https://sso.rajasthan.gov.in/register",
+  "applicationUrl": "https://sso.rajasthan.gov.in/signin",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11458,7 +11520,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Unique ID/PCTS ID issued at birth",
    "Any Other Document if Required"
   ],
-  "applicationUrl": "https://wcd.rajasthan.gov.in/we/#/scheme/detail/1184",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11569,7 +11631,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste certificate in case of Scheduled Castes and Tribes.",
    "Death certificate of husband in case of widow/talaq deed in case of divorcee/affidavit of desertion in case of deserter."
   ],
-  "applicationUrl": "https://sso.rajasthan.gov.in/register",
+  "applicationUrl": "https://www.myrkcl.com/wcdnew",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11700,7 +11763,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of No Criminal Record (Self-declaration or Police verification)",
    "No Other Benefit Receive Certificate"
   ],
-  "applicationUrl": "https://dipr.rajasthan.gov.in/scheme/detail/492",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11811,7 +11874,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details.",
    "Applicant - Passport-size photo."
   ],
-  "applicationUrl": "https://sso.rajasthan.gov.in/register",
+  "applicationUrl": "https://sso.rajasthan.gov.in/signin",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11917,7 +11981,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photocopy of registration certificate.",
    "Proof of deposit of contribution."
   ],
-  "applicationUrl": "https://www.upbocw.in/pdf/adhisuchna/awasiye%20vidyalay.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -11997,7 +12061,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhar card number.",
    "Latest passport-sized photograph."
   ],
-  "applicationUrl": "https://scholarship.up.gov.in/index.aspx",
+  "applicationUrl": "https://scholarship.up.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12120,7 +12185,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhar card number.",
    "Latest passport-sized photograph."
   ],
-  "applicationUrl": "https://scholarship.up.gov.in/index.aspx",
+  "applicationUrl": "https://scholarship.up.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12250,7 +12316,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Full Photograph of the Applicant with the Cow.",
    "Notarized Affidavit (the cow will not be slaughtered during its lifetime and that the incentive has not been received previously for the same cow)."
   ],
-  "applicationUrl": "https://updairydevelopment.gov.in/NBDMSchemes.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12361,7 +12427,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Purchase Fodder Cutting Machine.",
    "Copy of Expenditure (construction of a shed for maintenance of cows)."
   ],
-  "applicationUrl": "https://updairydevelopment.gov.in/NBDMSchemes.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12495,7 +12561,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Survival certificate: Proof of child's survival required for claiming the second year's benefit.",
    "Adoption records: Certified records if the child is adopted (applicable for girl child benefit)."
   ],
-  "applicationUrl": "https://www.upbocw.in/StaticPages/schemes.aspx#tab1",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12599,7 +12665,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Age certificate of the child/adolescent (in addition to the certificates mentioned in Section 94 of the Juvenile Justice (Care and Protection of Children) Act 2015, copy of the family register or copy of any government document in which age is mentioned.)",
    "Certificate of admission for obtaining graduate degree or diploma from a government college, university or technical institute, certificate of passing national and state level competitive examinations like NEET, JEE, CLAT, etc."
   ],
-  "applicationUrl": "https://balvikas.missionvatsalyaup.in/public/pdf/UPMBSY%20GO%20General%2007-Sep-2021%201067%20(1).pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12684,7 +12750,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Documentary proof in case of widow/PwD certificate.",
    "Documents related to the bank account."
   ],
-  "applicationUrl": "https://www.shadianudan.upsdc.gov.in/",
+  "applicationUrl": "https://www.shadianudan.upsdc.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12763,7 +12830,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate of annual income (from all sources).",
    "Estimated expenditure details of the surgery by the superintendent/in charge of the State Hospital."
   ],
-  "applicationUrl": "https://uphwd.gov.in/site/writereaddata/siteContent/202103181427562556ShalyaChikitsa-Niymavali-All.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -12861,6 +12928,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other documents as required"
   ],
   "applicationUrl": "https://bcebconline.bihar.gov.in/schoolmis/Default.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13005,7 +13073,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Passbook/ Bank account details",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://state.bihar.gov.in/bcebcwelfare/cache/41/03-Apr-25/SHOW_DOCS/LTR-03.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13082,7 +13150,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Detail.",
    "Any Other Document (If required)."
   ],
-  "applicationUrl": "https://state.bihar.gov.in/scstwelfare/Content.html?links&page=kichengarden",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13172,6 +13240,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Land Map of the Pond Area."
   ],
   "applicationUrl": "https://fisheries.bihar.gov.in/Default.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13308,7 +13377,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Land-ownership/ revenue receipt (If applicable).",
    "> Note: If the applicant&amp;#39;s name is not clear in the land-ownership/ revenue receipt, it will be mandatory to attach the genealogy along with the land-ownership/ revenue receipt."
   ],
-  "applicationUrl": "https://horticulture.bihar.gov.in/HortMIS/Makhana/OnlineAppMakhana.aspx",
+  "applicationUrl": "https://dbtagriculture.bihar.gov.in/RegFarmer/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13435,7 +13505,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Address proof",
    "Any additional documents as required"
   ],
-  "applicationUrl": "https://state.bihar.gov.in/socialwelfare/CitizenHome.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13524,7 +13594,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photograph of the applicant.",
    "Signature of the applicant."
   ],
-  "applicationUrl": "https://udyami.bihar.gov.in/pdf/MMUY%202024-25%20Selection%20Process%20&%20Guidelines.pdf",
+  "applicationUrl": "https://udyamiuser.bihar.gov.in/login",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13654,7 +13725,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste Certificate if applicable.",
    "Below poverty line certificate."
   ],
-  "applicationUrl": "https://online.bih.nic.in/swf/swftc/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13735,7 +13806,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card",
    "Driving License"
   ],
-  "applicationUrl": "https://state.bihar.gov.in/transport/CitizenHome.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13836,7 +13907,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Juvenile Justice Act Home Residence Proof (if applicable)",
    "Bank Passbook Copy (showing name, account number, and address)"
   ],
-  "applicationUrl": "https://www.wbkanyashree.gov.in/kp_4.0/kp_objectives.php",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -13966,7 +14037,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Prospectus/Certificate (from the competent authority of the institution) wherein charges like Admission Fee, Examination Fee, Hostel Charges etc. are mentioned (should be in .pdf format between 400 KB and 50 KB).",
    "Marksheet/Certificate of Last Qualifying Exam of applicant (should be in .pdf format between 400 KB and 50 KB)."
   ],
-  "applicationUrl": "https://wbscc.wb.gov.in/",
+  "applicationUrl": "https://wbscc.wb.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14095,6 +14167,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Format for Income Certificate is available under Downloads option in the Top menu in all pages."
   ],
   "applicationUrl": "https://svmcm.wb.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14229,7 +14302,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Legal Heir Certificate (For Death Benefit).",
    "Disability Certificate (For Disability Benefit)."
   ],
-  "applicationUrl": "https://krishakbandhu.wb.gov.in/#",
+  "applicationUrl": "https://bsk.wb.gov.in/register",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14337,7 +14411,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Vetted plan & estimate for shade of CHC etc.,",
    "Resolution of the organization regarding authorization of signatory in the application."
   ],
-  "applicationUrl": "https://agriculture.wb.gov.in/farm-mechanization",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14482,7 +14556,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medical Certificate.",
    "Any other document if required."
   ],
-  "applicationUrl": "https://labour.wb.gov.in/building-and-other-construction-workers-welfare-board",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14589,7 +14663,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "b) That she does not earn any monthly remuneration/pension from any regular job of State Government, Statutory Bodies, Government Undertakings, Panchayats, Municipal Corporations/ Municipalities, Local Bodies, Government aided Educational Institutions, etc.",
    "c) Information furnished by her in the application form is true"
   ],
-  "applicationUrl": "https://www.wburbanservices.gov.in/upload_file/file_doc/lakshmir_bhandar_form.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14700,7 +14774,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "That he/she is a resident of West Bengal.",
    "That he/she does not receive any monthly assistance from any regular job of State Government except educational benefit or scholarship, if any."
   ],
-  "applicationUrl": "https://sportsandyouth.wb.gov.in/api/preview?filePath=/storage/uploads/sports/news-scroll/rWmKdV6cZy1771055861-Banglar%20Yuba%20Sathi.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14805,7 +14879,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Epic Document.",
    "Bank Passbook (mandatory)."
   ],
-  "applicationUrl": "https://bmssy.wblabour.gov.in/downloads/gazette-notification-no-698.pdf",
+  "applicationUrl": "https://bmssy.wblabour.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -14922,6 +14997,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of the latest Tax Assessment"
   ],
   "applicationUrl": "https://telanganaepass.cgg.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15065,7 +15141,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of the latest Tax Assessment",
    "Copy of Bank Pass Book of Nationalised Bank"
   ],
-  "applicationUrl": "https://telanganaepass.cgg.gov.in/OverseasLinks.do",
+  "applicationUrl": "https://telanganaepass.cgg.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15189,7 +15266,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Farmer’s Aadhaar Card or other identification documents (if needed).",
    "Any other documents as specified by the Life Insurance Corporation of India (LIC) or the Department of Agriculture."
   ],
-  "applicationUrl": "https://gadwal.telangana.gov.in/scheme/rs-5-lakh-insurance-cover-to-farmers/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15266,7 +15343,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Aadhar Card.",
    "Copy of the Pattadar passbook"
   ],
-  "applicationUrl": "https://hyderabad.telangana.gov.in/scheme/feed-the-seed/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15365,7 +15442,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Advance stamped receipt.",
    "1st page of Bank Passbook (Attested copy)."
   ],
-  "applicationUrl": "https://tbocwwb.telangana.gov.in/index.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15471,7 +15548,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Advance Stamped Receipt.",
    "1st page of Bank pass book (Attested copy)."
   ],
-  "applicationUrl": "https://tbocwwb.telangana.gov.in/index.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15580,7 +15657,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Advance Stamped Receipt.",
    "1st page of Bank Passbook (Attested copy)."
   ],
-  "applicationUrl": "https://tbocwwb.telangana.gov.in/newsite/pdf_files/2017LETF_MS15.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15678,7 +15755,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Advance stamped receipt.",
    "1st page of Bank Passbook (Attested copy)."
   ],
-  "applicationUrl": "https://tbocwwb.telangana.gov.in/newsite/pdf_files/2016LETF_MS28.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15789,7 +15866,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Declaration by the Applicant",
    "Consent from Scientist Mentor"
   ],
-  "applicationUrl": "https://kscste.kerala.gov.in/back-to-lab-post-doctoral/",
+  "applicationUrl": "https://submit.kscste.kerala.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -15910,7 +15988,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "List of Publications",
    "Declaration by the Applicant"
   ],
-  "applicationUrl": "https://kscste.kerala.gov.in/post-doctoral-fellowship/",
+  "applicationUrl": "https://submit.kscste.kerala.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16026,7 +16105,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "\"Terms & Conditions”, duly signed",
    "Certificate from the Host Institution"
   ],
-  "applicationUrl": "https://kscste.kerala.gov.in/kerala-biotechnology-re-entry-fellowship-k-biref/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16115,7 +16194,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Marks Sheets of all the Previous Years (starting from the senior secondary certificate)",
    "SB Account Passbook in the name of the Applicant (Account should be in Andhra Bank or SBI)."
   ],
-  "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/schemes/schemes.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16239,7 +16318,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Andhra Bank/ SBI Passbook in the name of the student.",
    "NOTE: For students studying outside A.P., an account in any Nationalized Bank is acceptable."
   ],
-  "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/schemes/schemes.aspx",
+  "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16355,7 +16435,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "SB Account Passbook in the name of the Applicant.",
    "NOTE: The account should be in Andhra Bank or SBI Bank)."
   ],
-  "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/schemes/schemes.aspx",
+  "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16473,7 +16554,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Passbook",
    "NOTE: Bank Account Passbook in the name of the student (should be in Andhra Bank or State Bank of India) duly signed by the Branch Manager with seal."
   ],
-  "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/schemes/schemes.aspx",
+  "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16596,7 +16678,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Below Poverty Line (BPL) Certificate",
    "Proof of Widowhood"
   ],
-  "applicationUrl": "https://handlooms.ap.gov.in/documents/old_age_pensions_(Rural)_GO.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16674,7 +16756,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "The School Education Department and the Board of Intermediate Education collect the student's details (name, Aadhaar number, gender, caste, sub-caste, date of birth, class, school name and attendance percentage) and the mother's/guardian's details (name, Aadhaar number, age and relationship with the student)."
   ],
-  "applicationUrl": "https://cse.ap.gov.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16772,7 +16854,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Below Poverty Line (BPL) Certificate",
    "Proof of Widowhood"
   ],
-  "applicationUrl": "https://handlooms.ap.gov.in/documents/Old_age_pensions_(Urban)_GO.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16861,7 +16943,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport size photo.",
    "Latest Income Certificate/ BPL Ration Card."
   ],
-  "applicationUrl": "https://apdascac.ap.gov.in/",
+  "applicationUrl": "https://apdascac.ap.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -16959,6 +17042,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Death Certificate of Deceased Brahmin (issued by any Government)"
   ],
   "applicationUrl": "https://www.andhrabrahmin.ap.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17077,7 +17161,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Residence",
    "Below Poverty Line (BPL) Certificate"
   ],
-  "applicationUrl": "https://handlooms.ap.gov.in/documents/Old_age_pensions_(Urban)_GO.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17159,7 +17243,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details.",
    "Any Other Documents if required."
   ],
-  "applicationUrl": "https://apbocwwb.ap.nic.in/apbocwwbhome.jsp",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17257,7 +17341,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste certificate.",
    "Mobile number."
   ],
-  "applicationUrl": "http://www.scholarshipportal.mp.nic.in/Public/OtherSchemes/GB.aspx?ID=NA==",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17350,7 +17434,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details",
    "Any Other Document if Required"
   ],
-  "applicationUrl": "https://mpfisheries.gov.in/hi/matasaya-mahaasangha/yaojanaa-kai-jaanakaarai",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17437,7 +17521,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "It should be provided as per the guidelines of the School Management Committee."
   ],
-  "applicationUrl": "https://cmhelpline.mp.gov.in/KnowYourEntitleDetail.aspx?status=ByVibhag&pointvalue=2&Schemeid=385",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17506,7 +17590,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Mobile Number",
    "Aadhaar Card"
   ],
-  "applicationUrl": "https://cmhelpline.mp.gov.in/KnowYourEntitleDetail.aspx?status=ByVibhag&pointvalue=2&Schemeid=111",
+  "applicationUrl": "https://mpeuparjan.mp.gov.in/mpeuparjan25/Home.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17600,7 +17685,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "BPL certificate",
    "Any other documents as required."
   ],
-  "applicationUrl": "https://cmhelpline.mp.gov.in/schemes.aspx?vID=0",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17667,7 +17752,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Passbook",
    "Any Other Document, If required"
   ],
-  "applicationUrl": "https://cmhelpline.mp.gov.in/KnowYourEntitleDetail.aspx?status=ByVibhag&pointvalue=2&Schemeid=962",
+  "applicationUrl": "https://mpedistrict.gov.in/MPL/CitizenRegistration.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17797,7 +17883,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Previous class passing mark sheet",
    "Other necessary documents if required"
   ],
-  "applicationUrl": "https://www.tribal.mp.gov.in/cms/?page=VT9462Hv1Y1CrS2sWaeq9w%3D%3D&leftid=I7ifJxcwYjN2DmYWvPddIA%3D%3D#",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -17939,7 +18025,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Below Poverty Line (BPL) Certificate.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://khargone.nic.in/en/scheme/savitribai-phule-self-help-scheme/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18024,7 +18110,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "No documents are required to avail the benefits of this scheme. The child is identified by health workers (ANM/ASHA/AWW) during community surveys or health check-ups."
   ],
-  "applicationUrl": "https://cmhelpline.mp.gov.in/KnowYourEntitleDetail.aspx?status=ByVibhag&pointvalue=2&Schemeid=285",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18101,7 +18187,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Artist/Litterateur's Work & Achievements",
    "Bank Account Details with IFSC Code"
   ],
-  "applicationUrl": "https://www.culturemp.in/index.php",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18206,7 +18292,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Marriage Invitation Card (original)",
    "Proof of Relationship with the Registered Worker"
   ],
-  "applicationUrl": "https://labour.mp.gov.in/Public/Registration/BeneficiaryRegistrationRequest.aspx",
+  "applicationUrl": "https://labour.mp.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18330,7 +18417,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability certificate.",
    "Welfare / Abandonment Certificate."
   ],
-  "applicationUrl": "https://cmhelpline.mp.gov.in/Schmedetail.aspx?Schemeid=355",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18410,7 +18497,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details/Bank Passbook",
    "Other necessary documents if required"
   ],
-  "applicationUrl": "https://mpdah.gov.in/schemes/view/MVROZ3BmNnl1NCtnKzNOYUZGSG1CUT09",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18499,6 +18586,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Marksheet of the last exam passed"
   ],
   "applicationUrl": "https://scholarship.odisha.gov.in/website/scholarship-details",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18625,7 +18713,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Marksheet / Passing Certificate of Class 12th.",
    "Admit Card / Hall Ticket of CHSE Exam or Sanskrit Exam."
   ],
-  "applicationUrl": "https://scholarship.odisha.gov.in/Admin/getAfile/eyJpdiI6ImMrYWNPa3lxM1NLWW9WRVpkZFdnaFE9PSIsInZhbHVlIjoieXFRTTR1aElvYStcL3RKVmZIK09FVWR2ZlZjTkFMREpDMDR4N2J2dFlmcG9pek1QQlwveGtaNmhEc0puV1JYSFwvVU96bnhIQkh1ckNuRXBBanhQa0dLc2c9PSIsIm1hYyI6ImVjYWRjZmI2ZjNjMWViNzI2NjlmNmYwYjM3ODFiOWZjNDBjNDc5NmJmOWE2NWQwZTA5M2I4ZWJhY2U3ODBlYTAifQ==",
+  "applicationUrl": "https://scholarship.odisha.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18740,7 +18829,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate of non-receipt of financial assistance from any other State or Central Government scheme.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://ssepd.odisha.gov.in/sites/default/files/2024-04/Guideline%20on%20An%20umbrella%20scheme%20for%20Rehabilitation%20of%20Cured%20Leprosy%20Persons.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18825,7 +18914,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate of non-receipt of financial assistance from any other State or Central Government scheme.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://ssepd.odisha.gov.in/sites/default/files/2024-04/Guideline%20on%20Sweekruti.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -18916,6 +19005,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any Other Documents if Required"
   ],
   "applicationUrl": "https://sugam.odisha.gov.in/website/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19058,7 +19148,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "GST Bills / Receipts Towards Installation Of Bio-Floc Unit",
    "Coastal Aquaculture Authority License (For Brackish Water Farm / Shrimp Hatchery Beneficiaries)"
   ],
-  "applicationUrl": "https://fard.odisha.gov.in/en/fisheries-schemes",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19195,7 +19285,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate of Identity for Transgender (If Applicable)",
    "Online Transaction Receipt (RTGS / NEFT / UPI) for any item costing ₹20,000/- or more (Mandatory for subsidy release, whether purchased from single or multiple dealers/vendors)."
   ],
-  "applicationUrl": "https://fard.odisha.gov.in/en/animal-husbandry-schemes",
+  "applicationUrl": "https://sugam.odisha.gov.in/website/home/scheme-list",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19338,7 +19429,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other documents (as per the requirement)",
    "Note: The families with children aged 0-3 years are identified directly through Anganwadi Centres, and all activities (Kuni Calendar distribution, toy-kit preparation, home visits, and stimulation sessions) are conducted through the ICDS system."
   ],
-  "applicationUrl": "https://wcd.odisha.gov.in/sites/default/files/2025-06/21.%2026179_ECCE-Aama%20Kuni%20Pilaa.pdf.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19420,7 +19511,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Birth Certificate or Age Proof of child",
    "Any Other Documents (as per the requirement)"
   ],
-  "applicationUrl": "https://wcd.odisha.gov.in/en/ICDS/mukhymantri-samproona-pushti-yojana-mspy",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19527,7 +19618,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medical Certificate or Pregnancy Record from a government health center or Anganwadi center",
    "Income Certificate:"
   ],
-  "applicationUrl": "https://wcd.odisha.gov.in/sites/default/files/2022-09/Mamata%20Guidelines-English.pdf",
+  "applicationUrl": "https://play.google.com/store/apps/details?id=com.emamata.odisha&amp;amp;hl=en_IN&amp;amp;pli=1",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19625,7 +19717,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "All original Bills should be verified by the treating doctor and it should be signed on the face of the bills with a seal.",
    "Original OPD Report /Discharge Certificate from the hospital duly signed by the Doctor."
   ],
-  "applicationUrl": "https://labdirodisha.gov.in/?q=node/15%27%3B",
+  "applicationUrl": "https://nirmanshramik.odisha.gov.in/obocwwb/public/cwLogin",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19757,7 +19850,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport Size Photographs",
    "Domicile Certificate"
   ],
-  "applicationUrl": "https://ssepd.odisha.gov.in/sites/default/files/2022-05/Scheme%20for%20Beggars-Final.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19838,7 +19931,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Weavers’ Identity card.",
    "Two passport-size photographs of the applicant."
   ],
-  "applicationUrl": "https://handloom.odisha.gov.in/sites/default/files/2020-02/Hathkargha_Samvardhan_Sahayata_HSS.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -19924,7 +20017,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Mark sheets of the last examination passed duly attested by a Gazetted Officer or the Head of the Institution concerned.",
    "NOTE: An income Certificate is not required in case the student belongs to a BPL family."
   ],
-  "applicationUrl": "https://ssepd.odisha.gov.in/sites/default/files/2024-04/Banishree_Scholarship_merged.pdf",
+  "applicationUrl": "https://ssepd.gov.in:8443/swp/applyBanishreeScholarshipScheme.htm",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20054,7 +20148,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate from the Training Centre/ Training Agency.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://bocw.punjab.gov.in/userfiles/file/Scheme%20Forms/BOCW%20Schemes%20in%20English%20Final2.pdf",
+  "applicationUrl": "http://bocw.punjab.gov.in/Login.aspx?Id=1",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20153,7 +20248,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income certificate showing less than ₹ 60,000/- per year income of parents",
    "Copy of the bank account details"
   ],
-  "applicationUrl": "https://sswcd.punjab.gov.in/en/wcd/state-schemes",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20241,7 +20336,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Last/ Previous Passed Class Certificate issued by the School/ College/ Educational Institute.",
    "Hostel Proof Certificate by Educational Institute (if yes)."
   ],
-  "applicationUrl": "https://bocw.punjab.gov.in/userfiles/file/Scheme%20Forms/BOCW%20Schemes%20in%20English%20Final2.pdf",
+  "applicationUrl": "http://bocw.punjab.gov.in/Login.aspx?Id=1",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20349,7 +20445,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of the bank account details",
    "Any other document, as required"
   ],
-  "applicationUrl": "https://sswcd.punjab.gov.in/en/wcd/state-schemes",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20434,7 +20530,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Passbook/ Bank Account Details",
    "Any Other Documents as Required"
   ],
-  "applicationUrl": "https://sswcd.punjab.gov.in/en/indira-gandhi-national-widow-pension-scheme-ignwps-0",
+  "applicationUrl": "https://web.umang.gov.in/landing/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20519,7 +20616,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income certificate.",
    "Cast Certificate."
   ],
-  "applicationUrl": "https://ashirwad.punjab.gov.in/ashirwad/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20607,6 +20704,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account Details."
   ],
   "applicationUrl": "https://sswcd.punjab.gov.in/en/bebe-nanki-laadli-beti-kalyan-scheme",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20689,7 +20787,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Address Proof",
    "Bank Account Details"
   ],
-  "applicationUrl": "https://sswcd.punjab.gov.in/en/indira-gandhi-national-disability-pension-scheme-igndps-0",
+  "applicationUrl": "https://web.umang.gov.in/landing/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20776,7 +20875,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Address Proof",
    "Bank Account Details"
   ],
-  "applicationUrl": "https://sswcd.punjab.gov.in/en/indira-gandhi-national-old-age-pension-schemes-ignoaps-0",
+  "applicationUrl": "https://web.umang.gov.in/landing/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -20880,7 +20980,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card.",
    "Details of the Bank Account (Bank Name, Branch Name, Address, IFSC, etc)."
   ],
-  "applicationUrl": "https://pbscfc.punjab.gov.in/sites/default/files/bank_tieup_scheme_form.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21011,7 +21111,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copies of Bills/ Invoices of Purchased Tools.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://bocw.punjab.gov.in/userfiles/file/Scheme%20Forms/BOCW%20Schemes%20in%20English%20Final2.pdf",
+  "applicationUrl": "http://bocw.punjab.gov.in/Login.aspx?Id=1",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21118,7 +21219,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Parent/Guardian Identity Proof (For account verification)",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://schooleducationharyana.gov.in/document/scholarship-scheme-schemes-for-welfare-of-school-children-belonging-to-bpl-and-bca-families-dated-02-03-2009/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21217,7 +21318,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Last Exam Passed Certificate (Except for 1st Year Students),",
    "BPL Certificate (if applicable)"
   ],
-  "applicationUrl": "https://harchhatravratti.highereduhry.ac.in/Notices/Lower%20Income%20Group%20Scheme.pdf",
+  "applicationUrl": "https://harchhatravratti.highereduhry.ac.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21356,7 +21458,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Residential Certificate (Mandatory)",
    "Aadhaar Card (Optional)"
   ],
-  "applicationUrl": "https://haryana.gov.in/scheme/post-matric-scholarship/",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21478,6 +21581,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Previous Qualification Certificate"
   ],
   "applicationUrl": "https://saralharyana.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21602,7 +21706,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Training Certificate – Fisheries Training from any Govt. Institute",
    "Payment Receipts"
   ],
-  "applicationUrl": "https://harfish.gov.in/technical-financial-assistance",
+  "applicationUrl": "https://saralharyana.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21728,7 +21833,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details and PAN Card.",
    "Self-Contained Proposal (SCP)/Detailed Project Report (DPR) as per the guidelines issued under the Centrally Sponsored Scheme PMMSY."
   ],
-  "applicationUrl": "https://kms.saralharyana.nic.in/ViewDoc?Id=yx9tvPDUNl0I9WvlX6guJw%3d%3d",
+  "applicationUrl": "https://saralharyana.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21851,7 +21957,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of Bank Account and Permanent Account Number (PAN) Card.",
    "Detailed Project Report (DPR)/Self Contained Proposal (SCP) as per Pradhan Mantri Matasya Sampada Yojana (PMMSY) guidelines."
   ],
-  "applicationUrl": "https://kms.saralharyana.nic.in/ViewDoc?Id=85G6ALRl37CQaeh9zdXMlw==",
+  "applicationUrl": "https://saralharyana.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -21975,7 +22082,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Safai karamchari or dependent of Safai karamchari Certificate issued by the competent authority",
    "Any other documents as required"
   ],
-  "applicationUrl": "http://hsfdc.org.in/detail.php",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -22067,10 +22174,6 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "exclusionsText": [],
   "references": [
    {
-    "title": "Official Website",
-    "url": "http://hsfdc.org.in/detail.php"
-   },
-   {
     "title": "Scheme Details",
     "url": "https://kms.saralharyana.nic.in/ViewDoc?Id=7Fpaj4wJJ8MfAt4beq36ow%3d%3d"
    },
@@ -22111,7 +22214,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Parivar Pehchan Patra Number.",
    "Signed Application for Grievance."
   ],
-  "applicationUrl": "https://kms.saralharyana.nic.in/ViewDoc?Id=mEmswUhYsEKmQRdG7mkR7Q==",
+  "applicationUrl": "https://saralharyana.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -22236,7 +22340,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability certificate (If applicable)",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://hrylabour.gov.in/bocw/settings/schemeDetail/113",
+  "applicationUrl": "https://hrylabour.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -22367,7 +22472,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Family ID/Parivar Pehchan Patra (PPP) number",
    "Proof of age"
   ],
-  "applicationUrl": "https://dapsy.finhry.gov.in/publication",
+  "applicationUrl": "https://dapsy.finhry.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -22492,7 +22598,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://socialjusticehry.gov.in/financial-assistance-to-widower-and-unmarried-persons-scheme-2023/",
+  "applicationUrl": "https://saralharyana.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -22640,7 +22747,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of Bank Account and PAN Card.",
    "Detailed Project Report (DPR)/Self Contained Proposal (SCP) as per Pradhan Mantri Matasya Sampada Yojana (PMMSY) guidelines."
   ],
-  "applicationUrl": "https://kms.saralharyana.nic.in/ViewDoc?Id=xBljkD5D0p%2fixQd49u8dFQ%3d%3d",
+  "applicationUrl": "https://saralharyana.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -22759,7 +22867,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details with IFSC Code.",
    "Voter ID or Aadhaar Card."
   ],
-  "applicationUrl": "https://directorwptbc.assam.gov.in/sites/default/files/swf_utility_folder/departments/directorate_wpt_uneecopscloud_com_oid_4/menu/document/application_form_degree_p.g_0.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -22886,6 +22994,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Filetype: PDF. Filesize: Between 300KB and 3MB."
   ],
   "applicationUrl": "https://www.digilocker.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23017,6 +23126,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Admission/Fee Receipt (Proving Continuation of Studies in Next Level)."
   ],
   "applicationUrl": "https://sirishassam.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23133,7 +23243,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Scanned Copy of the Passport Size Photograph.",
    "Bank Account Details (Account Number and Indian Financial System Code)."
   ],
-  "applicationUrl": "https://directoratetribalaffairsplain.assam.gov.in/",
+  "applicationUrl": "https://www.digilocker.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23271,7 +23382,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "A valid Bank Account.",
    "And Rests as per own district Community Canning and Training Centers."
   ],
-  "applicationUrl": "https://dirhorti.assam.gov.in/schemes/detail/community-canning-training-on-fruit-preservation",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23359,6 +23470,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Undertaking etc."
   ],
   "applicationUrl": "https://diragri.assam.gov.in/schemes/mukhya-mantri-krishi-sa-sajuli-yozana",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23509,7 +23621,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Documents required for Grant of Scheme:",
    "ABOCWWB ID Card"
   ],
-  "applicationUrl": "https://labourcommissioner.assam.gov.in/portlet-innerpage/various-welfare-benefits-for-registered-construction-workers",
+  "applicationUrl": "https://abocwwb.assam.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23631,7 +23744,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Voter ID card",
    "Age Proof"
   ],
-  "applicationUrl": "https://dids.assam.gov.in/userGuide",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23747,7 +23860,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Self-Attested Voter Identity Card, Driving Licence, or Ration Card as Residence Proof of the Couple.",
    "Self-Attested Joint Photograph of the Couple."
   ],
-  "applicationUrl": "https://directorwsc.assam.gov.in/sites/default/files/public_utility/INTER%20CASTE%20MARRIAGE%20APPLICATION%284%29%20%284%29.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -23868,6 +23981,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Specifications for Document Upload: Filetype: PDF. Filesize: Between 300KB and 3MB."
   ],
   "applicationUrl": "https://www.digilocker.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24001,7 +24115,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Attested Copy of ID Card",
    "Copy of Payslip of Account Pay book Showing Monthly Contribution Deposited"
   ],
-  "applicationUrl": "https://labourcommissioner.assam.gov.in/portlet-innerpage/various-welfare-benefits-for-registered-construction-workers",
+  "applicationUrl": "https://abocwwb.assam.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24130,7 +24245,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Experience certificate, if any.",
    "Photographs."
   ],
-  "applicationUrl": "https://fcsca.assam.gov.in/schemes/aamar-dukan-on-wheels",
+  "applicationUrl": "https://fcsca.assam.gov.in/how-to/apply-for-amar-dukan-on-wheels",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24235,7 +24351,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Employment Status Certificate of Parents.",
    "Declaration regarding non-receipt of other high-value scholarships."
   ],
-  "applicationUrl": "https://dids.assam.gov.in/pdfs/USER%20MANUAL%20CITIZEN.pdf",
+  "applicationUrl": "https://dids.assam.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24347,6 +24464,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate."
   ],
   "applicationUrl": "https://ekalyan.cgg.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24447,7 +24565,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Valid Passport and Visa Application Details.",
    "Statement of Purpose (SOP) and Letters of Recommendation."
   ],
-  "applicationUrl": "https://mgos.jharkhand.gov.in/images/MGOS_Sankalp.pdf",
+  "applicationUrl": "https://www.chevening.org/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24566,7 +24685,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Admission or Enrollment Certificate from the school.",
    "NOTE: The income certificate for Class 9th remains valid for Class 10th."
   ],
-  "applicationUrl": "https://ekalyan.cgg.gov.in/",
+  "applicationUrl": "https://ekalyan.cgg.gov.in/Login.do",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24666,7 +24786,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport-sized Photograph.",
    "Bank Account Details."
   ],
-  "applicationUrl": "https://savitribaipksy.jharkhand.gov.in/about",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24759,7 +24879,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Land Ownership Documents",
    "Fish Farming Activity Certificate (from the Block Development Officer)"
   ],
-  "applicationUrl": "https://cdn.s3waas.gov.in/s30fcbc61acd0479dc77e3cccc0f5ffca7/uploads/2023/10/2023102792.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24854,6 +24974,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Other necessary documents if required"
   ],
   "applicationUrl": "https://jrfry.jharkhand.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -24999,7 +25120,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Paddy Sale Receipt (if applicable).",
    "Any additional documents as requested by the procurement agency."
   ],
-  "applicationUrl": "https://www.jharkhand.gov.in/PDepartment/ViewDoc?id=D009DO003SD00322072019103938751",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25098,7 +25219,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "HIV/AIDS Medical Certificate (if applicable)",
    "Any Other Document if Required"
   ],
-  "applicationUrl": "https://cm.jharkhand.gov.in/node/13224",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25182,7 +25303,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other Government-Approved ID, such as a PAN Card, Ration Card, Voter ID Card",
    "Self-Declaration Form"
   ],
-  "applicationUrl": "https://www.jharkhand.gov.in/Home/ViewDoc?id=D031DO003SD00309072024062836110",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25256,7 +25377,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card or a self-declaration to this effect if he/she does not have Aadhaar Card.",
    "Photocopy of Bank Account Passbook."
   ],
-  "applicationUrl": "https://cdn.s3waas.gov.in/s32bb232c0b13c774965ef8558f0fbd615/uploads/2020/09/2020092372.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25351,7 +25472,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate",
    "Proof of the Medical Condition"
   ],
-  "applicationUrl": "https://shramadhan.jharkhand.gov.in/ftp/WebAdmin/documents/BOC_SCHEME_BENEFIT_APPLICANT_SIDE.pdf",
+  "applicationUrl": "https://shramadhan.jharkhand.gov.in/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25476,7 +25598,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Driving License issued under the Motor Vehicles Act, 1988.",
    "Certificate of Identity with a photo issued by a Gazetted Officer or Tehsildar on official letterhead."
   ],
-  "applicationUrl": "https://www.jharkhand.gov.in/PDepartment/ViewDoc?id=D009DO003SD00625102023010214718",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25554,7 +25676,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income certificate or proof of belonging to EWS.",
    "Bank account details for transferring benefits."
   ],
-  "applicationUrl": "https://shramadhan.jharkhand.gov.in/ftp/WebAdmin/documents/Inter_state_migrant_workers_scheme_notification.pdf",
+  "applicationUrl": "https://shramadhan.jharkhand.gov.in/migrantworkerrgistration.action",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25641,7 +25764,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Residential Certificate.",
    "Passport-sized Photograph."
   ],
-  "applicationUrl": "https://jsdm.jharkhand.gov.in/jsdm/cms/en/birsa/",
+  "applicationUrl": "https://jsdm.jharkhand.gov.in/jsdm/cms/en/#",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25717,7 +25841,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "School Certificate.",
    "Aadhar card."
   ],
-  "applicationUrl": "https://eduportal.cg.nic.in/schemes/Cycle_Yojna.aspx",
+  "applicationUrl": "http://shiksha.cg.nic.in/SaraswatiCycleScheme.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25793,7 +25918,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Residential Certificate of Chhattisgarh.",
    "Mark sheet of the Qualifying Examination."
   ],
-  "applicationUrl": "https://cgdteraipur.cgstate.gov.in/sites/default/files/notification-of-merit-scholarship-2016-17-598083916f1b8.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25888,7 +26013,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Residential Certificate of Chhattisgarh.",
    "Mark Sheet of the Qualifying Examination."
   ],
-  "applicationUrl": "https://cgdteraipur.cgstate.gov.in/sites/default/files/notification-of-merit-scholarship-2016-17-598083916f1b8.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -25990,7 +26115,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability Certificate (If Applicable For PwD Relaxation)",
    "Recent Passport Size Photographs"
   ],
-  "applicationUrl": "https://cmitfellowship.cgstate.gov.in/",
+  "applicationUrl": "https://www.iiitnr.ac.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26097,7 +26223,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank passbook.",
    "Passport-size photo."
   ],
-  "applicationUrl": "http://www.forest.cg.gov.in/CMPlantation/img/FRA_Application.pdf",
+  "applicationUrl": "http://www.forest.cg.gov.in/CMPlantation/Login.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26186,7 +26313,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details",
    "Any other required documents"
   ],
-  "applicationUrl": "https://agriportal.cg.nic.in/ahd/state_schemes/9_Pashudhan_Mitra_Yojna.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26299,7 +26426,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details/Bank Passbook",
    "Other necessary documents if required"
   ],
-  "applicationUrl": "https://agriportal.cg.nic.in/PortHi/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26421,7 +26548,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank passbook photocopy.",
    "Income certificate."
   ],
-  "applicationUrl": "https://cglabour.nic.in/ShramAyuktHome.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26524,7 +26651,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Permanent Residence Certificate.",
    "Copy of ration card."
   ],
-  "applicationUrl": "https://cglabour.nic.in",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26596,7 +26723,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Permanent Residence Certificate.",
    "Labor Registration Card."
   ],
-  "applicationUrl": "https://cglabour.nic.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26667,7 +26794,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card.",
    "Photograph."
   ],
-  "applicationUrl": "https://cglabour.nic.in/BOCW/BOCADHISUCHNA/192296_13_05_2022.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26731,7 +26858,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details.",
    "Registration card."
   ],
-  "applicationUrl": "https://cglabour.nic.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26801,7 +26928,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Permanent Residence Certificate.",
    "Copy of ration card."
   ],
-  "applicationUrl": "https://cglabour.nic.in/Public/RegistrationRequestUOC.aspx?Wid=2",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26911,7 +27038,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details.",
    "Receipt of e-Thela."
   ],
-  "applicationUrl": "https://cglabour.nic.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -26988,7 +27115,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Permanent Residence Certificate.",
    "Labor Registration Card."
   ],
-  "applicationUrl": "https://cglabour.nic.in/ShramAyuktNew/kachara%20binane%20ke%20lie%20suraksha%20upakaran%20sahaayata%20yojana.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27072,7 +27199,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Additional Documents for Students Requesting Financial Assistance of 50% : Copy of valid annual family income certificate issued by the SDM/competent authority.",
    "Additional Documents for Students Requesting Financial Assistance of 25%: Copy of the full Income Tax Return (including the acknowledgement page) for both parents filed with Income Tax Department for the previous financial year. In the case of a non­working parent, an affidavit affirming non­ employment certified by the office of SDM/competent authority and family income certificate issued by the SDM/competent authority."
   ],
-  "applicationUrl": "http://higheredn.delhi.gov.in/merit-cum-means-linked-financial-assistance-scheme-pursuing-higher-education-state-universities-",
+  "applicationUrl": "https://edistrict.delhigovt.nic.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27165,7 +27293,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Class-wise Enrollment Details",
    "Bank Account Details"
   ],
-  "applicationUrl": "https://lancersconvent.ac.in/pdf/scholarship/Welfare%20Schemes%20Of%20DoE.2.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27262,7 +27390,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Undertaking/Self-Declaration (Annexure-I).",
    "For Employed Candidates: No Objection Certificate (NOC) from Employer."
   ],
-  "applicationUrl": "https://scstwelfare.delhi.gov.in/sites/default/files/scstwelfare/circulars-orders/abroad.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27381,7 +27509,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Student Bank Account Details (Bank account should be in the name of the student &amp; seeded with Aadhaar of the student)",
    "Proof of Enrollment in a Recognized Institution"
   ],
-  "applicationUrl": "https://scstwelfare.delhi.gov.in/sites/default/files/scstwelfare/circulars-orders/merge_file.pdf",
+  "applicationUrl": "https://edistrict.delhigovt.nic.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27499,7 +27628,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhar Card",
    "Residence proof of last 5-year residence in Delhi."
   ],
-  "applicationUrl": "https://wcd.delhi.gov.in/sites/default/files/WCD/generic_multiple_files/adharnotificationwidowandwdmscheme2022.pdf",
+  "applicationUrl": "https://edistrict.delhigovt.nic.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27637,7 +27767,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank passbook.",
    "Caste Certificate issued in Delhi."
   ],
-  "applicationUrl": "https://wcd.delhi.gov.in/wcd/delhi-pension-scheme-women-distress-widows-divorced-separated-destitute-abandoned-women#:~:text=2)%20WIDOW%2DDAUGHTER%20MARRIAGE%20SCHEME&text=Quantum%20of%20Assistance%20is%20Rs.%2030%2C000%2F%2D%20only.&text=(i)%20She%20has%20been%20residing,One%20Lakh).",
+  "applicationUrl": "https://edistrict.delhigovt.nic.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27730,7 +27861,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of visiting a Hospital/Nursing Home in connection with the pregnancy in the pregnancy period,",
    "Photocopy of any ID proof of Aaya/Dai."
   ],
-  "applicationUrl": "https://drive.google.com/file/d/1nCDEvvl3saMAKnR__iYZNbc_MnuwQ0E1/view",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -27868,7 +27999,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photocopy of First page of Bank passbook/copy of cancelled Cheque of the Nominee.",
    "Copy of the First Information Report (FIR)/Medico-Legal Cases (MLC) Report."
   ],
-  "applicationUrl": "https://drive.google.com/file/d/1nCDEvvl3saMAKnR__iYZNbc_MnuwQ0E1/view",
+  "applicationUrl": "https://dbocwwb.delhi.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28001,7 +28133,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photocopy of Aadhar card of the Nominee.",
    "Photocopy of First page of Bank passbook/copy of cancelled Cheque of the Nominee."
   ],
-  "applicationUrl": "https://drive.google.com/file/d/1nCDEvvl3saMAKnR__iYZNbc_MnuwQ0E1/view",
+  "applicationUrl": "https://dbocwwb.delhi.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28133,7 +28266,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "Permanent Disability certificate issued by Govt. Doctor (medical Certificate by committee)."
   ],
-  "applicationUrl": "https://drive.google.com/file/d/1nCDEvvl3saMAKnR__iYZNbc_MnuwQ0E1/view",
+  "applicationUrl": "https://dbocwwb.delhi.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28283,7 +28417,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Industrial unit in non-confirming: NOC of HPC &amp; MCL.",
    "Note: In the case of online applications, the above documents can be uploaded on the portal in JPEG, JPG, PNG, GIF, or PDF format. File size should not be more than 2 MB."
   ],
-  "applicationUrl": "https://dkvib.delhi.gov.in/sites/default/files/DKVIB/generic_multiple_files/rgsry-form.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28424,7 +28558,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability Certificate (if applicable)",
    "> Original Certificates (to be brought for verification during the boot camp)"
   ],
-  "applicationUrl": "https://viksitdelhiyuva.org/",
+  "applicationUrl": "https://viksitdelhiyuva.org/about.php",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28577,7 +28712,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Latest Bank Statement of the Students Bank Account.",
    "General Category Certificate (Issued by an officer not below the rank of Tehsildar)(DDHE / Head of the Institute is directed to check this Certificate strictly, during verification)."
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/HP_state_scheme/Swami_Vivekanand_Utkrisht_Chattarvriti_Yojna-202324.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28683,7 +28819,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate of Parent/Guardian (Issued by an officer not below the rank of Tehsildar)",
    "Email and Mobile Number of Parents"
   ],
-  "applicationUrl": "https://hpepass.cgg.gov.in/NewHomePage.do?actionParameter=stateSchemes",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28799,7 +28936,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Note 01: For all girl students Income Certificate is not mandatory.",
    "Note 02: The students applying for poverty-cum- brilliance scholarship should furnish a certificate of the annual income of parents/guardians in the prescribed form duly attested by a Magistrate or Tehsildar. Students applying for the Brilliance Scholarship need to submit an income certificate."
   ],
-  "applicationUrl": "https://techedu.hp.gov.in/?q=scholarship",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -28928,7 +29066,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Fee Payment Receipt",
    "Bonafide Certificate"
   ],
-  "applicationUrl": "https://education.hp.gov.in/sites/default/files/Files%252Fkalpana%2520chawla.pdf04_49_2012_10_10_45.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29030,6 +29169,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Cast Certificate (if SC, ST))"
   ],
   "applicationUrl": "https://hpahdbt.hp.gov.in/Home/krishk_bakri_pala_yojna",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29123,7 +29263,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Cast Certificate (if SC, ST)",
    "Note: Files size should be less than or equal to 200 KB and must be in pdf or jpg."
   ],
-  "applicationUrl": "https://hpahdbt.hp.gov.in/Home/broiler_establishment",
+  "applicationUrl": "https://hpahdbt.hp.gov.in/Home/Him_Kukkut_Palan_Yojna",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29236,7 +29377,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Buddhist Nuns Certificate (issued by the Panchayat or the chief nun (Chief Chomo) of the Buddhist monastery)",
    "Disability Certificate (if required)"
   ],
-  "applicationUrl": "http://esomsa.hp.gov.in/sites/default/files/PDF/Notification%20Indira%20Gandhi%20Pyari%20Behna%20Sukh-Samman%20Nidhi%20Yojna.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29330,7 +29471,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Latest Bank Statement of the Students Bank Account.",
    "Certificate of Parent / Guardian engaged in Unclean Profession (Issued by an officer not below the rank of Tehsildar)."
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/HP_state_scheme/MahrishBalmikiChhatervritiYojna-202324.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29421,7 +29563,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card.",
    "Bank Account."
   ],
-  "applicationUrl": "http://esomsa.hp.gov.in/sites/default/files/scan0001-44250128_0.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29498,7 +29640,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account.",
    "Certificate from the applicant that he/she is not receiving any other pension."
   ],
-  "applicationUrl": "http://esomsa.hp.gov.in/sites/default/files/UNotification_Trans-38786617-28258868_0.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29582,7 +29724,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Attested copies of 10th/12th/age certificate issued by competent authority to ascertain age and educational qualification is attached.",
    "Attested copy of Aadhaar Card."
   ],
-  "applicationUrl": "https://eemis.hp.nic.in/unemp/index.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29682,7 +29824,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Identity proof of the applicant (Aadhaar Card/Voter ID)",
    "Bank account details of the applicant for disbursement of relief amount"
   ],
-  "applicationUrl": "http://esomsa.hp.gov.in/?q=schemes-3",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29764,7 +29906,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Age proof (Birth certificate/School certificate)",
    "Identity proof (Aadhaar Card, Voter ID, or Driving License)"
   ],
-  "applicationUrl": "http://esomsa.hp.gov.in/?q=schemes-3",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29877,7 +30019,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Skill development training certificates (if applicable).",
    "Any other documents as mentioned in the scheme guidelines or as required for eligibility verification."
   ],
-  "applicationUrl": "https://himachal.nic.in/WriteReadData/l892s/14_l892s/SDA-93604762.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -29991,7 +30133,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Self-Declaration stating that the applicant is not availing benefits under any other government scholarship scheme",
    "Other supporting documents as required"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "https://socialwelfare.uk.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30105,7 +30248,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate",
    "Other supporting documents as required"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "https://socialwelfare.uk.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30214,7 +30358,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "Documents are required in accordance with the university guidelines prescribed for this scheme."
   ],
-  "applicationUrl": "https://www.gbpuat.ac.in/student_corner/index.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30296,7 +30440,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Result and Admit Card of Preliminary Exam passed (UKPSC/UPSC)",
    "Certificate and Admit Card of the Written Exam passed (In case of Armed Forces)"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30370,7 +30514,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Land Documents",
    "Other supporting documents as required"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30440,7 +30584,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details",
    "Mobile number"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30510,7 +30654,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details",
    "Mobile number"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30577,7 +30721,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Pregnancy Certificate / Maternal Health Card/Medical Report",
    "Any other documents (as per requirement)"
   ],
-  "applicationUrl": "https://wcd.odisha.gov.in/en/ICDS/mukhymantri-samproona-pushti-yojana-mspy",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30677,7 +30821,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Application requesting training or participation in fairs",
    "Certificate of registration with the Industries Office (if applicable)"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30754,7 +30898,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "No documents are required for this scheme."
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30825,7 +30969,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Marriage registration certificate",
    "Affidavit stating that both partners are not income tax payers, are not involved in any criminal activities, and do not have any previous spouse alive"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30898,7 +31042,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Verification report of damage and its replacement, duly certified by the competent authority appointed by the State Government",
    "Other supporting documents as required"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -30969,7 +31113,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "A Self-Declaration Certificate",
    "An affidavit stating that no benefit from any other scheme is being availed"
   ],
-  "applicationUrl": "https://ukbocw.uk.gov.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31039,7 +31183,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Form P-20 Entry Confirmation (recorded by the concerned Patwari)",
    "Other supporting documents as required"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31114,7 +31258,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "Documents are required as per the guidelines of the Uttarakhand Council for Biotechnology for the Training Programme."
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31197,7 +31341,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Secondary School Certificate Examination Mark Sheet.",
    "Self-attested copy of the Secondary School Certificate Examination Marksheet Of The Student."
   ],
-  "applicationUrl": "https://goaprintingpress.gov.in/downloads/2526/2526-11-SI-OG-1.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31328,7 +31472,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "For Continuation/Compliance",
    "Attendance Certificate Certified By The Guru Or Institutional Head (Required To Be Submitted Within One Month After The Specified Period, Unless The Clause Is Not Applicable Due To Regular Examinations)."
   ],
-  "applicationUrl": "https://artandculture.goa.gov.in/pages/schemes-programmes/assistance-to-students-seeking-education-outside-goa-in-any-field-of-art",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31443,7 +31587,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Detailed Project Report Of That Particular Long Term Project For Which Financial Support Is Asked Under This Scheme.",
    "Any Other Relevant Documents."
   ],
-  "applicationUrl": "https://artandculture.goa.gov.in/pages/schemes-programmes/financial-assistance-to-long-term-project-in-the-field-of-art-culture",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31538,7 +31682,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "In case of registration of patent, copy of certificate of registration",
    "Bond (Annexure 2)"
   ],
-  "applicationUrl": "https://www.goa.gov.in/wp-content/uploads/2018/05/Schemes.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31634,7 +31778,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Registration Certificate Of Fishing Canoe (Registered Under Captain Of Ports Department).",
    "Registration Certificate Of Nets And Accessories (Registered With The Directorate Of Fisheries Under The Goa, Daman And Diu Fisheries Rules, 1981)."
   ],
-  "applicationUrl": "https://www.goa.gov.in/wp-content/uploads/2019/10/umbrella-amendment.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31737,7 +31881,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Documents Required for Infrastructure Component (At Application Stage)",
    "Copy Of Land Ownership Document."
   ],
-  "applicationUrl": "https://goaprintingpress.gov.in/downloads/2324/2324-15-SI-OG.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31879,7 +32023,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Cash Invoice",
    "Design and Estimates of Approved Models Prior to Construction/Installation"
   ],
-  "applicationUrl": "https://goaprintingpress.gov.in/downloads/2526/2526-22-SI-OG.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -31971,6 +32115,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Life Certificate of Self (signed by any Gazetted Officer or MLA or MP)1. Income Certificate (issued by the Competent Authority i.e. Secretary, Village Panchayat/ Chief Officer, Municipal Council)."
   ],
   "applicationUrl": "https://www.goa.gov.in/wp-content/uploads/2021/01/Laadli-Laxmi-Scheme-Griha-Aadhar-Schme-Amendment-Notification.pdf",
+  "applicationLinkType": "form",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32059,7 +32204,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details for subsidy transfer (Passbook copy / cancelled cheque)",
    "Preferred Formats: Scanned and attested copies in PDF/JPEG format, maximum file size 2 MB each."
   ],
-  "applicationUrl": "https://goaprintingpress.gov.in/downloads/0607/0607-45-SI-OG.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32174,7 +32319,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Utilization, Such As Receipts Or Invoices (Must be submitted within ninety days of receiving the financial assistance).",
    "Necessary Documentation (May be required for periodic audits)."
   ],
-  "applicationUrl": "https://goaprintingpress.gov.in/downloads/2526/2526-7-SI-OG.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32276,7 +32421,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Loss of the source of income due to the pandemic of COVID-19.",
    "Solely dependence on the art related activities/programmes."
   ],
-  "applicationUrl": "https://ahvs.goa.gov.in/wp-content/uploads/2025/03/financial-assistance-Dairy-equipment.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32389,7 +32534,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Secondary School Leaving Certificate/Secondary School Certificate/Intermediate/Higher Secondary Public Examination Mark Sheet.",
    "Proof Of Enrollment In A Government School."
   ],
-  "applicationUrl": "https://styandptg.py.gov.in/2024/JANUARY/EXTRAORDINARYPART-II/1/02-PART-II%20dated%2011-01-2024.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32486,7 +32631,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ration Card.",
    "Voter Identity Card."
   ],
-  "applicationUrl": "https://adwelfare.py.gov.in/award-pre-matric-scholarship-students-whose-parents-are-engaged-unclean-occupation",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32592,7 +32737,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Transfer Certificate.",
    "In the absence of an Aadhaar Card; the applicant is required to provide his/her Aadhaar Enrolment ID along with ANY ONE of the following documents -"
   ],
-  "applicationUrl": "https://edistrict.py.gov.in/User/TrackApplication.aspx",
+  "applicationUrl": "https://edistrict.py.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32715,7 +32861,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Nativity Certificate or Residence Certificate",
    "Bank Account details"
   ],
-  "applicationUrl": "https://www.py.gov.in/grant-retention-scholarship-sc-girl-students",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32828,7 +32975,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Purchase Invoice Copies and Rc Book for Vehicle Verification.",
    "Copies of Mortgage Documents in Respect of the Beneficiary for Official Record."
   ],
-  "applicationUrl": "https://fisheries.py.gov.in/sites/default/files/subsidies-application007.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -32953,7 +33100,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Declaration of not being employed in Government/Government Undertakings/Fishermen Co-operative Society.",
    "Declaration certifying that the applicant has no outstanding dues to the Department/Fishermen Co-operative Societies at the time of application."
   ],
-  "applicationUrl": "https://fisheries.py.gov.in/sites/default/files/subsidies-application007.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33072,7 +33219,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of the Aadhaar card, Farmers Identity Card, and Bank passbook front page.",
    "Upon selection, the beneficiaries should submit an affidavit signed before a Notary Public to the effect that the above-said land is under his / her possession, he/she will not sell, mortgage or transfer the lands to any other person for 10 years and that he/she will not convert the land for any other purpose other than agriculture and in case if he/she is found to have not abided by the terms, he/she will be liable for such course of legal action by the Government for breach of any of the conditions of the schemes besides facing recovery/cancellation of subsidy."
   ],
-  "applicationUrl": "https://agri.py.gov.in/sites/default/files/schemes/SC%20Sub%20Pump%20SOP.pdf",
+  "applicationUrl": "https://edistrict.py.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33203,7 +33351,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ration Card.",
    "Voter Identity Card."
   ],
-  "applicationUrl": "https://py.gov.in/sites/default/files/womenrtimanual.pdf",
+  "applicationUrl": "https://edistrict.py.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33315,7 +33464,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ration Card.",
    "Voter Identity Card."
   ],
-  "applicationUrl": "https://edistrict.py.gov.in/User/TrackApplication.aspx",
+  "applicationUrl": "https://edistrict.py.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33420,7 +33570,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "In the case of unmarried Women, and a sworn affidavit in Appendix II.",
    "In the Transgender, proof of being 40 years and above and a Medical Certificate from a Medical Officer."
   ],
-  "applicationUrl": "https://oaps.py.gov.in/Home/pension.aspx#:~:text=%E2%82%B9.,60%20years%20and%2079%20years.",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33502,7 +33652,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medical Certificate.",
    "Ration Card."
   ],
-  "applicationUrl": "https://edistrict.py.gov.in/User/TrackApplication.aspx",
+  "applicationUrl": "https://edistrict.py.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33611,7 +33762,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste Certificate.",
    "Financial Assistance Identity Card."
   ],
-  "applicationUrl": "https://socwelfare.py.gov.in/sites/default/files/supply-prosthetic-appliances.pdf",
+  "applicationUrl": "https://edistrict.py.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33730,7 +33882,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank or Post Office Passbook with Photo.",
    "Permanent Account Number (PAN) Card."
   ],
-  "applicationUrl": "https://socwelfare.py.gov.in/sites/default/files/issue-motorized-tricycles-differently-abled-persons.pdf",
+  "applicationUrl": "https://edistrict.py.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33846,7 +33999,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Study Certificate of the Ward (if not already registered with the DSW).",
    "First Page of Bank Passbook."
   ],
-  "applicationUrl": "https://sainik.py.gov.in/sites/default/files/uniformandbookallowance202223.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -33971,7 +34124,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "School Certificate",
    "Registrar of Birth Certificate"
   ],
-  "applicationUrl": "https://www.jkbocw.gov.in/Index.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34109,7 +34262,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of the Bank Account (Bank Name, Branch Name, Address, IFSC, etc).",
    "Any other document required by the District Social Welfare Office."
   ],
-  "applicationUrl": "https://jksabwdobcs.com/pdf/gov_schemes.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34243,7 +34396,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details of the student.",
    "Student ID Card"
   ],
-  "applicationUrl": "https://www.jkbocw.gov.in/Index.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34380,7 +34533,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Domicile Certificate.",
    "Resume."
   ],
-  "applicationUrl": "https://jakega.jk.gov.in/Resources/Notification_No_10_of_JaKeGA.pdf",
+  "applicationUrl": "https://jakega.jk.gov.in/index.html",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34495,6 +34649,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport Sized Photograph"
   ],
   "applicationUrl": "https://jkdswdj.jk.gov.in/pdf/FORMISSS1.pdf",
+  "applicationLinkType": "form",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34590,7 +34745,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other document required by the District Social Welfare Office.",
    "Proof of Age of the Child (Birth Certificate) (in case of children accompanying the mothers)."
   ],
-  "applicationUrl": "https://jkdswdj.jk.gov.in/welfareSchemes/NARI%20NIKETANS.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34701,7 +34856,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Age",
    "AAY (Antyodaya Anna Yojana) Ration Card or PHH (Priority Households) Ration Card"
   ],
-  "applicationUrl": "https://jkdswdj.jk.gov.in/pdf/New%20Guidelines%20of%20SMAS.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34779,7 +34934,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Age.",
    "Any other document required by the District Social Welfare Office."
   ],
-  "applicationUrl": "https://jkdswdj.jk.gov.in/welfareSchemes/RESIDENTIAL%20SCHOOL%20FOR%20THE%20BLINDS.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -34879,7 +35034,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Nikkah Nama (for Muslim marriages), attested by a gazetted officer.",
    "Marriage Certificate from MP/MLA/MLC, Sarpanch, Municipal Councillor, or Tehsildar."
   ],
-  "applicationUrl": "https://jkbocw.gov.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35020,7 +35175,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Passbook/Bank Account Details",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://jkdswdj.jk.gov.in/schemes.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35119,7 +35274,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    ]
   },
   "documentsRequired": [],
-  "applicationUrl": "https://www.missionyouth.jk.gov.in/scheme_pdf/empower.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35219,6 +35374,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details"
   ],
   "applicationUrl": "https://msmeonline.tn.gov.in/uyegp/uyegp_desc.php",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35356,7 +35512,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate or documentation verifying tailoring knowledge.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://cms.tn.gov.in/sites/default/files/schemes/bcmbcmw_11.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35447,7 +35603,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "National Identity Card of the Differently Abled.",
    "8th Pass Certificate."
   ],
-  "applicationUrl": "https://cms.tn.gov.in/sites/default/files/documents/wda_e_cc_2022_23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35531,7 +35687,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Proficiency in Carnatic Style Art Form.",
    "Proof of individual performances in cultural programmes in art disciplines such as Vocal, Bharathanatyam, Kathakalakshepam, Veena, Violin (solo) Nadaswaram, Flute, Jalatharangam, Gottuvadhyam, Clarionet, Guitar, Mandolin, Saxophone, etc."
   ],
-  "applicationUrl": "https://www.tn.gov.in/rti/proactive/inftour/handbook_artculture.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35630,7 +35786,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "For jump i) Child birth certificate copy ii) Hospital certificate copy",
    "Certificate from the hospital where the operation was performed for abortion"
   ],
-  "applicationUrl": "https://www.scd.tn.gov.in/pdf/schemes/pdf/ASSISTANCE%20FOR%20DELIVERY%20%20MISCARRIAGE%20OF%20PREGNANCY.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35719,7 +35875,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhar card",
    "PAN card (optional)"
   ],
-  "applicationUrl": "https://www.myscheme.gov.in/schemes/cmchis",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35816,7 +35972,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Free house site patta.",
    "Any other documents (if required)."
   ],
-  "applicationUrl": "https://www.tn.gov.in/scheme/data_view/83099",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -35899,7 +36055,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Self-Declaration Form",
    "Self-Declaration Form from Surety"
   ],
-  "applicationUrl": "https://kmdc.karnataka.gov.in/en",
+  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36017,7 +36174,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Passbook.",
    "Profession Certificate/Skill Test Certificate."
   ],
-  "applicationUrl": "https://schemes.lidkar.com/schemes/training-programs/",
+  "applicationUrl": "https://sevasindhu.karnataka.gov.in/Sevasindhu/English",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36144,7 +36302,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate (issued by the competent authority).",
    "Self-Declaration Form."
   ],
-  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/login",
+  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36281,7 +36440,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medical Report.",
    "ID card issued by the department for the empowerment of differently abled and Senior citizens."
   ],
-  "applicationUrl": "https://karbwwb.karnataka.gov.in/42/schemes/en",
+  "applicationUrl": "https://kbocwwb.karnataka.gov.in/login",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36421,7 +36581,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Self Declaration.",
    "> For the Renewal Process:"
   ],
-  "applicationUrl": "https://karbwwb.karnataka.gov.in/42/schemes/en",
+  "applicationUrl": "https://kbocwwb.karnataka.gov.in/login",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36554,7 +36715,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Applicant s Self-Declaration.",
    "Aggrieved beneficiaries should obtain a report from the relevant competent authority."
   ],
-  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/login",
+  "applicationUrl": "https://kmdconline.karnataka.gov.in/Portal/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36681,7 +36843,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Passbook- Bank account details",
    "Other documents, if any"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=MTQwc1Y4dXFSI3Z5",
+  "applicationUrl": "https://suneethi.sjd.kerala.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36821,7 +36984,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Passbook",
    "Any other document, if required"
   ],
-  "applicationUrl": "https://bcdd.kerala.gov.in/en/schemes/development-schemes/advocate-grant/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -36928,7 +37091,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photocopy of bank passbook",
    "Any other document, if required"
   ],
-  "applicationUrl": "https://bcdd.kerala.gov.in/en/schemes/development-schemes/toolkit-grant/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37057,7 +37220,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof/report confirming the diagnosis of cancer",
    "Registered Patient Card under the scheme"
   ],
-  "applicationUrl": "https://socialsecuritymission.gov.in/scheme_info.php?id=MQ==",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37154,7 +37317,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details- Copy of bank passbook",
    "Other documents, if any"
   ],
-  "applicationUrl": "http://sjd.kerala.gov.in/scheme-info.php?scheme_id=NzRzVjh1cVIjdnk=",
+  "applicationUrl": "https://suneethi.sjd.kerala.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37299,7 +37463,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copies of Documents Proving Mental/Physical Challenges/Serious Illnesses (such as cancer, kidney problems, heart disease, liver cirrhosis, paralysis, or other serious illnesses, if applicable)",
    "Certificate Confirming Name Consistency (if there is a difference between the name on the Ration Card and the application)"
   ],
-  "applicationUrl": "https://minoritywelfare.kerala.gov.in/pdfnewsflash/imbichi.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37402,7 +37566,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of the Bank Account (Bank Name, Branch Name, Address, IFSC, etc).",
    "Any other document required by the District Office of LIDCOM."
   ],
-  "applicationUrl": "https://www.lidcom.co.in/gattai-stall.php",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37500,7 +37664,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of the Bank Account (Bank Name, Branch Name, Address, IFSC, etc).",
    "Any other document required by the District Social Welfare Office."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/disability-welfare",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37591,7 +37755,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of the Bank Account (Bank Name, Branch Name, Address, IFSC, etc).",
    "Any other document required by the District Social Welfare Office."
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/disability-welfare",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37687,7 +37851,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medical Treatment Papers.",
    "Proof of Residence (One of Aadhaar Card/Passport/Driving Licence/Ration Sheet/Last Month's Electricity Bill/Gram Panchayat Certificate)."
   ],
-  "applicationUrl": "https://mahabocw.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37776,7 +37940,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Nationalized Bank Passbook with Photo",
    "Senior citizen card issued by the Central Government or State Government"
   ],
-  "applicationUrl": "https://www.jeevandayee.gov.in/MJPJAY/FrontServlet?requestType=CommonRH&actionVal=RightFrame&page=undefined%3E%3E%3Cb%3EMJPJAY%3C/b%3E&pageName=MJPJAY&mainMenu=About&subMenu=MJPJAY",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -37893,7 +38057,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate, issued by an authorized Government Officer",
    "A declaration, stating that the family is landless"
   ],
-  "applicationUrl": "https://sjsa.maharashtra.gov.in/en/scheme-category/social-remedies",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38004,7 +38168,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ration Card",
    "Copy of Election Card"
   ],
-  "applicationUrl": "https://sje.gujarat.gov.in/gapb/home?lang=English",
+  "applicationUrl": "https://daadconline.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38139,7 +38304,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "PH Certificate from Civil Surgeon, If applicable",
    "Ration Card"
   ],
-  "applicationUrl": "https://sje.gujarat.gov.in/gskvn/Home?lang=English",
+  "applicationUrl": "https://esamajkalyan.gujarat.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38278,7 +38444,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Property documents and valuation report of the trainee's father/guardian",
    "Guarantor: One solvent guarantor must be provided."
   ],
-  "applicationUrl": "https://sje.gujarat.gov.in/ddcw/schemes/1496?lang=English",
+  "applicationUrl": "https://esamajkalyan.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38419,7 +38586,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Attendance Record (Minimum 70% for Classroom and On-the-Job Training)",
    "> Placement Verification Documents (If Applicable)"
   ],
-  "applicationUrl": "https://skills.gujarat.gov.in/saksham-kvk-2-0.htm",
+  "applicationUrl": "https://skills.gujarat.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38531,7 +38699,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Labour Welfare Fund Account Number",
    "Bonafide certificate1. Any other documents as required"
   ],
-  "applicationUrl": "https://glwb.gujarat.gov.in/full-body-checkup-scheme.htm",
+  "applicationUrl": "https://sanman.gujarat.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38656,7 +38825,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medical certificate of being pregnant.",
    "Any other document (if required)."
   ],
-  "applicationUrl": "https://wcd.gujarat.gov.in/initiativedetails?id=294",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38741,7 +38910,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport-size Photos",
    "Ration Card"
   ],
-  "applicationUrl": "https://mariyojana.gujarat.gov.in/MoreDetails.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38836,7 +39005,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Age Certificate",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://sje.rajasthan.gov.in/siteadmin/Uploads/202110051259226370.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -38935,7 +39104,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details/Bank Passbook",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://sje.rajasthan.gov.in/Default.aspx?PageID=115",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39051,7 +39220,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Passbooks",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://sje.rajasthan.gov.in/siteadmin/Uploads/202110051259226370.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39153,7 +39322,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "6. Proof of amount deposited for Visa / Invoice / Invoice.",
    "7. Registration number of the recruiting agent and copy of the advertisement given for overseas employment."
   ],
-  "applicationUrl": "https://labour.rajasthan.gov.in/Schemes.aspx#",
+  "applicationUrl": "https://ldms.rajasthan.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39225,7 +39395,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Treatment Estimate by Doctor",
    "Medical Certificate"
   ],
-  "applicationUrl": "https://jankalyan.rajasthan.gov.in/#/scheme/detail/434",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39298,7 +39468,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "Silicosis Certificate."
   ],
-  "applicationUrl": "https://sje.rajasthan.gov.in/siteadmin/Uploads/201911211545271328.pdf",
+  "applicationUrl": "https://sso.rajasthan.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39419,7 +39590,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste/Tribe Certificate",
    "Income Certificate"
   ],
-  "applicationUrl": "https://tad.rajasthan.gov.in/scheme/detail/535",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39530,6 +39701,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Age Certificate"
   ],
   "applicationUrl": "https://msme.cmyuva.org.in/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39659,7 +39831,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medicines original bill.",
    "Certificate of being an unmarried daughter or a daughter below 21 years of age."
   ],
-  "applicationUrl": "https://www.upbocw.in/pdf/adhisuchna/gambhir_bimari_29_01_2024.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39753,7 +39925,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate and report: In case of disability, submit a disability certificate and a First Information Report or medical certificate issued by the Chief Medical Officer.",
    "Self-declaration: All registered workers/applicants must submit a self-declaration confirming they haven't received benefits from similar state or central government schemes."
   ],
-  "applicationUrl": "https://www.uplmis.in/Guest/frm_createlogin_forlabs.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39852,7 +40024,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details.",
    "Relevant entitlement documents (if applicable)."
   ],
-  "applicationUrl": "https://brlps.in/sjywebinar/img/Jeevika-SJY.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -39951,7 +40123,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photograph of the applicant.",
    "Signature of the applicant."
   ],
-  "applicationUrl": "https://udyami.bihar.gov.in/pdf/MMUY%202024-25%20Selection%20Process%20&%20Guidelines.pdf",
+  "applicationUrl": "https://udyamiuser.bihar.gov.in/login",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40095,7 +40268,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Experience certificate",
    "Any additional documents as required"
   ],
-  "applicationUrl": "https://state.bihar.gov.in/minoritywelfare/SectionInformation.html?editForm&rowId=3407",
+  "applicationUrl": "https://bsmfc.org/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40244,7 +40418,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste Certificate",
    "Any Other Document if Required"
   ],
-  "applicationUrl": "https://bsbcpdcorporation.bihar.gov.in/BSBCFDC/SchemeDetails.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40333,7 +40507,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Category (Caste Certificate of the applicant).",
    "Bank Account and IFSC (Photocopy of the first page of the passbook)."
   ],
-  "applicationUrl": "https://state.bihar.gov.in/labour/cache/40/14-May-21/SHOW_DOCS/Schemes-1.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40421,7 +40595,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Category (Caste Certificate of the applicant)",
    "Bank Account and IFSC (Photocopy of the first page of the passbook)."
   ],
-  "applicationUrl": "https://state.bihar.gov.in/labour/cache/40/14-May-21/SHOW_DOCS/Schemes-1.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40505,7 +40679,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Residential proof.",
    "Passport-size photographs."
   ],
-  "applicationUrl": "https://cdnbbsr.s3waas.gov.in/s31943102704f8f8f3302c2b730728e023/uploads/2022/07/2022072358.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40594,7 +40768,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport size photograph",
    "Caste certificate, if applicable"
   ],
-  "applicationUrl": "https://wb.gov.in/government-schemes-details-gatidhara.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40705,6 +40879,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other documents as required."
   ],
   "applicationUrl": "https://handloom.wb.gov.in/index.html",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40837,6 +41012,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photocopy of Ration Card or Voter ID Card."
   ],
   "applicationUrl": "https://www.employmentbankwb.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -40932,7 +41108,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste certificate( if applicable).",
    "Employment Bank registration( if applicable)."
   ],
-  "applicationUrl": "https://msme.wb.gov.in/karmasathi",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41035,7 +41211,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of bills.",
    "Any other document if required."
   ],
-  "applicationUrl": "https://labour.wb.gov.in/building-and-other-construction-workers-welfare-board",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41143,6 +41319,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Medical Certificate."
   ],
   "applicationUrl": "https://edistrict.wb.gov.in/portal/home",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41241,7 +41418,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details.",
    "ANy other documents (if required)."
   ],
-  "applicationUrl": "https://paschimmedinipur.gov.in/scheme/scheme-title-1-will-appear-here/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41346,7 +41523,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "• Voter ID card",
    "• Residential proof"
   ],
-  "applicationUrl": "https://kamareddy.telangana.gov.in/scheme/dalita-bandhu-scheme/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41462,7 +41639,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card",
    "1st Page of Bank Account Passbook Copy"
   ],
-  "applicationUrl": "https://tbocwwb.telangana.gov.in/new_gos.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41572,7 +41749,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar Card.",
    "1st Page of Bank Account Passbook Copy."
   ],
-  "applicationUrl": "https://tbocwwb.telangana.gov.in/newsite/pdf_files/2016LETF_MS63.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41675,7 +41852,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "1. Aadhaar Card"
   ],
-  "applicationUrl": "https://cm.telangana.gov.in/2022/12/kcr-nutrition-kit/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41780,7 +41957,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport Sized Photograph.",
    "NOTE: The proposal should clearly indicate the output that will be delivered at the end of the fellowship. It could be in the nature of a monograph of 10,000 words which is ready for publication, or features/news stories /investigative stories that could be printed / published as a journalistic piece in national /international media or, in the case of professionals from the field of audio-video media, it could even be short video films or stories."
   ],
-  "applicationUrl": "https://rti.gov.in/rti_fellowship.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41855,7 +42032,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "EWS Certificate for non-minority candidates.",
    "Educational Qualification in line with the training programme being applied for."
   ],
-  "applicationUrl": "https://www.myscheme.gov.in/schemes/pm-vikas",
+  "applicationUrl": "https://www.skillindiadigital.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -41966,7 +42144,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "1. A progress Report after the completion of the first year along with the percentage of marks obtained by the candidates needs to be submitted by the institution.",
    "2. Funds Utilization Certificate also needs to be submitted by the Institution Authorities after completion of the First Year."
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/Guidelines_SGC1819.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42084,7 +42262,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "https://online-wosa.gov.in/wosa/instructions",
    "https://online-wosa.gov.in/wosa/formats"
   ],
-  "applicationUrl": "https://dst.gov.in/scientific-programmes/scientific-engineering-research/women-scientists-programs",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42190,7 +42368,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate of the employer of the parents of the applicant",
    "Residence proof, if any"
   ],
-  "applicationUrl": "https://dpiit.gov.in/programmes-and-schemes/others/scheme-grant-rewards-children-salt-labourers",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42288,7 +42466,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Recommendation Certificate",
    "Any Other Document If Required"
   ],
-  "applicationUrl": "https://lokpal.gov.in/pdfs/Advertisement_2023-24_Internship_Scheme_04012024.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42396,7 +42574,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income certificate produced by the student for availing Educational Loan viz. ITR/Form 16/Audited Accounts/Income certificate issued by the authority of the State Government/UT Administration.",
    "Details of the Aadhaar-linked Bank Account."
   ],
-  "applicationUrl": "https://socialjustice.gov.in/writereaddata/UploadFile/Guidelines%20ISEL%20Scheme%20(wef%2001%20Oct%202017).pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42503,7 +42681,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Offer Letter Issued Through Study in India Portal",
    "Visa (Post Admission)"
   ],
-  "applicationUrl": "https://www.studyinindia.gov.in/About-Us",
+  "applicationUrl": "https://www.studyinindia.gov.in/Index",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42591,7 +42770,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "> At the time of Completion of the Internship -",
    "Report/Paper (to be submitted to the Head of the concerned Division)."
   ],
-  "applicationUrl": "https://content.dgft.gov.in/Website/dgftprod/b8579059-d633-46b4-a3d9-e1124ccf4b7a/DGFT%20Internship%202023-24%20(2).pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42684,7 +42863,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of Scientific/technical papers published in the relevant subject area",
    "Any other document (If applicable)"
   ],
-  "applicationUrl": "https://www.indiascienceandtechnology.gov.in/nurturing-minds/s-and-t-awards/national/national-solar-science-fellowship-programme",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42795,7 +42974,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Educational Qualification (i.e. result sheet/mark sheet/provisional degree etc.).",
    "NOTE: The students who have appeared in the final year/ semester examination on the cutoff date will have to show proof of having passed the LLB course at the time of joining."
   ],
-  "applicationUrl": "https://old.cbic.gov.in/resources//htdocs-cbec/legalaffairs/indirect-taxes-internship-scheme-2023.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -42896,7 +43075,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "> For Claiming 2nd Installment",
    "Application and Self-Declaration duly filled in and signed by the Applicant/s (in duplicate) in the prescribed format."
   ],
-  "applicationUrl": "https://coffeeboard.gov.in/Schemes/ICDP_388.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43016,7 +43195,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "d) Aadhaar card",
    "e) Bank Pass Book"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43136,7 +43316,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank details",
    "The specific documents for availing the benefits of the program may vary depending on the type of intervention and the state. It is recommended to consult with the relevant authorities for detailed information on documents to be submitted."
   ],
-  "applicationUrl": "https://www.nfsm.gov.in/Guidelines/Guideline_nfsmandoilseed201819to201920.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43248,7 +43428,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "f) Survey plan issued by V.O/registered surveyor",
    "g)For other States, land documents prescribed by the State Govt."
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43373,7 +43554,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Till such time as Aadhaar is assigned to an individual, she/he can avail the benefit of the scheme on the production of the following documents:",
    "Aadhaar enrolment ID slip/ Copy of request for Aadhaar enrolment and Voter Identity Card/ PAN/ Passport/ Ration Card/ Employee Government ID/ Passbook of Bank or Post Office/ MGNREGS Card/ Kisan Photo Passport/ Driving Licenses/ any other document as specified by State/ UT."
   ],
-  "applicationUrl": "https://agricoop.nic.in/sites/default/files/ACABC.pdf",
+  "applicationUrl": "https://acabcmis.gov.in/ApplicantReg.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43492,7 +43674,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Passbook",
    "No Objection Certificate from panchayats if the Land is not in the beneficiary’s name"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43626,6 +43809,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "a plan and estimate of the proposed structure from the qualified registered/licensed or Govt. civil engineer following Govt. approved rates for construction."
   ],
   "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43762,7 +43946,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate from the Investigator",
    "Any other relevant information"
   ],
-  "applicationUrl": "https://online-wosa.gov.in/",
+  "applicationUrl": "https://dst.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -43922,7 +44107,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "House Rent Allowance (if eligible) (Format)",
    "Note: The formats of all the PPDs are available on the home page of the portal under ’Formats’ for ready reference of the applicants."
   ],
-  "applicationUrl": "https://online-wosa.gov.in/wosa/aboutUsPDF",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44043,7 +44228,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aadhaar",
    "Proof of Age / DOB"
   ],
-  "applicationUrl": "https://wcd.nic.in/sites/default/files/Letter%203rd%20on%2031%20August%202018%20.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44137,7 +44322,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "http://online-wosa.gov.in/wosb/instructions",
    "http://online-wosa.gov.in/wosb/formats"
   ],
-  "applicationUrl": "https://dst.gov.in/scientific-programmes/scientific-engineering-research/women-scientists-programs",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44243,7 +44428,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Details of any other Notable Achievements",
    "Any other document, as required"
   ],
-  "applicationUrl": "https://www.igstc.org/home/wiser",
+  "applicationUrl": "https://indo-germansciencetechnologycentre.my.salesforce-sites.com/ApplicantDashboard?campaign=Landing_Page_Wiser",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44368,7 +44554,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate from ZSWO that widow after vocational training is gainfully employed.",
    "Details of Bank A/c No (in PNB/SBI only) and IFS Code."
   ],
-  "applicationUrl": "https://ksb.gov.in/vocational-training-of-widows-of-esm.htm",
+  "applicationUrl": "https://ksb.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44447,7 +44634,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Educational Certificates",
    "Any other document, as required"
   ],
-  "applicationUrl": "https://www.cefipra.org/indo-french-programme-for-women-in-science-prowis/",
+  "applicationUrl": "https://www.cefipra.org/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44550,7 +44738,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Documentary proof to support that the late beneficiary was getting artistes pension;",
    "Legal heir certificate in the prescribed proforma issued by the Competent Authority and an affidavit from SDM or 1st Class Magistrate in proforma;"
   ],
-  "applicationUrl": "https://indiaculture.gov.in/scheme-financial-assistance-veteran-artists",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44665,7 +44853,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "A copy of Ex-Servicemen Identity Card duly attested.",
    "A copy of Discharge Book duly attested."
   ],
-  "applicationUrl": "https://ksb.gov.in/interest-subsidy-on-home-loan.htm",
+  "applicationUrl": "https://www.ksb.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44731,7 +44920,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate",
    "Domicile Certificate"
   ],
-  "applicationUrl": "https://nskfdc.nic.in/en/content/home/green-business-scheme",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44821,7 +45010,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate",
    "Details of the Aadhaar-linked Bank Account."
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/dadra_Pre-Matric%20Scholarship%20for%20OBC%20students.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -44920,7 +45110,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "NOTE: The Certifier veteran freedom fighters in respect of underground suffering, internment/externment and the applicant should belong to the same administrative unit before the reorganization of States and their area of operation must be the same.",
    "(D) Loss of Property, Job, etc."
   ],
-  "applicationUrl": "https://www.mha.gov.in/sites/default/files/2022-09/Annexure%25208%5B1%5D.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45038,7 +45228,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Affidavit Duly Attested by the First-Class Magistrate in the Prescribed Format.",
    "Upon selection, every financial year, the master craftsperson has to submit an income certificate and an affidavit in the prescribed format duly countersigned by the 1st Class Magistrate for seeking financial support."
   ],
-  "applicationUrl": "https://www.handicrafts.nic.in/pdf/FORM_OF_APPLICATION_FOR_GRANT_OFFINANCIAL.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45172,7 +45362,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "* Small farmers i.e. those with land holding between One and Two hectares will be deemed as having annual family income below Rs.3.00 Lakh per annum.",
    "Source: https://nbcfdc.gov.in/eligibility/en"
   ],
-  "applicationUrl": "https://nbcfdc.gov.in/loan-scheme-description/1/en",
+  "applicationUrl": "https://nbcfdc.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45255,7 +45446,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Last academic qualification certificate.",
    "Bank Details of the applicant or of the Parent/Guardian."
   ],
-  "applicationUrl": "http://disabilityaffairs.gov.in/upload/uploadfiles/files/scholarship2(1).pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45361,7 +45553,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "No documents are required for availing the benefits of this scheme."
   ],
-  "applicationUrl": "https://www.india.gov.in/spotlight/poshan-abhiyaan-pms-overarching-scheme-holistic-nourishment",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45444,7 +45636,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Non Initiation Certificate (If Applicable)",
    "Verification Reports From IB/CBI/MHA (If Applicable)"
   ],
-  "applicationUrl": "https://awards.gov.in/",
+  "applicationUrl": "https://www.awards.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45580,7 +45773,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "At the time of joining on selection, the applicants shall be required to produce a letter from their Supervisor/ Head of Department/ or principal indicating their status in the institution and a “No Objection” certificate for allowing their student to undergo an Internship program for the period for which they are selected."
   ],
-  "applicationUrl": "https://cdnbbsr.s3waas.gov.in/s316026d60ff9b54410b3435b403afd226/uploads/2023/09/202403121034313656.pdf",
+  "applicationUrl": "https://serviceonline.gov.in/loginWindow.do",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45663,7 +45857,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "No Objection Certificate (NOC) from their educational institution.",
    "School/College ID Proof."
   ],
-  "applicationUrl": "https://nsfdc.nic.in/UploadedFiles/other/2024-07-08/nsfdc%20intership%20scheme2024.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45741,7 +45935,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Self-attested pdf copies of degree certificates.",
    "A Consent letter from the mentor."
   ],
-  "applicationUrl": "https://ra.dbtindia.gov.in/dbtraStaticPortal.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45830,7 +46024,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport Size Photographs.",
    "Self-Attested Copies of the above documents."
   ],
-  "applicationUrl": "https://dge.gov.in/dge/ncsc_for_sc/sts",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -45935,7 +46129,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Admission Fee Receipt",
    "Character Certificate (From Last Educational Institution)"
   ],
-  "applicationUrl": "https://dgt.gov.in/cts-guidelines-details",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46058,7 +46252,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "A Report/Paper on the allotted subject at the end of the internship.",
    "Mandatory Feedback to the concerned HoD."
   ],
-  "applicationUrl": "https://iwai.nic.in/recruitment/vacancy",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46158,7 +46352,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proposed Costs And Time Frame For The Project (Including Justification For Cost Estimation).",
    "Activity Details/Work Plan With Monitorable Milestones."
   ],
-  "applicationUrl": "https://www.dsir.gov.in/sites/default/files/2019-09/guide_ph1_cat2.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46293,7 +46487,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other due diligence documents requested on a case-to-case basis by BIG Partners (e.g. technology in licensing; IP rights clarification; NoC from Institute etc.)",
    "Undertaking by the applicant that the project with the same objectives and deliverables has not received funding from any other agency."
   ],
-  "applicationUrl": "https://birac.nic.in/big.php",
+  "applicationUrl": "https://birac.nic.in/login.php",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46453,7 +46648,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "If you wish to receive benefits in a family member’s bank account:",
    "A written consent/authorization form is required (format provided in the annexure of the manual)."
   ],
-  "applicationUrl": "https://www.nikshay.in/",
+  "applicationUrl": "https://www.nikshay.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46529,7 +46725,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photograph of Constructed Toilet (for verification and geo-tagging)",
    "Any other documents if required"
   ],
-  "applicationUrl": "https://swachhbharatmission.gov.in/sbmcms/writereaddata/images/pdf/Guidelines/Complete-set-guidelines.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46626,7 +46822,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Transgender Certificate And Identity Card Issued By The National Portal For Transgender Persons (Mandatory Document To Avail Health Insurance Package).",
    "Registration Identification/Transgender Person’s Certificate Serial Number (Required From The National Portal For Transgender Persons To Access Benefits)."
   ],
-  "applicationUrl": "https://socialjustice.gov.in/schemes/99",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46716,7 +46912,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Education",
    "Proof of Residence"
   ],
-  "applicationUrl": "https://socialjustice.gov.in/writereaddata/UploadFile/71551728966351.pdf",
+  "applicationUrl": "https://www.skillindiadigital.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46823,7 +47020,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "A Certificate in original from the BDO/ Tehsildar/Collector /SDM (quoting full name, designation, telephone number and complete official address of the certificate issuing authority) regarding occupation and monthly/yearly income of the applicant and his/her family members from all sources.",
    "Copy of the ration card."
   ],
-  "applicationUrl": "https://main.mohfw.gov.in/major-programmes/poor-patients-financial-assistance/health-ministers-discretionary-grant-hmdg",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46904,7 +47101,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport size photograph",
    "Proof of identity, such as a copy of your passport, driver's license, or Aadhaar card"
   ],
-  "applicationUrl": "https://dbtyas-youth.gov.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -46988,7 +47185,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ayushman Bharat Card.",
    "Forest Right Act (FRA) Pattas."
   ],
-  "applicationUrl": "https://adiprasaran.tribal.gov.in/pm-janman/janman_Download/PM-JANMAN-Operational%20Guidelines.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47085,7 +47282,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Marksheets of all semesters/years of graduation, PG, along with the degree (as applicable)",
    "NOC in a specific format as mentioned in the application guidelines."
   ],
-  "applicationUrl": "https://workforindia.niti.gov.in/intern/PDF/GENERAL%20INFORMATION_INTERNSHIP%20NITI%20SCHEME.pdf",
+  "applicationUrl": "https://workforindia.niti.gov.in/intern/InternshipEntry/PCInternshipEntry.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47184,7 +47382,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "3. Utilization certificate for the previous grant released.",
    "4. A certificate giving justification for the continuance of the scholarship issued by the Director/Head of the Department duly forwarded by the Registrar/Principal."
   ],
-  "applicationUrl": "https://www.ugc.ac.in/oldpdf/xiiplanpdf/medal-winners-guidelines.pdf",
+  "applicationUrl": "http://www.ugc.ac.in/page/XII-Plan\u0002Guidelines.aspx",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47301,7 +47500,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability certificate, if applicable",
    "Any other document, as required"
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/guidelines_pgsprof_gl1819.pdf",
+  "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47442,7 +47642,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "Visvesvaraya PhD Scheme is an institutional scheme wherein eligible institutions submit nominations for YFRF against an active call for proposal by Visvesvaraya PhD Scheme, DIC, MeitY. Accordingly, the applicants may contact their respective institutions for documents and other formalities."
   ],
-  "applicationUrl": "https://phd.dic.gov.in/",
+  "applicationUrl": "https://phd.dic.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47544,7 +47745,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "The list of documents required will be given in the Application Form when the Call is announced."
   ],
-  "applicationUrl": "https://icssr.org/doctoral-fellowship",
+  "applicationUrl": "https://www.icssr.org",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47639,7 +47841,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Statement of Purpose (SOP) (not exceeding 200 words).",
    "The interns will be required to submit an end-of-the-assignment report and make a presentation on the allotted subject at the end of the internship period. The interns will also provide feedback on their experience of the programme to the Secretary CVC."
   ],
-  "applicationUrl": "https://www.cvc.gov.in/sites/default/files/Internship%20Scheme%202019-20.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47734,7 +47936,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "An income declaration by the self-employed parents/guardians, stating definite income from all sources through an affidavit on nonjudicial stamp paper. Employed parents/guardians are required to obtain an income certificate from their employer and for any additional income from other sources, they would furnish a declaration by way of an affidavit on non-judicial stamp paper.",
    "A receipt in acknowledgment of the scholarship in the previous year on the form attached to the application only duly counter-signed by the Head of the Institution concerned if the applicant was in receipt of a scholarship under this scheme in the preceding year."
   ],
-  "applicationUrl": "https://scholarships.gov.in/public/schemeGuidelines/PostMatricUmbrella_tripura.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47840,7 +48042,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "2. “No Objection Certificate (NOC)” from their Head of Institution/Head of Department/ Principal, allowing the student to undergo the Internship program for the proposed period.",
    "At the end of the internship, each intern shall submit a detailed report on the work carried out and, if required, make a presentation on it."
   ],
-  "applicationUrl": "https://internship.mea.gov.in/view_pdf_home",
+  "applicationUrl": "https://internship.mea.gov.in/applicationForm/1/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -47949,7 +48152,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "For every Fellowship/Scholarship/Research Grant scheme of UGC, the beneficiary will have to submit feedback in the form of a report on the research work done on the web portal.",
    "After completion of the research work, the Institution concerned shall submit the summary of the awardee’s research work along with the published research papers."
   ],
-  "applicationUrl": "https://frg.ugc.ac.in/download/Guidelines-In%20service%20faculty.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48075,7 +48278,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other document as required.",
    "Note: Selected candidates must bring printout of their application forms, after duly signed by the HOD of respective department with official seal, at the time of arrival for training in ESSO-NCESS."
   ],
-  "applicationUrl": "https://www.ncess.gov.in/notifications/opportunities.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48151,6 +48354,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Surety Bond Signed by the Candidate, on ₹100 Non-Judicial Stamp Paper, to Work on Contractual Basis With the Sports Authority of India or a Designated Organisation for a Period of 3 Years (in the prescribed format)."
   ],
   "applicationUrl": "https://dbtyas-sports.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48255,7 +48459,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details including IFSC code.",
    "[Note: Only on receipt of the above documents, will the Council initiate further action.]"
   ],
-  "applicationUrl": "https://www.aicte-india.org/sites/default/files/fds/Scheme%20Document%20DCP%20Updated.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48327,7 +48531,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Thumb impression.",
    "No certificates are required to be uploaded along with the Application Form at the time of online submission."
   ],
-  "applicationUrl": "https://education.icar.gov.in/Files/Guidelines/FINALGuidelines(GNTS)-26072016.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48419,7 +48623,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Detail Write up of research to be done",
    "If not enrolled in a Ph.D."
   ],
-  "applicationUrl": "https://www.online-inspire.gov.in/readwritedata/template/FellowshipTemplate/Guidelines_Fellowship.pdf",
+  "applicationUrl": "https://www.online-inspire.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48566,6 +48771,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Any other document if required."
   ],
   "applicationUrl": "https://dsw.du.ac.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48688,6 +48894,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Note: Submission of bank particulars including the account number of the nationalized bank by the applicant duly seeded with an Aadhaar Number is mandatory."
   ],
   "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48838,7 +49045,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Passbook.",
    "No Objection Certificate (NOC) from his/her respective college/university."
   ],
-  "applicationUrl": "https://cdnbbsr.s3waas.gov.in/s3a70dc40477bc2adceef4d2c90f47eb82/uploads/2023/08/2023081140.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -48951,7 +49158,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Letter of Recommendation from the Institution",
    "Details of the Bank Account"
   ],
-  "applicationUrl": "https://dea.gov.in/sites/default/files/internship%202022-23.pdf",
+  "applicationUrl": "https://mofapp.nic.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49049,7 +49257,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Letter of recommendation in PDF (format size less than 2 MB).",
    "Mark sheet or Certificate of Qualification (in PDF format size less than 2 MB)."
   ],
-  "applicationUrl": "https://www.icroamrit.npcindia.gov.in/",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49153,6 +49361,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "No Objection"
   ],
   "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49279,7 +49488,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Application in the prescribed format (in duplicate).- Invoice / Bill (original) with TIN No. in case of Sprinkler/Drip Equipment.",
    "Work completion report and expenditure statement signed by the applicant."
   ],
-  "applicationUrl": "https://coffeeboard.gov.in/Schemes/ICDP_388.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49397,7 +49606,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Quotation in Respect of Purchase of Machinery/Equipment.",
    "Self-Prepared Plan and Estimation for Water Storage Tank / Open Well / Ring Well."
   ],
-  "applicationUrl": "https://coffeeboard.gov.in/Schemes/TA_ICDP_MTF.pdf",
+  "applicationUrl": "https://coffeeboard.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49524,7 +49734,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account details",
    "Other documents as required by the board"
   ],
-  "applicationUrl": "https://coconutboard.gov.in/Scheme.aspx#Insurance",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49634,7 +49844,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Aaadhaar Number",
    "Copy of the Bank Passbook"
   ],
-  "applicationUrl": "https://diragrijmu.nic.in/cssguidelines/smsp.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49724,7 +49934,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income certificate",
    "Photograph"
   ],
-  "applicationUrl": "https://dahd.nic.in/related-links/centrally-sponsored-national-scheme-welfare-fishermen#:~:text=The%20Centrally%20Sponsored%20'National%20Scheme,period%20through%20saving%20cum%20relief",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49831,7 +50041,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Proof of Ownership of the Property Owners.",
    "Any other documents as required by the Revenue Officials."
   ],
-  "applicationUrl": "https://svamitva.nic.in/svamitva/downloadPdfFiles.html?id=36&type=pdf&OWASP_CSRFTOKEN=EOIY-CFO7-HLZC-LNAD-SEAC-5EH8-4NTI-1ZOT",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -49961,7 +50171,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "d) Aadhar card",
    "e) Copy of Bank Pass book"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50075,7 +50286,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "b) Bank details",
    "c)MoU in prescribed form"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50191,7 +50403,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "b) Current year land tax receipt / RTC / Chitta adangal/parcha/ NoC",
    "c) Aadhaar card"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50307,7 +50520,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photographs",
    "The specific documents for availing the benefits of the program may vary depending on the type of intervention and the state. It is recommended to consult with the relevant authorities for detailed information on documents to be submitted."
   ],
-  "applicationUrl": "http://agriculture.up.gov.in/nmnf/natural_farming/guid/NMNFGuidelines.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50393,7 +50606,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Crop-sowing certificate (if required).",
    "Bank account details for claim disbursement."
   ],
-  "applicationUrl": "https://pmfby.gov.in/pdf/NAIS_SCHEME.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50538,6 +50751,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Mandate Form (Appendix-IV)"
   ],
   "applicationUrl": "https://scholarships.gov.in/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50681,7 +50895,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank account linked aadhaar card, bank passbook, and canceled cheque.",
    "Finally, an affidavit on ₹50 stamp paper from the girl or her parents duly attested by the gazette officer SDM or first-class magistrate, not below the rank of tehsildar. They must mention that the girl child belongs to a specific family."
   ],
-  "applicationUrl": "https://www.cbse.gov.in/cbsenew/scholar/SGC%20Sship%20Scheme.pdf",
+  "applicationUrl": "https://www.cbse.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50746,7 +50961,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
   "documentsRequired": [
    "No documents are required to avail assistance under the scheme."
   ],
-  "applicationUrl": "https://missionshakti.wcd.gov.in/public/documents/whatsnew/Mission_Shakti_Guidelines.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50831,7 +51046,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Consent letter from Scientist Mentor cum Ph.D. Supervisor",
    "Bio-Data of Scientist-Mentor"
   ],
-  "applicationUrl": "https://online-wosa.gov.in/wisephd.html",
+  "applicationUrl": "https://onlinedst.gov.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -50971,7 +51187,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Ration card",
    "Janani Suraksha Card"
   ],
-  "applicationUrl": "http://nhm.gov.in/showlink.php?id=474",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51049,7 +51265,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Birth Certificate of each orphan.",
    "Certificate from competent authority (for girl) certifying that the girl is not married.- Details of Bank A/c No and IFS Code."
   ],
-  "applicationUrl": "https://ksb.gov.in/orphan-children-of-esm.htm",
+  "applicationUrl": "https://www.ksb.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51122,7 +51339,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Financial estimate for a modified scooter from an authorized dealer indicating type, make and specifications of the mobility equipment.",
    "Details of Bank A/c No (in PNB/SBI only) and IFS Code."
   ],
-  "applicationUrl": "https://ksb.gov.in/writereaddata/DownLoad/M-1.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51250,7 +51467,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Original Bills and Receipts of Medical Expenditure (Required for Treatment Reimbursement Claims).",
    "Prior Approval Letter from the Welfare Commissioner (Required for Heart Ailments, Kidney Treatment, and Cancer Treatments)."
   ],
-  "applicationUrl": "https://www.labour.gov.in/static/uploads/2026/08/21351d97cea922c521ed2a04271e2b8e.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51390,7 +51607,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "The Transgender certificate & identity card are nationally recognized and provided by the Ministry of Social Justice & Empowerment, the certificate is a mandatory document to avail the welfare measures being provided under the SMILE scheme.",
    "The certificate can be obtained from the district magistrate’s office or from the block office. If the transgender person has undergone a sex change, then they will have to get a certificate from the hospital authorities."
   ],
-  "applicationUrl": "https://transgender.dosje.gov.in/docs/GarimaGrehGuidleines.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51472,7 +51689,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Property documents",
    "Any other documents, as required"
   ],
-  "applicationUrl": "https://pmay-urban.gov.in/credit-linked-subsidy-scheme",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51629,7 +51846,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Pass Book",
    "No Objection Certificate from panchayats if the Land is not in the beneficiary’s name."
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51760,7 +51978,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "No Objection Certificate from panchayats if the Land is not in the beneficiary’s name.",
    "Quotation from authorized dealer or three competitive quotations if there is no authorized dealer."
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51885,7 +52104,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "NOTE 1: The land records should be in the name of the beneficiary.",
    "NOTE 2: The applicant should furnish the land records/possession certificate duly certified by the Village Authority/State Government Authority/Competent Authority."
   ],
-  "applicationUrl": "https://coffeeboard.gov.in/Schemes/ICDP_388.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -51996,7 +52215,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of SC/ST certificate (if applicable)",
    "Copy of Bank Passbook e) No Objection Certificate from panchayats if the Land is not in the beneficiary’s name."
   ],
-  "applicationUrl": "https://www.indianspices.com/export_oriented_prod.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52109,7 +52328,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Documentary Proof of Work Experience in Related Fields (optional)",
    "Certificates of Excellence in Extra-Curricular Activities (optional)"
   ],
-  "applicationUrl": "https://cdn.s3waas.gov.in/s330ef30b64204a3088a26bc2e6ecf7602/uploads/2018/11/2018111655-1.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52214,7 +52433,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Partnership Deed (In case of partnership firm)",
    "Address Proof (Election Commission Photo ID card, Electricity Bill, Water Bill, Telephone Bill, Passbook, rent agreement etc.)"
   ],
-  "applicationUrl": "https://www.nlm.udyamimitra.in/Home/PreApplication",
+  "applicationUrl": "https://nlm.udyamimitra.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52370,7 +52590,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Caste Certificate.",
    "Two passport-size photograph."
   ],
-  "applicationUrl": "https://pgsiari.icar.gov.in/gbookpdf/part1_Ch-15.pdf",
+  "applicationUrl": "http://www.iari.res.in",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52455,7 +52676,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Invoice/Bill for the quality testing device",
    "Proof of purchase of the quality testing device"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52578,7 +52800,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "d) Bank pass book first page",
    "e) Quotation from approved manufacturer"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52696,7 +52919,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "d)Copy of Scope certificate with annexures",
    "e) Approved farmers list of the CB"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52824,7 +53048,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "e) Bank Pass Book",
    "f) Plan and estimate of the proposed structure from the qualified registered/licensed or Govt. civil engineer following Govt.approved rates for construction."
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -52954,7 +53179,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Driving Licences.",
    "Any other document as specified by State/ UT."
   ],
-  "applicationUrl": "https://agricoop.nic.in/sites/default/files/ACABC-Revised-Guideline-2018.pdf",
+  "applicationUrl": "https://www.agriclinics.net/",
+  "applicationLinkType": "portal",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53049,7 +53275,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photographs",
    "The specific documents for availing the benefits of the program may vary depending on the type of intervention and the state. It is recommended to consult with the relevant authorities for detailed information on documents to be submitted."
   ],
-  "applicationUrl": "https://fileforwebsite.s3.ap-south-1.amazonaws.com/Implementation.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53170,7 +53396,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Bank Pass book",
    "Survey plan issued by V.O./registered surveyor"
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53296,7 +53523,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "c) Bank Passbook First page – copy",
    "d) No Objection Certificate from panchayats if the Land is not in the beneficiary’s name."
   ],
-  "applicationUrl": "https://serviceonline.gov.in/dbt/login.do",
+  "applicationUrl": "https://serviceonline.gov.in/dbt/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53417,7 +53645,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Registration Card under the BOCW Act.",
    "Any Other Documents if required.."
   ],
-  "applicationUrl": "https://apbocwwb.ap.nic.in/apbocwwbhome.jsp",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53519,7 +53747,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Detailed Expenditure Report/Utilization Certificate",
    "Duplicate Or Photocopy Of The Discharge Ticket Issued After Treatment."
   ],
-  "applicationUrl": "https://www.mponline.gov.in/Portal/UserInterface/KIOSK/AuthKIOSKList.aspx",
+  "applicationUrl": "https://mpedistrict.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53653,7 +53882,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Annual family income certificate issued by concerned Tahasildar.",
    "Any other document desired by the department and mentioned on the website: https://health.odisha.gov.in/citizen-e-services/odisha-state-treatment-fund-ostf"
   ],
-  "applicationUrl": "https://health.odisha.gov.in/sites/default/files/2020-03/OSTF_Revised_Guidelines.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53737,7 +53966,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Passport-size photograph",
    "Land document/lease deed photocopy"
   ],
-  "applicationUrl": "https://sugam.odisha.gov.in/website/home/scheme-list",
+  "applicationUrl": "https://sugam.odisha.gov.in/website/citizen-portal/login",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53869,7 +54099,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Income Certificate.",
    "Construction Worker Card. (If belong to that Category)."
   ],
-  "applicationUrl": "https://sha.punjab.gov.in/shapunjab/index.php",
+  "applicationUrl": "https://beneficiary.nha.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -53951,7 +54182,8 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability certificate (If applicable)",
    "Any other documents as required"
   ],
-  "applicationUrl": "https://hrylabour.gov.in/bocw/settings/schemeDetail/117",
+  "applicationUrl": "https://hrylabour.gov.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54069,6 +54301,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Certificate From The Hospital/Nursing Home Where Undergoing Treatment (PDF Maximum 1MB). This document serves as the Medical Certificate from the Government Doctor not below the rank of Sub-Divisional Medical Officer or from the Doctor of the Nursing Home/Hospital wherein the patient is undergoing treatment, confirming the disease of the patient."
   ],
   "applicationUrl": "https://sirishassam.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54189,6 +54422,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "First Page Of Applicant’s Bank Passbook (Maximum 100 KB In JPG/JPEG Format)."
   ],
   "applicationUrl": "https://sirishassam.in/",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54312,7 +54546,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Training Certificate (if applicable).",
    "Bank Account Details."
   ],
-  "applicationUrl": "https://www.jharkhand.gov.in/Home/ViewDoc?id=D030DO003SD00316032021113515818",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54427,6 +54661,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Copy of Guarantor's Aadhaar and PAN Card."
   ],
   "applicationUrl": "https://cmegp.jharkhand.gov.in/index.php/WebSetup/index",
+  "applicationLinkType": "online",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54523,7 +54758,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Death certificate and",
    "In case of permanent disability, permanent disability certificate issues by the doctor."
   ],
-  "applicationUrl": "https://cglabour.nic.in",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54635,7 +54870,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Account Details.",
    "Receipt of purchase item."
   ],
-  "applicationUrl": "https://cglabour.nic.in",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54718,7 +54953,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Photocopies of the treatment record",
    "Note: Applicant has to submit an undertaking for his signature verification as given in the application form."
   ],
-  "applicationUrl": "https://dgehs.delhi.gov.in/dghs/delhi-arogya-nidhi",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54822,7 +55057,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Disability Certificate",
    "Medical Bill, countersigned by the Doctor (if applicable)"
   ],
-  "applicationUrl": "https://bocw.hp.nic.in/index.aspx",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -54953,7 +55188,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Age proof (Birth certificate/School certificate)",
    "Identity proof (Aadhaar Card, Voter ID, or Driving License)"
   ],
-  "applicationUrl": "https://himachalservices.nic.in/hpscstdc/Sch-HastShilpEng.htm",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -55034,7 +55269,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Identity proof",
    "Other documents as required"
   ],
-  "applicationUrl": "https://uk.gov.in/department92/library_file/file-04-12-2023-06-02-23.pdf",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,
@@ -55109,7 +55344,7 @@ export const VERIFIED_SCHEMES_100: Scheme[] = [
    "Bank Details.",
    "Any Other Document if Required."
   ],
-  "applicationUrl": "http://www.ukbvvn.org.in/frmSCSTSelfEmployment.html",
+  "applicationUrl": "",
   "applicationSteps": [
    {
     "stepNumber": 1,

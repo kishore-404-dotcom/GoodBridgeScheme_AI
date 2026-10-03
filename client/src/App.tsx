@@ -47,7 +47,7 @@ const MainAppContent: React.FC = () => {
           />
         );
       case 'scheme':
-        return <SchemeDetailPage scheme={allSchemes.find((s) => s.schemeId === route.schemeId) || null} onOpenChat={openChat} />;
+        return <SchemeDetailPage scheme={allSchemes.find((s) => s.schemeId === route.schemeId) || null} initialTab={route.tab} onOpenChat={openChat} />;
       case 'eligibility':
         // The assessment report is the only content printed ("Download PDF Report")
         return <EligibilityAssessment onSelectScheme={openScheme} onOpenChat={openChat} />;

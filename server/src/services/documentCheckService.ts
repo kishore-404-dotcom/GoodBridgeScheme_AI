@@ -44,7 +44,7 @@ export class DocumentCheckService {
         'Scheme Name': scheme.name,
         'Ministry / Department': scheme.ministryOrDepartment,
         'Financial Benefit': scheme.financialBenefit,
-        'Official Application URL': scheme.applicationUrl,
+        'Official Application URL': scheme.applicationUrl || 'None (apply offline as per the official steps)',
         ...profileData
       },
       checklist,

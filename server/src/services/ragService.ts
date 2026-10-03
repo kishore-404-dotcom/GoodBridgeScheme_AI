@@ -157,7 +157,7 @@ export class RAGService {
           `Eligibility Rules: ${RAGService.describeRules(s.eligibilityRules)}`,
           `Documents Required: ${s.documentsRequired.slice(0, 10).join(', ')}`,
           `How to Apply: ${steps}`,
-          `Official URL: ${s.applicationUrl}`
+          s.applicationUrl ? `Official application link: ${s.applicationUrl}` : 'No online application: apply offline (office, bank or CSC) as described in the application steps'
         ].join('\n');
       })
       .join('\n---\n');

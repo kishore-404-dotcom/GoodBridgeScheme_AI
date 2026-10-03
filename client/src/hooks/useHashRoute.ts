@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 export type Route =
   | { page: 'home' }
   | { page: 'schemes'; params: URLSearchParams }
-  | { page: 'scheme'; schemeId: string }
+  | { page: 'scheme'; schemeId: string; tab?: string }
   | { page: 'eligibility' };
 
 const parseHash = (hash: string): Route => {
@@ -16,7 +16,7 @@ const parseHash = (hash: string): Route => {
   const parts = path.split('/').filter(Boolean);
 
   if (parts[0] === 'schemes') return { page: 'schemes', params: new URLSearchParams(query) };
-  if (parts[0] === 'scheme' && parts[1]) return { page: 'scheme', schemeId: decodeURIComponent(parts[1]) };
+  if (parts[0] === 'scheme' && parts[1]) return { page: 'scheme', schemeId: decodeURIComponent(parts[1]), tab: parts[2] };
   if (parts[0] === 'eligibility') return { page: 'eligibility' };
   return { page: 'home' };
 };

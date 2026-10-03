@@ -270,6 +270,6 @@ Use this profile instead of asking for details the citizen already gave. When yo
 💰 **${labels.benefit}**: ${topScheme.financialBenefit}
 📋 **${labels.summary}**: ${topScheme.summaryText}
 📁 **${labels.docs}**: ${topScheme.documentsRequired.slice(0, 4).join(', ')}
-🔗 **${labels.portal}**: ${topScheme.applicationUrl}`;
+🔗 **${labels.portal}**: ${topScheme.applicationUrl || topScheme.sourceUrl || ''}`;
   }
 }

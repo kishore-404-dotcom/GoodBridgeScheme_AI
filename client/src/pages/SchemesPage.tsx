@@ -3,6 +3,7 @@ import { Search, SlidersHorizontal, ArrowRight, ExternalLink, X, ChevronLeft, Ch
 import { Scheme } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
+import { applyLink, howToApplyHref } from '../utils/applyLink';
 import { useSchemeTranslations, prefetchSchemeTranslation } from '../hooks/useSchemeTranslations';
 import { CATEGORIES_LIST, categoryLabelKey } from '../components/CategoryGrid';
 
@@ -263,14 +264,19 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
                       >
                         {st('viewDetails')} <ArrowRight className="w-4 h-4" />
                       </a>
-                      <a
-                        href={scheme.applicationUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-500 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
-                      >
-                        {st('officialWebsite')} <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+                      {(() => {
+                        const apply = applyLink(scheme);
+                        const cls = 'px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-500 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors';
+                        return apply ? (
+                          <a href={apply.url} target="_blank" rel="noopener noreferrer" className={cls}>
+                            {st(apply.labelKey)} <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        ) : (
+                          <a href={howToApplyHref(scheme.schemeId)} className={cls} title={st('applyOfflineNote')}>
+                            {st('applyOfflineTitle')} <ArrowRight className="w-3.5 h-3.5" />
+                          </a>
+                        );
+                      })()}
                     </div>
                   </article>
                 </li>

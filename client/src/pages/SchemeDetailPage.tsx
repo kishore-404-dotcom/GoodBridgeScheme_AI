@@ -5,6 +5,7 @@ import {
 import { Scheme, EligibilityRules } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
+import { applyLink } from '../utils/applyLink';
 import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
 import { SpeechService } from '../services/speechService';
 import { readStore, writeStore } from '../utils/storage';
@@ -12,6 +13,8 @@ import { categoryLabelKey } from '../components/CategoryGrid';
 
 interface SchemeDetailPageProps {
   scheme: Scheme | null;
+  /** Tab to open first, from #/scheme/:id/:tab */
+  initialTab?: string;
   onOpenChat: () => void;
 }
 
@@ -46,10 +49,11 @@ const describeRules = (rules: EligibilityRules = {}): string[] => {
   return items;
 };
 
-export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: officialScheme, onOpenChat }) => {
+export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: officialScheme, initialTab, onOpenChat }) => {
   const { currentLanguage } = useLanguage();
   const st = useSiteText();
-  const [tab, setTab] = useState<TabKey>('details');
+  const startTab: TabKey = TABS.some((t) => t.key === initialTab) ? (initialTab as TabKey) : 'details';
+  const [tab, setTab] = useState<TabKey>(startTab);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
   const docsKey = `docs_${officialScheme?.schemeId}`;
@@ -60,13 +64,15 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
   const translation = useSchemeTranslations(officialScheme ? [officialScheme] : [], 'full');
   const hasTranslation = !!officialScheme && translation.isTranslated(officialScheme.schemeId);
   const scheme = officialScheme && hasTranslation && !showOriginal ? translation.schemes[0] : officialScheme;
+  const apply = officialScheme ? applyLink(officialScheme) : null;
 
   // Reset per-scheme state when navigating between schemes
   useEffect(() => {
-    setTab('details');
+    setTab(startTab);
     setHaveDocs(readStore<string[]>(docsKey, []));
     return () => SpeechService.stop();
-  }, [docsKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [docsKey, startTab]);
 
   if (!scheme) {
     return (
@@ -176,7 +182,7 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-8 items-start">
         {/* Tabbed Content */}
         <div className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden min-w-0">
-          <div role="tablist" className="flex overflow-x-auto border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/60">
+          <div id="scheme-tabs" role="tablist" className="scroll-mt-32 flex overflow-x-auto border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/60">
             {TABS.map(({ key, labelKey }) => (
               <button
                 key={key}
@@ -297,14 +303,21 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
                   <Info className="w-4 h-4 shrink-0 mt-0.5" />
                   {st('applyHelp')}
                 </p>
-                <a
-                  href={scheme.applicationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25"
-                >
-                  {st('applyOfficial')} <ExternalLink className="w-4 h-4" />
-                </a>
+                {apply ? (
+                  <a
+                    href={apply.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25"
+                  >
+                    {st(apply.labelKey)} <ExternalLink className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <p className="text-sm p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <strong className="block text-slate-900 dark:text-white">{st('applyOfflineTitle')}</strong>
+                    {st('applyOfflineNote')}
+                  </p>
+                )}
                 {scheme.references?.length ? (
                   <div className="pt-2">
                     <h3 className="font-extrabold text-slate-900 dark:text-white mb-2">{st('sourcesTitle')}</h3>
@@ -398,14 +411,25 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
             </dl>
           </div>
 
-          <a
-            href={scheme.applicationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full px-5 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-colors"
-          >
-            {st('applyOfficial')} <ExternalLink className="w-4 h-4" />
-          </a>
+          {apply ? (
+            <a
+              href={apply.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full px-5 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-colors"
+            >
+              {st(apply.labelKey)} <ExternalLink className="w-4 h-4" />
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={() => { setTab('apply'); document.getElementById('scheme-tabs')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="w-full px-5 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex flex-col items-center justify-center shadow-lg shadow-emerald-600/25 transition-colors"
+            >
+              <span>{st('howToApply')}</span>
+              <span className="text-xs font-semibold text-emerald-100">{st('applyOfflineTitle')}</span>
+            </button>
+          )}
           <a
             href="#/eligibility"
             className="w-full px-5 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-extrabold flex items-center justify-center gap-2 transition-colors"
@@ -422,6 +446,7 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
               {st('viewOnMyScheme')} <ExternalLink className="w-4 h-4" />
             </a>
           )}
+          {scheme.sourceUrl && <p className="-mt-1 text-[11px] text-center text-slate-500 dark:text-slate-400">{st('mySchemeInfoOnly')}</p>}
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={handleListen}

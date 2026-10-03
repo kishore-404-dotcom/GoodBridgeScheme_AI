@@ -5,6 +5,13 @@
  */
 export const SITE_STRINGS: Record<string, Record<string, string>> = {
   en: {
+    applyOnline: 'Apply online (official site)',
+    applyPortal: 'Go to official portal',
+    applyForm: 'Download application form',
+    applyOfflineTitle: 'Apply offline',
+    applyOfflineNote: 'This scheme has no online application. Apply at the office, bank or CSC named in the official steps below.',
+    howToApply: 'How to apply',
+    mySchemeInfoOnly: 'Scheme information page. Applications are made on the department\'s portal or office, not on myScheme.',
     clearChat: 'Clear chat',
     feedbackTitle: 'Was this information helpful?',
     feedbackYes: 'Yes',
@@ -131,6 +138,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     footerDisclaimer: 'GoodBridgeScheme AI is an independent assistant and is not affiliated with the Government of India. Scheme information is reproduced from myScheme (myscheme.gov.in), the Government of India’s official scheme platform, and official state portals; always confirm details on the official website before applying.'
   },
   hi: {
+    applyOnline: 'ऑनलाइन आवेदन करें (आधिकारिक साइट)',
+    applyPortal: 'आधिकारिक पोर्टल पर जाएँ',
+    applyForm: 'आवेदन पत्र डाउनलोड करें',
+    applyOfflineTitle: 'ऑफ़लाइन आवेदन करें',
+    applyOfflineNote: 'इस योजना में ऑनलाइन आवेदन नहीं है। नीचे दिए गए आधिकारिक चरणों में बताए गए कार्यालय, बैंक या CSC पर आवेदन करें।',
+    howToApply: 'आवेदन कैसे करें',
+    mySchemeInfoOnly: 'योजना की जानकारी का पेज। आवेदन विभाग के पोर्टल या कार्यालय में होता है, myScheme पर नहीं।',
     clearChat: 'चैट साफ़ करें',
     feedbackTitle: 'क्या यह जानकारी उपयोगी थी?',
     feedbackYes: 'हाँ',
@@ -257,6 +271,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना नहीं मिली।'
   },
   ta: {
+    applyOnline: 'ஆன்லைனில் விண்ணப்பிக்கவும் (அதிகாரப்பூர்வ தளம்)',
+    applyPortal: 'அதிகாரப்பூர்வ போர்ட்டலுக்குச் செல்லவும்',
+    applyForm: 'விண்ணப்பப் படிவத்தைப் பதிவிறக்கவும்',
+    applyOfflineTitle: 'நேரில் விண்ணப்பிக்கவும்',
+    applyOfflineNote: 'இந்தத் திட்டத்திற்கு ஆன்லைன் விண்ணப்பம் இல்லை. கீழே உள்ள அதிகாரப்பூர்வ படிகளில் குறிப்பிட்ட அலுவலகம், வங்கி அல்லது CSC-யில் விண்ணப்பிக்கவும்.',
+    howToApply: 'விண்ணப்பிக்கும் முறை',
+    mySchemeInfoOnly: 'திட்டத் தகவல் பக்கம். விண்ணப்பங்கள் துறையின் போர்ட்டல் அல்லது அலுவலகத்தில் செய்யப்படும், myScheme-இல் அல்ல.',
     clearChat: 'அரட்டையை அழி',
     feedbackTitle: 'இந்தத் தகவல் உதவியாக இருந்ததா?',
     feedbackYes: 'ஆம்',
@@ -383,6 +404,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'திட்டம் கிடைக்கவில்லை.'
   },
   te: {
+    applyOnline: 'ఆన్‌లైన్‌లో దరఖాస్తు చేయండి (అధికారిక సైట్)',
+    applyPortal: 'అధికారిక పోర్టల్‌కు వెళ్లండి',
+    applyForm: 'దరఖాస్తు ఫారమ్ డౌన్‌లోడ్ చేయండి',
+    applyOfflineTitle: 'ఆఫ్‌లైన్‌లో దరఖాస్తు చేయండి',
+    applyOfflineNote: 'ఈ పథకానికి ఆన్‌లైన్ దరఖాస్తు లేదు. క్రింది అధికారిక దశల్లో పేర్కొన్న కార్యాలయం, బ్యాంక్ లేదా CSCలో దరఖాస్తు చేయండి.',
+    howToApply: 'ఎలా దరఖాస్తు చేయాలి',
+    mySchemeInfoOnly: 'పథక సమాచార పేజీ. దరఖాస్తులు శాఖ పోర్టల్ లేదా కార్యాలయంలో చేయాలి, mySchemeలో కాదు.',
     clearChat: 'చాట్ క్లియర్ చేయండి',
     feedbackTitle: 'ఈ సమాచారం ఉపయోగపడిందా?',
     feedbackYes: 'అవును',
@@ -509,6 +537,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'పథకం కనబడలేదు.'
   },
   mr: {
+    applyOnline: 'ऑनलाइन अर्ज करा (अधिकृत साइट)',
+    applyPortal: 'अधिकृत पोर्टलवर जा',
+    applyForm: 'अर्जाचा नमुना डाउनलोड करा',
+    applyOfflineTitle: 'ऑफलाइन अर्ज करा',
+    applyOfflineNote: 'या योजनेसाठी ऑनलाइन अर्ज नाही. खालील अधिकृत टप्प्यांमध्ये सांगितलेल्या कार्यालय, बँक किंवा CSC मध्ये अर्ज करा.',
+    howToApply: 'अर्ज कसा करावा',
+    mySchemeInfoOnly: 'योजनेच्या माहितीचे पान. अर्ज विभागाच्या पोर्टलवर किंवा कार्यालयात केला जातो, myScheme वर नाही.',
     clearChat: 'चॅट साफ करा',
     feedbackTitle: 'ही माहिती उपयुक्त होती का?',
     feedbackYes: 'हो',
@@ -635,6 +670,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना सापडली नाही.'
   },
   bn: {
+    applyOnline: 'অনলাইনে আবেদন করুন (সরকারি সাইট)',
+    applyPortal: 'সরকারি পোর্টালে যান',
+    applyForm: 'আবেদনপত্র ডাউনলোড করুন',
+    applyOfflineTitle: 'অফলাইনে আবেদন করুন',
+    applyOfflineNote: 'এই প্রকল্পে অনলাইন আবেদন নেই। নিচের সরকারি ধাপে উল্লিখিত অফিস, ব্যাংক বা CSC-তে আবেদন করুন।',
+    howToApply: 'কীভাবে আবেদন করবেন',
+    mySchemeInfoOnly: 'প্রকল্পের তথ্য পাতা। আবেদন বিভাগের পোর্টাল বা অফিসে হয়, myScheme-এ নয়।',
     clearChat: 'চ্যাট মুছুন',
     feedbackTitle: 'এই তথ্য কি সহায়ক ছিল?',
     feedbackYes: 'হ্যাঁ',
@@ -761,6 +803,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'প্রকল্প পাওয়া যায়নি।'
   },
   kn: {
+    applyOnline: 'ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ (ಅಧಿಕೃತ ತಾಣ)',
+    applyPortal: 'ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ಗೆ ಹೋಗಿ',
+    applyForm: 'ಅರ್ಜಿ ನಮೂನೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ',
+    applyOfflineTitle: 'ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ',
+    applyOfflineNote: 'ಈ ಯೋಜನೆಗೆ ಆನ್‌ಲೈನ್ ಅರ್ಜಿ ಇಲ್ಲ. ಕೆಳಗಿನ ಅಧಿಕೃತ ಹಂತಗಳಲ್ಲಿ ಹೇಳಿರುವ ಕಚೇರಿ, ಬ್ಯಾಂಕ್ ಅಥವಾ CSC ಯಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ.',
+    howToApply: 'ಅರ್ಜಿ ಸಲ್ಲಿಸುವುದು ಹೇಗೆ',
+    mySchemeInfoOnly: 'ಯೋಜನೆಯ ಮಾಹಿತಿ ಪುಟ. ಅರ್ಜಿಗಳನ್ನು ಇಲಾಖೆಯ ಪೋರ್ಟಲ್ ಅಥವಾ ಕಚೇರಿಯಲ್ಲಿ ಸಲ್ಲಿಸಲಾಗುತ್ತದೆ, myScheme ನಲ್ಲಿ ಅಲ್ಲ.',
     clearChat: 'ಚಾಟ್ ತೆರವುಗೊಳಿಸಿ',
     feedbackTitle: 'ಈ ಮಾಹಿತಿ ಉಪಯುಕ್ತವಾಗಿತ್ತೇ?',
     feedbackYes: 'ಹೌದು',
@@ -887,6 +936,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'ಯೋಜನೆ ಸಿಗಲಿಲ್ಲ.'
   },
   gu: {
+    applyOnline: 'ઓનલાઇન અરજી કરો (સત્તાવાર સાઇટ)',
+    applyPortal: 'સત્તાવાર પોર્ટલ પર જાઓ',
+    applyForm: 'અરજી ફોર્મ ડાઉનલોડ કરો',
+    applyOfflineTitle: 'ઓફલાઇન અરજી કરો',
+    applyOfflineNote: 'આ યોજનામાં ઓનલાઇન અરજી નથી. નીચેના સત્તાવાર પગલાંમાં જણાવેલ કચેરી, બેંક અથવા CSC પર અરજી કરો.',
+    howToApply: 'અરજી કેવી રીતે કરવી',
+    mySchemeInfoOnly: 'યોજનાની માહિતીનું પાનું. અરજી વિભાગના પોર્ટલ અથવા કચેરીમાં થાય છે, myScheme પર નહીં.',
     clearChat: 'ચેટ સાફ કરો',
     feedbackTitle: 'શું આ માહિતી ઉપયોગી હતી?',
     feedbackYes: 'હા',
@@ -1013,6 +1069,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'યોજના મળી નથી.'
   },
   ml: {
+    applyOnline: 'ഓൺലൈനായി അപേക്ഷിക്കുക (ഔദ്യോഗിക സൈറ്റ്)',
+    applyPortal: 'ഔദ്യോഗിക പോർട്ടലിലേക്ക് പോകുക',
+    applyForm: 'അപേക്ഷാ ഫോം ഡൗൺലോഡ് ചെയ്യുക',
+    applyOfflineTitle: 'ഓഫ്‌ലൈനായി അപേക്ഷിക്കുക',
+    applyOfflineNote: 'ഈ പദ്ധതിക്ക് ഓൺലൈൻ അപേക്ഷയില്ല. താഴെയുള്ള ഔദ്യോഗിക ഘട്ടങ്ങളിൽ പറയുന്ന ഓഫീസ്, ബാങ്ക് അല്ലെങ്കിൽ CSC-യിൽ അപേക്ഷിക്കുക.',
+    howToApply: 'എങ്ങനെ അപേക്ഷിക്കാം',
+    mySchemeInfoOnly: 'പദ്ധതി വിവര പേജ്. അപേക്ഷകൾ വകുപ്പിന്റെ പോർട്ടലിലോ ഓഫീസിലോ ആണ് നൽകുന്നത്, myScheme-ൽ അല്ല.',
     clearChat: 'ചാറ്റ് മായ്ക്കുക',
     feedbackTitle: 'ഈ വിവരം ഉപകാരപ്രദമായിരുന്നോ?',
     feedbackYes: 'അതെ',
@@ -1139,6 +1202,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'പദ്ധതി കണ്ടെത്തിയില്ല.'
   },
   pa: {
+    applyOnline: 'ਔਨਲਾਈਨ ਅਰਜ਼ੀ ਦਿਓ (ਅਧਿਕਾਰਤ ਸਾਈਟ)',
+    applyPortal: 'ਅਧਿਕਾਰਤ ਪੋਰਟਲ \'ਤੇ ਜਾਓ',
+    applyForm: 'ਅਰਜ਼ੀ ਫਾਰਮ ਡਾਊਨਲੋਡ ਕਰੋ',
+    applyOfflineTitle: 'ਔਫਲਾਈਨ ਅਰਜ਼ੀ ਦਿਓ',
+    applyOfflineNote: 'ਇਸ ਯੋਜਨਾ ਲਈ ਔਨਲਾਈਨ ਅਰਜ਼ੀ ਨਹੀਂ ਹੈ। ਹੇਠਾਂ ਦਿੱਤੇ ਅਧਿਕਾਰਤ ਕਦਮਾਂ ਵਿੱਚ ਦੱਸੇ ਦਫ਼ਤਰ, ਬੈਂਕ ਜਾਂ CSC \'ਤੇ ਅਰਜ਼ੀ ਦਿਓ।',
+    howToApply: 'ਅਰਜ਼ੀ ਕਿਵੇਂ ਦੇਣੀ ਹੈ',
+    mySchemeInfoOnly: 'ਯੋਜਨਾ ਜਾਣਕਾਰੀ ਪੰਨਾ। ਅਰਜ਼ੀਆਂ ਵਿਭਾਗ ਦੇ ਪੋਰਟਲ ਜਾਂ ਦਫ਼ਤਰ ਵਿੱਚ ਦਿੱਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ, myScheme \'ਤੇ ਨਹੀਂ।',
     clearChat: 'ਚੈਟ ਸਾਫ਼ ਕਰੋ',
     feedbackTitle: 'ਕੀ ਇਹ ਜਾਣਕਾਰੀ ਲਾਭਦਾਇਕ ਸੀ?',
     feedbackYes: 'ਹਾਂ',
