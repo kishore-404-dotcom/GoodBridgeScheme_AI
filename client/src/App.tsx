@@ -97,7 +97,7 @@ const MainAppContent: React.FC = () => {
             <a href="#/schemes" className="hover:text-emerald-400">{st('navSchemes')}</a>
             <a href="#/eligibility" className="hover:text-emerald-400">{st('navEligibility')}</a>
             <a href="https://www.myscheme.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 flex items-center gap-1">
-              Official myScheme Portal <ExternalLink className="w-3 h-3" />
+              {st('officialPortalLink')} <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         </div>

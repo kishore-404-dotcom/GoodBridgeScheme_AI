@@ -1,15 +1,17 @@
 import React from 'react';
 import { ClipboardList, Search, CheckCircle2, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useSiteText } from '../hooks/useSiteText';
 
 export const HowItWorks: React.FC = () => {
   const { t } = useLanguage();
+  const st = useSiteText();
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="text-center mb-8">
         <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-          How It Works
+          {st('howItWorksBadge')}
         </span>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
           {t('howItWorksTitle')}

@@ -3,7 +3,7 @@ import { Search, SlidersHorizontal, ArrowRight, ExternalLink, X } from 'lucide-r
 import { Scheme } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
-import { CATEGORIES_LIST } from '../components/CategoryGrid';
+import { CATEGORIES_LIST, categoryLabelKey } from '../components/CategoryGrid';
 
 interface SchemesPageProps {
   schemes: Scheme[];
@@ -17,12 +17,12 @@ type SortKey = 'relevance' | 'benefit' | 'name';
 const GENDER_OPTIONS = ['Female', 'Male'];
 const SOCIAL_OPTIONS = ['General', 'OBC', 'SC', 'ST', 'EWS'];
 const OCCUPATION_OPTIONS = [
-  { value: 'Student', label: 'Student' },
-  { value: 'Farmer', label: 'Farmer' },
-  { value: 'Self-Employed', label: 'Self-employed / MSME' },
-  { value: 'Artisan', label: 'Artisan / Craftsperson' },
-  { value: 'Homemaker', label: 'Homemaker' },
-  { value: 'Rural Laborer', label: 'Rural worker' }
+  { value: 'Student', labelKey: 'occStudent' },
+  { value: 'Farmer', labelKey: 'occFarmer' },
+  { value: 'Self-Employed', labelKey: 'occSelfEmployed' },
+  { value: 'Artisan', labelKey: 'occArtisan' },
+  { value: 'Homemaker', labelKey: 'occHomemaker' },
+  { value: 'Rural Laborer', labelKey: 'occRuralWorker' }
 ];
 
 /** A rule list with no entries (or an "All" entry) means the scheme is open to everyone */
@@ -144,13 +144,13 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
             setCategory,
             CATEGORIES_LIST.map((c) => ({
               value: c.id,
-              label: c.title,
+              label: st(c.labelKey),
               count: schemes.filter((s) => s.category === c.id).length
             }))
           )}
-          {radioGroup('gender', st('filterGender'), gender, setGender, GENDER_OPTIONS.map((g) => ({ value: g, label: g })))}
-          {radioGroup('social', st('filterSocialCategory'), social, setSocial, SOCIAL_OPTIONS.map((c) => ({ value: c, label: c })))}
-          {radioGroup('occupation', st('filterOccupation'), occupation, setOccupation, OCCUPATION_OPTIONS)}
+          {radioGroup('gender', st('filterGender'), gender, setGender, GENDER_OPTIONS.map((g) => ({ value: g, label: st(g === 'Female' ? 'genderFemale' : 'genderMale') })))}
+          {radioGroup('social', st('filterSocialCategory'), social, setSocial, SOCIAL_OPTIONS.map((c) => ({ value: c, label: c === 'General' ? st('socialGeneral') : c })))}
+          {radioGroup('occupation', st('filterOccupation'), occupation, setOccupation, OCCUPATION_OPTIONS.map((o) => ({ value: o.value, label: st(o.labelKey) })))}
         </aside>
 
         {/* Results */}
@@ -203,10 +203,10 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
                     <div className="flex-1 min-w-0 space-y-2">
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="text-[11px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                          {scheme.category}
+                          {st(categoryLabelKey(scheme.category))}
                         </span>
                         <span className="text-[11px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
-                          {scheme.level}
+                          {st(scheme.level === 'State' ? 'levelState' : 'levelCentral')}
                         </span>
                       </div>
                       <h3 className="text-lg font-extrabold text-slate-900 dark:text-white leading-snug">

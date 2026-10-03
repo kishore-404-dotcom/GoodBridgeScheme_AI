@@ -7,6 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
 import { SpeechService } from '../services/speechService';
 import { readStore, writeStore } from '../utils/storage';
+import { categoryLabelKey } from '../components/CategoryGrid';
 
 interface SchemeDetailPageProps {
   scheme: Scheme | null;
@@ -113,10 +114,10 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme, onOp
       <header className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 p-6 lg:p-8 mb-8">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
-            {scheme.category}
+            {st(categoryLabelKey(scheme.category))}
           </span>
           <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800">
-            {scheme.level}
+            {st(scheme.level === 'State' ? 'levelState' : 'levelCentral')}
           </span>
           {scheme.state && (
             <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
