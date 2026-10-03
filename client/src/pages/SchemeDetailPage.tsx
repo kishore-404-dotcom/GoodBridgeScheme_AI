@@ -6,6 +6,7 @@ import { Scheme, EligibilityRules } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
 import { applyLink } from '../utils/applyLink';
+import { ApplyButton } from '../components/ApplyButton';
 import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
 import { SpeechService } from '../services/speechService';
 import { readStore, writeStore } from '../utils/storage';
@@ -304,14 +305,7 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
                   {st('applyHelp')}
                 </p>
                 {apply ? (
-                  <a
-                    href={apply.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25"
-                  >
-                    {st(apply.labelKey)} <ExternalLink className="w-4 h-4" />
-                  </a>
+                  <ApplyButton scheme={scheme} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25" iconClassName="w-4 h-4" />
                 ) : (
                   <p className="text-sm p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                     <strong className="block text-slate-900 dark:text-white">{st('applyOfflineTitle')}</strong>
@@ -412,14 +406,7 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: offi
           </div>
 
           {apply ? (
-            <a
-              href={apply.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full px-5 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-colors"
-            >
-              {st(apply.labelKey)} <ExternalLink className="w-4 h-4" />
-            </a>
+            <ApplyButton scheme={scheme} className="w-full px-5 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-colors" iconClassName="w-4 h-4" />
           ) : (
             <button
               type="button"

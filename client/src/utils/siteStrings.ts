@@ -5,6 +5,13 @@
  */
 export const SITE_STRINGS: Record<string, Record<string, string>> = {
   en: {
+    leavingPortalNote: 'This is the department\'s portal for many schemes, so it opens on its home page. Register or sign in there, then choose "{scheme}" from its list of schemes or services.',
+    leavingOnlineNote: 'This opens the official application page for "{scheme}". You may need to register or sign in first.',
+    leavingFormNote: 'This opens the official application form. Print it, fill it in and submit it as the steps describe.',
+    leavingStepsTitle: 'Official steps',
+    leavingSlowNote: 'Government sites can take 10 to 30 seconds to open. It opens in a new tab.',
+    continueTo: 'Continue to {site}',
+    closeGuide: 'Close',
     applyOnline: 'Apply online (official site)',
     applyPortal: 'Go to official portal',
     applyForm: 'Download application form',
@@ -138,6 +145,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     footerDisclaimer: 'GoodBridgeScheme AI is an independent assistant and is not affiliated with the Government of India. Scheme information is reproduced from myScheme (myscheme.gov.in), the Government of India’s official scheme platform, and official state portals; always confirm details on the official website before applying.'
   },
   hi: {
+    leavingPortalNote: 'यह कई योजनाओं वाला विभाग का पोर्टल है, इसलिए यह होम पेज पर खुलता है। वहाँ पंजीकरण करें या साइन इन करें, फिर योजनाओं या सेवाओं की सूची में से "{scheme}" चुनें।',
+    leavingOnlineNote: 'इससे "{scheme}" का आधिकारिक आवेदन पेज खुलता है। पहले पंजीकरण या साइन इन करना पड़ सकता है।',
+    leavingFormNote: 'इससे आधिकारिक आवेदन पत्र खुलता है। इसे प्रिंट करें, भरें और चरणों के अनुसार जमा करें।',
+    leavingStepsTitle: 'आधिकारिक चरण',
+    leavingSlowNote: 'सरकारी साइटें खुलने में 10 से 30 सेकंड ले सकती हैं। यह नए टैब में खुलेगी।',
+    continueTo: '{site} पर जाएँ',
+    closeGuide: 'बंद करें',
     applyOnline: 'ऑनलाइन आवेदन करें (आधिकारिक साइट)',
     applyPortal: 'आधिकारिक पोर्टल पर जाएँ',
     applyForm: 'आवेदन पत्र डाउनलोड करें',
@@ -271,6 +285,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना नहीं मिली।'
   },
   ta: {
+    leavingPortalNote: 'இது பல திட்டங்களுக்கான துறையின் போர்ட்டல், எனவே முகப்புப் பக்கத்தில் திறக்கும். அங்கு பதிவு செய்யவும் அல்லது உள்நுழையவும், பின்னர் திட்டங்கள் அல்லது சேவைகள் பட்டியலில் "{scheme}" ஐத் தேர்ந்தெடுக்கவும்.',
+    leavingOnlineNote: 'இது "{scheme}" இன் அதிகாரப்பூர்வ விண்ணப்பப் பக்கத்தைத் திறக்கும். முதலில் பதிவு செய்ய அல்லது உள்நுழைய வேண்டியிருக்கலாம்.',
+    leavingFormNote: 'இது அதிகாரப்பூர்வ விண்ணப்பப் படிவத்தைத் திறக்கும். அச்சிட்டு, நிரப்பி, படிகளில் கூறியபடி சமர்ப்பிக்கவும்.',
+    leavingStepsTitle: 'அதிகாரப்பூர்வ படிகள்',
+    leavingSlowNote: 'அரசு தளங்கள் திறக்க 10 முதல் 30 விநாடிகள் ஆகலாம். இது புதிய தாவலில் திறக்கும்.',
+    continueTo: '{site} க்குச் செல்லவும்',
+    closeGuide: 'மூடு',
     applyOnline: 'ஆன்லைனில் விண்ணப்பிக்கவும் (அதிகாரப்பூர்வ தளம்)',
     applyPortal: 'அதிகாரப்பூர்வ போர்ட்டலுக்குச் செல்லவும்',
     applyForm: 'விண்ணப்பப் படிவத்தைப் பதிவிறக்கவும்',
@@ -404,6 +425,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'திட்டம் கிடைக்கவில்லை.'
   },
   te: {
+    leavingPortalNote: 'ఇది అనేక పథకాల కోసం శాఖ పోర్టల్, కాబట్టి హోమ్ పేజీలో తెరుచుకుంటుంది. అక్కడ నమోదు చేసుకోండి లేదా సైన్ ఇన్ చేయండి, ఆపై పథకాలు లేదా సేవల జాబితా నుండి "{scheme}" ఎంచుకోండి.',
+    leavingOnlineNote: 'ఇది "{scheme}" అధికారిక దరఖాస్తు పేజీని తెరుస్తుంది. ముందుగా నమోదు లేదా సైన్ ఇన్ అవసరం కావచ్చు.',
+    leavingFormNote: 'ఇది అధికారిక దరఖాస్తు ఫారమ్‌ను తెరుస్తుంది. ప్రింట్ చేసి, నింపి, దశల ప్రకారం సమర్పించండి.',
+    leavingStepsTitle: 'అధికారిక దశలు',
+    leavingSlowNote: 'ప్రభుత్వ సైట్లు తెరవడానికి 10 నుండి 30 సెకన్లు పట్టవచ్చు. ఇది కొత్త ట్యాబ్‌లో తెరుచుకుంటుంది.',
+    continueTo: '{site} కి వెళ్లండి',
+    closeGuide: 'మూసివేయండి',
     applyOnline: 'ఆన్‌లైన్‌లో దరఖాస్తు చేయండి (అధికారిక సైట్)',
     applyPortal: 'అధికారిక పోర్టల్‌కు వెళ్లండి',
     applyForm: 'దరఖాస్తు ఫారమ్ డౌన్‌లోడ్ చేయండి',
@@ -537,6 +565,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'పథకం కనబడలేదు.'
   },
   mr: {
+    leavingPortalNote: 'हे अनेक योजनांसाठीचे विभागाचे पोर्टल आहे, त्यामुळे ते मुख्य पानावर उघडते. तिथे नोंदणी करा किंवा साइन इन करा, मग योजना किंवा सेवांच्या यादीतून "{scheme}" निवडा.',
+    leavingOnlineNote: 'यामुळे "{scheme}" चे अधिकृत अर्जाचे पान उघडते. आधी नोंदणी किंवा साइन इन करावे लागू शकते.',
+    leavingFormNote: 'यामुळे अधिकृत अर्जाचा नमुना उघडतो. तो छापा, भरा आणि टप्प्यांनुसार सादर करा.',
+    leavingStepsTitle: 'अधिकृत टप्पे',
+    leavingSlowNote: 'सरकारी साइट उघडायला 10 ते 30 सेकंद लागू शकतात. ती नवीन टॅबमध्ये उघडेल.',
+    continueTo: '{site} वर जा',
+    closeGuide: 'बंद करा',
     applyOnline: 'ऑनलाइन अर्ज करा (अधिकृत साइट)',
     applyPortal: 'अधिकृत पोर्टलवर जा',
     applyForm: 'अर्जाचा नमुना डाउनलोड करा',
@@ -670,6 +705,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना सापडली नाही.'
   },
   bn: {
+    leavingPortalNote: 'এটি বহু প্রকল্পের জন্য বিভাগের পোর্টাল, তাই এটি হোম পেজে খোলে। সেখানে নিবন্ধন বা সাইন ইন করুন, তারপর প্রকল্প বা পরিষেবার তালিকা থেকে "{scheme}" বেছে নিন।',
+    leavingOnlineNote: 'এটি "{scheme}"-এর সরকারি আবেদন পাতা খোলে। আগে নিবন্ধন বা সাইন ইন করতে হতে পারে।',
+    leavingFormNote: 'এটি সরকারি আবেদনপত্র খোলে। প্রিন্ট করে পূরণ করুন এবং ধাপ অনুযায়ী জমা দিন।',
+    leavingStepsTitle: 'সরকারি ধাপ',
+    leavingSlowNote: 'সরকারি সাইট খুলতে 10 থেকে 30 সেকেন্ড লাগতে পারে। এটি নতুন ট্যাবে খুলবে।',
+    continueTo: '{site}-এ যান',
+    closeGuide: 'বন্ধ করুন',
     applyOnline: 'অনলাইনে আবেদন করুন (সরকারি সাইট)',
     applyPortal: 'সরকারি পোর্টালে যান',
     applyForm: 'আবেদনপত্র ডাউনলোড করুন',
@@ -803,6 +845,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'প্রকল্প পাওয়া যায়নি।'
   },
   kn: {
+    leavingPortalNote: 'ಇದು ಹಲವು ಯೋಜನೆಗಳ ಇಲಾಖೆಯ ಪೋರ್ಟಲ್, ಆದ್ದರಿಂದ ಮುಖಪುಟದಲ್ಲಿ ತೆರೆಯುತ್ತದೆ. ಅಲ್ಲಿ ನೋಂದಾಯಿಸಿ ಅಥವಾ ಸೈನ್ ಇನ್ ಮಾಡಿ, ನಂತರ ಯೋಜನೆಗಳು ಅಥವಾ ಸೇವೆಗಳ ಪಟ್ಟಿಯಿಂದ "{scheme}" ಆಯ್ಕೆಮಾಡಿ.',
+    leavingOnlineNote: 'ಇದು "{scheme}" ನ ಅಧಿಕೃತ ಅರ್ಜಿ ಪುಟವನ್ನು ತೆರೆಯುತ್ತದೆ. ಮೊದಲು ನೋಂದಣಿ ಅಥವಾ ಸೈನ್ ಇನ್ ಬೇಕಾಗಬಹುದು.',
+    leavingFormNote: 'ಇದು ಅಧಿಕೃತ ಅರ್ಜಿ ನಮೂನೆಯನ್ನು ತೆರೆಯುತ್ತದೆ. ಮುದ್ರಿಸಿ, ಭರ್ತಿ ಮಾಡಿ ಮತ್ತು ಹಂತಗಳಂತೆ ಸಲ್ಲಿಸಿ.',
+    leavingStepsTitle: 'ಅಧಿಕೃತ ಹಂತಗಳು',
+    leavingSlowNote: 'ಸರ್ಕಾರಿ ತಾಣಗಳು ತೆರೆಯಲು 10 ರಿಂದ 30 ಸೆಕೆಂಡು ತೆಗೆದುಕೊಳ್ಳಬಹುದು. ಇದು ಹೊಸ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ತೆರೆಯುತ್ತದೆ.',
+    continueTo: '{site} ಗೆ ಮುಂದುವರಿಯಿರಿ',
+    closeGuide: 'ಮುಚ್ಚಿ',
     applyOnline: 'ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ (ಅಧಿಕೃತ ತಾಣ)',
     applyPortal: 'ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ಗೆ ಹೋಗಿ',
     applyForm: 'ಅರ್ಜಿ ನಮೂನೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ',
@@ -936,6 +985,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'ಯೋಜನೆ ಸಿಗಲಿಲ್ಲ.'
   },
   gu: {
+    leavingPortalNote: 'આ ઘણી યોજનાઓ માટેનું વિભાગનું પોર્ટલ છે, તેથી તે હોમ પેજ પર ખૂલે છે. ત્યાં નોંધણી કરો અથવા સાઇન ઇન કરો, પછી યોજનાઓ અથવા સેવાઓની યાદીમાંથી "{scheme}" પસંદ કરો.',
+    leavingOnlineNote: 'આ "{scheme}" નું સત્તાવાર અરજી પાનું ખોલે છે. પહેલા નોંધણી અથવા સાઇન ઇન કરવું પડી શકે.',
+    leavingFormNote: 'આ સત્તાવાર અરજી ફોર્મ ખોલે છે. તેને છાપો, ભરો અને પગલાં મુજબ જમા કરો.',
+    leavingStepsTitle: 'સત્તાવાર પગલાં',
+    leavingSlowNote: 'સરકારી સાઇટ ખૂલવામાં 10 થી 30 સેકન્ડ લાગી શકે. તે નવા ટેબમાં ખૂલશે.',
+    continueTo: '{site} પર આગળ વધો',
+    closeGuide: 'બંધ કરો',
     applyOnline: 'ઓનલાઇન અરજી કરો (સત્તાવાર સાઇટ)',
     applyPortal: 'સત્તાવાર પોર્ટલ પર જાઓ',
     applyForm: 'અરજી ફોર્મ ડાઉનલોડ કરો',
@@ -1069,6 +1125,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'યોજના મળી નથી.'
   },
   ml: {
+    leavingPortalNote: 'ഇത് പല പദ്ധതികൾക്കുമുള്ള വകുപ്പിന്റെ പോർട്ടലാണ്, അതിനാൽ ഹോം പേജിൽ തുറക്കും. അവിടെ രജിസ്റ്റർ ചെയ്യുക അല്ലെങ്കിൽ സൈൻ ഇൻ ചെയ്യുക, തുടർന്ന് പദ്ധതികളുടെയോ സേവനങ്ങളുടെയോ പട്ടികയിൽ നിന്ന് "{scheme}" തിരഞ്ഞെടുക്കുക.',
+    leavingOnlineNote: 'ഇത് "{scheme}"-ന്റെ ഔദ്യോഗിക അപേക്ഷാ പേജ് തുറക്കും. ആദ്യം രജിസ്റ്റർ ചെയ്യുകയോ സൈൻ ഇൻ ചെയ്യുകയോ വേണ്ടിവന്നേക്കാം.',
+    leavingFormNote: 'ഇത് ഔദ്യോഗിക അപേക്ഷാ ഫോം തുറക്കും. പ്രിന്റ് ചെയ്ത് പൂരിപ്പിച്ച് ഘട്ടങ്ങളിൽ പറയുന്നതുപോലെ സമർപ്പിക്കുക.',
+    leavingStepsTitle: 'ഔദ്യോഗിക ഘട്ടങ്ങൾ',
+    leavingSlowNote: 'സർക്കാർ സൈറ്റുകൾ തുറക്കാൻ 10 മുതൽ 30 സെക്കൻഡ് വരെ എടുത്തേക്കാം. ഇത് പുതിയ ടാബിൽ തുറക്കും.',
+    continueTo: '{site}-ലേക്ക് തുടരുക',
+    closeGuide: 'അടയ്ക്കുക',
     applyOnline: 'ഓൺലൈനായി അപേക്ഷിക്കുക (ഔദ്യോഗിക സൈറ്റ്)',
     applyPortal: 'ഔദ്യോഗിക പോർട്ടലിലേക്ക് പോകുക',
     applyForm: 'അപേക്ഷാ ഫോം ഡൗൺലോഡ് ചെയ്യുക',
@@ -1202,6 +1265,13 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'പദ്ധതി കണ്ടെത്തിയില്ല.'
   },
   pa: {
+    leavingPortalNote: 'ਇਹ ਕਈ ਯੋਜਨਾਵਾਂ ਲਈ ਵਿਭਾਗ ਦਾ ਪੋਰਟਲ ਹੈ, ਇਸ ਲਈ ਇਹ ਹੋਮ ਪੇਜ \'ਤੇ ਖੁੱਲ੍ਹਦਾ ਹੈ। ਉੱਥੇ ਰਜਿਸਟਰ ਕਰੋ ਜਾਂ ਸਾਈਨ ਇਨ ਕਰੋ, ਫਿਰ ਯੋਜਨਾਵਾਂ ਜਾਂ ਸੇਵਾਵਾਂ ਦੀ ਸੂਚੀ ਵਿੱਚੋਂ "{scheme}" ਚੁਣੋ।',
+    leavingOnlineNote: 'ਇਹ "{scheme}" ਦਾ ਅਧਿਕਾਰਤ ਅਰਜ਼ੀ ਪੰਨਾ ਖੋਲ੍ਹਦਾ ਹੈ। ਪਹਿਲਾਂ ਰਜਿਸਟਰ ਜਾਂ ਸਾਈਨ ਇਨ ਕਰਨਾ ਪੈ ਸਕਦਾ ਹੈ।',
+    leavingFormNote: 'ਇਹ ਅਧਿਕਾਰਤ ਅਰਜ਼ੀ ਫਾਰਮ ਖੋਲ੍ਹਦਾ ਹੈ। ਇਸਨੂੰ ਪ੍ਰਿੰਟ ਕਰੋ, ਭਰੋ ਅਤੇ ਕਦਮਾਂ ਅਨੁਸਾਰ ਜਮ੍ਹਾਂ ਕਰੋ।',
+    leavingStepsTitle: 'ਅਧਿਕਾਰਤ ਕਦਮ',
+    leavingSlowNote: 'ਸਰਕਾਰੀ ਸਾਈਟਾਂ ਨੂੰ ਖੁੱਲ੍ਹਣ ਵਿੱਚ 10 ਤੋਂ 30 ਸਕਿੰਟ ਲੱਗ ਸਕਦੇ ਹਨ। ਇਹ ਨਵੇਂ ਟੈਬ ਵਿੱਚ ਖੁੱਲ੍ਹੇਗੀ।',
+    continueTo: '{site} \'ਤੇ ਜਾਓ',
+    closeGuide: 'ਬੰਦ ਕਰੋ',
     applyOnline: 'ਔਨਲਾਈਨ ਅਰਜ਼ੀ ਦਿਓ (ਅਧਿਕਾਰਤ ਸਾਈਟ)',
     applyPortal: 'ਅਧਿਕਾਰਤ ਪੋਰਟਲ \'ਤੇ ਜਾਓ',
     applyForm: 'ਅਰਜ਼ੀ ਫਾਰਮ ਡਾਊਨਲੋਡ ਕਰੋ',

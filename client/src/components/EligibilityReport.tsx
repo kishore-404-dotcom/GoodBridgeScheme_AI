@@ -8,6 +8,7 @@ import {
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
 import { applyLink, howToApplyHref } from '../utils/applyLink';
+import { ApplyButton } from './ApplyButton';
 import { CATEGORIES_LIST } from './CategoryGrid';
 import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
 import { EligibilityEvaluationResult, UserProfile } from '../../../shared/types';
@@ -249,9 +250,7 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
             const apply = applyLink(r.scheme);
             const cls = 'flex-1 min-w-[160px] flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25 transition-colors';
             return apply ? (
-              <a href={apply.url} target="_blank" rel="noopener noreferrer" className={cls}>
-                {st(apply.labelKey)} <ExternalLink className="w-4 h-4" />
-              </a>
+              <ApplyButton scheme={view} className={cls} iconClassName="w-4 h-4" />
             ) : (
               <a href={howToApplyHref(r.scheme.schemeId)} className={cls} title={st('applyOfflineNote')}>
                 <ListChecks className="w-4 h-4" /> {st('howToApply')} · {st('applyOfflineTitle')}
