@@ -34,7 +34,9 @@ export const connectDatabase = async (): Promise<boolean> => {
     return false;
   }
 
-  const attempt = () => mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 8000 });
+  // Atlas connection strings usually have no database name, which would put everything in "test"
+  const dbName = process.env.MONGODB_DB || 'goodbridge';
+  const attempt = () => mongoose.connect(mongoUri, { dbName, serverSelectionTimeoutMS: 8000 });
   try {
     try {
       await attempt();
