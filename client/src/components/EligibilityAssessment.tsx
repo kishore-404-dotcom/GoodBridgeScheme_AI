@@ -2,10 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   GraduationCap, Tractor, Store, Hammer, HardHat, Search, Home, Briefcase, UserCheck, Wrench, Heart,
   Stethoscope, MapPin, ArrowLeft, ArrowRight, CheckCircle2, Sparkles, Loader2, Circle, Accessibility,
-  Users, ClipboardList, AlertTriangle, ShieldCheck, Lock, Clock, UserRoundCheck
+  Users, ClipboardList, AlertTriangle, ShieldCheck, Lock, Clock, UserRoundCheck,
+  Fingerprint, Landmark, Camera, IndianRupee, ShoppingBasket, Cake, Contact, Sprout
 } from 'lucide-react';
 import { useProfile, DEFAULT_PROFILE } from '../context/ProfileContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useSiteText } from '../hooks/useSiteText';
+import { DOCUMENT_TYPES, DocumentTypeId } from '../../../shared/documents';
 import { ApiService } from '../services/apiService';
 import { readStore, writeStore } from '../utils/storage';
 import { VERIFIED_SCHEMES_100 } from '../data/seedSchemes';
@@ -35,9 +38,10 @@ interface Answers {
   hasDisability: boolean;
   isMinority: boolean;
   interests: string[];
+  documents: string[];
 }
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
 
 /** Saved report, unless it refers to schemes that are no longer in the dataset (e.g. after a data update) */
 const loadSavedReport = (): StoredReport | null => {
@@ -73,6 +77,24 @@ const INTEREST_ICONS: Record<string, React.ElementType> = {
   health: Stethoscope
 };
 
+const DOCUMENT_ICONS: Record<DocumentTypeId, React.ElementType> = {
+  aadhaar: Fingerprint,
+  bank: Landmark,
+  photo: Camera,
+  income: IndianRupee,
+  residence: Home,
+  caste: Users,
+  ration: ShoppingBasket,
+  age: Cake,
+  education: GraduationCap,
+  otherId: Contact,
+  land: Sprout,
+  workerId: HardHat,
+  disability: Accessibility,
+  medical: Stethoscope,
+  marriage: Heart
+};
+
 const SOCIAL_CATEGORIES: SocialCategory[] = ['General', 'OBC', 'SC', 'ST', 'EWS'];
 const GENDERS: TargetGender[] = ['Male', 'Female', 'Transgender'];
 
@@ -90,12 +112,14 @@ const answersFromProfile = (p: UserProfile): Answers => ({
   isBPL: p.isBPL,
   hasDisability: p.hasDisability,
   isMinority: Boolean(p.isMinority),
-  interests: p.interests || []
+  interests: p.interests || [],
+  documents: p.documents || []
 });
 
 export const EligibilityAssessment: React.FC<EligibilityAssessmentProps> = ({ onSelectScheme, onOpenChat }) => {
   const { profile, updateProfile, confirmProfile, resetProfile } = useProfile();
   const { t } = useLanguage();
+  const st = useSiteText();
 
   const [answers, setAnswers] = useState<Answers>(() => answersFromProfile(profile));
   const [step, setStep] = useState(1);
@@ -125,6 +149,7 @@ export const EligibilityAssessment: React.FC<EligibilityAssessmentProps> = ({ on
       case 3: return Boolean(answers.age && answers.age > 0 && answers.age <= 120 && answers.gender && answers.education);
       case 4: return Boolean(answers.incomeBandId && answers.category);
       case 5: return answers.interests.length > 0;
+      case 6: return true; // having no documents yet is a valid answer
       default: return false;
     }
   }, [step, answers]);
@@ -140,6 +165,12 @@ export const EligibilityAssessment: React.FC<EligibilityAssessmentProps> = ({ on
           : answers.interests
     });
   };
+
+  const toggleDocument = (id: string) =>
+    setAnswers((prev) => ({
+      ...prev,
+      documents: prev.documents.includes(id) ? prev.documents.filter((d) => d !== id) : [...prev.documents, id]
+    }));
 
   const runAssessment = async () => {
     const role = ROLE_OPTIONS.find((r) => r.id === answers.roleId)!;
@@ -160,7 +191,8 @@ export const EligibilityAssessment: React.FC<EligibilityAssessmentProps> = ({ on
       incomeBandId: band.id,
       education: answers.education,
       isMinority: answers.isMinority,
-      interests: answers.interests
+      interests: answers.interests,
+      documents: answers.documents
     };
     updateProfile(nextProfile);
 
@@ -584,6 +616,47 @@ export const EligibilityAssessment: React.FC<EligibilityAssessmentProps> = ({ on
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {/* Step 6: Documents the citizen already has (declared, nothing uploaded) */}
+        {step === 6 && (
+          <div>
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-8">
+              <div>
+                <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white">{st('wizDocsTitle')}</h2>
+                <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2">{st('wizDocsSubtitle')}</p>
+              </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                  {st('wizDocsCount', { count: answers.documents.length, total: DOCUMENT_TYPES.length })}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => set({ documents: answers.documents.length === DOCUMENT_TYPES.length ? [] : [...DOCUMENT_TYPES] })}
+                  className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-emerald-500"
+                >
+                  {answers.documents.length === DOCUMENT_TYPES.length ? st('wizDocsClear') : st('wizDocsAll')}
+                </button>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+              {DOCUMENT_TYPES.map((id) => {
+                const Icon = DOCUMENT_ICONS[id];
+                const selected = answers.documents.includes(id);
+                return (
+                  <button key={id} type="button" aria-pressed={selected} onClick={() => toggleDocument(id)} className={`${optionCard(selected)} relative`}>
+                    {selected && <CheckCircle2 className="absolute top-3 right-3 w-5 h-5 text-emerald-600 dark:text-emerald-400" />}
+                    <div className={iconTile(selected)}><Icon className="w-5 h-5" /></div>
+                    <div className="font-extrabold text-sm text-slate-900 dark:text-white leading-snug">{st(`doc_${id}`)}</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">{st(`doc_${id}_desc`)}</div>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="flex items-center gap-2 mt-6 text-xs text-slate-500 dark:text-slate-400">
+              <Lock className="w-4 h-4 shrink-0" /> {st('wizDocsPrivacy')}
+            </p>
           </div>
         )}
 

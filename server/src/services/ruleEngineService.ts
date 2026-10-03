@@ -1,4 +1,5 @@
-import { Scheme, UserProfile, EligibilityEvaluationResult, CriterionStatus } from '../../../shared/types';
+import { Scheme, UserProfile, EligibilityEvaluationResult, CriterionStatus, DocumentCheckSummary } from '../../../shared/types';
+import { checkDocuments, overallMatch } from '../../../shared/documents';
 
 /**
  * Deterministic TypeScript Rule Engine
@@ -244,13 +245,33 @@ export class RuleEngineService {
         : `You qualify for ${scheme.name}! This scheme has no restrictive eligibility conditions.`
       : `You match ${matchScorePercentage}% of criteria for ${scheme.name}. Satisfied: ${criteriaMet.length} conditions. Action needed for: ${criteriaFailed.map((c) => c.criterion).join(', ')}.`;
 
+    // Document check against the documents the citizen declared (only when they were asked)
+    let documentReadiness: number | null = null;
+    let documentCheck: DocumentCheckSummary | undefined;
+    let missingDocuments = scheme.documentsRequired || [];
+    if (Array.isArray(profile.documents)) {
+      const check = checkDocuments(scheme, profile.documents);
+      documentReadiness = check.readiness;
+      documentCheck = {
+        ready: check.ready.map((l) => l.text),
+        missing: check.missing.map((l) => l.text),
+        missingTypes: [...new Set(check.missing.map((l) => l.types[0]))],
+        optional: check.optional.map((l) => l.text),
+        other: check.other.map((l) => l.text)
+      };
+      missingDocuments = documentCheck.missing;
+    }
+
     return {
       scheme,
       matchScorePercentage,
       isEligible,
       criteriaMet,
       criteriaFailed,
-      missingDocuments: scheme.documentsRequired || [],
+      missingDocuments,
+      documentReadiness,
+      overallScore: overallMatch(matchScorePercentage, documentReadiness),
+      documentCheck,
       aiSimplifiedExplanation
     };
   }

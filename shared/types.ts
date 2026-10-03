@@ -110,6 +110,22 @@ export interface UserProfile {
   education?: string;
   isMinority?: boolean;
   interests?: string[];
+  /** Common documents the citizen says they hold (DocumentTypeId); undefined = not asked */
+  documents?: string[];
+}
+
+/** Result of comparing a scheme's official document list with the citizen's documents */
+export interface DocumentCheckSummary {
+  /** Official document lines the citizen has */
+  ready: string[];
+  /** Official document lines the citizen still needs */
+  missing: string[];
+  /** Common document types behind the missing lines (for "documents to get") */
+  missingTypes: string[];
+  /** "If applicable" documents, not counted */
+  optional: string[];
+  /** Scheme-specific documents to prepare, not counted */
+  other: string[];
 }
 
 export interface CriterionStatus {
@@ -125,6 +141,11 @@ export interface EligibilityEvaluationResult {
   criteriaMet: CriterionStatus[];
   criteriaFailed: CriterionStatus[];
   missingDocuments: string[];
+  /** Share of required documents the citizen holds (0-100); null/undefined when not asked or nothing countable */
+  documentReadiness?: number | null;
+  /** Overall match: 70% eligibility + 30% documents ready (equals matchScorePercentage when documents were not checked) */
+  overallScore?: number;
+  documentCheck?: DocumentCheckSummary;
   aiSimplifiedExplanation: string;
   /** Ids of the citizen's selected interests this scheme serves */
   matchedInterests?: string[];

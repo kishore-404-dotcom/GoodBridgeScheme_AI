@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom';
 import {
   Award, CheckCircle2, XCircle, Sparkles, FileText, ExternalLink, Share2,
   Download, RotateCcw, Pencil, MessageSquare, TrendingUp, Gauge, ShieldCheck, ClipboardList, IndianRupee, ListChecks,
-  AlertTriangle, ChevronDown
+  AlertTriangle, ChevronDown, FileCheck2, FileX2, CircleDashed
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
@@ -12,6 +12,7 @@ import { ApplyButton } from './ApplyButton';
 import { CATEGORIES_LIST } from './CategoryGrid';
 import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
 import { EligibilityEvaluationResult, UserProfile } from '../../../shared/types';
+import { DOCUMENT_TYPES, DOCUMENT_WEIGHT } from '../../../shared/documents';
 
 export interface StoredReport {
   profile: UserProfile;
@@ -98,7 +99,18 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
   ];
   const { schemes: translatedSchemes } = useSchemeTranslations(visibleResults.map((r) => r.scheme), 'card');
   const textOf = (scheme: EligibilityEvaluationResult['scheme']) => translatedSchemes.find((t) => t.schemeId === scheme.schemeId) || scheme;
-  const scores = shown.map((r) => r.matchScorePercentage);
+  const docsChecked = Array.isArray(profile.documents);
+  const scoreOf = (r: EligibilityEvaluationResult) => r.overallScore ?? r.matchScorePercentage;
+  const scores = shown.map(scoreOf);
+
+  // Documents to get: missing document types across the citizen's results, most needed first
+  const docsToGet = (() => {
+    const need = new Map<string, number>();
+    for (const r of shown) for (const type of r.documentCheck?.missingTypes || []) need.set(type, (need.get(type) || 0) + 1);
+    return [...need.entries()].sort((a, b) => b[1] - a[1]);
+  })();
+  const readinessValues = shown.map((r) => r.documentReadiness).filter((v): v is number => typeof v === 'number');
+  const averageReadiness = readinessValues.length ? Math.round(readinessValues.reduce((a, b) => a + b, 0) / readinessValues.length) : null;
   const highest = scores.length ? Math.max(...scores) : 0;
   const average = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
   const generatedOn = new Date(report.generatedAt).toLocaleDateString(`${currentLanguage.code}-IN`, { day: 'numeric', month: 'long', year: 'numeric' });
@@ -131,7 +143,8 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
     { label: t('repAge'), value: `${profile.age} ${t('wizAgeUnit')}` },
     { label: t('repIncome'), value: profile.incomeBandId ? t(`income_${profile.incomeBandId}`) : `₹${profile.annualIncome.toLocaleString('en-IN')}` },
     { label: t('repCategory'), value: profile.category === 'General' ? t('cat_General') : profile.category },
-    { label: t('repEducation'), value: profile.education ? t(`edu_${profile.education}`) : '—' }
+    { label: t('repEducation'), value: profile.education ? t(`edu_${profile.education}`) : '—' },
+    ...(docsChecked ? [{ label: st('repProfileDocs'), value: st('repProfileDocsValue', { count: profile.documents!.length, total: DOCUMENT_TYPES.length }) }] : [])
   ];
 
   const renderCard = (r: EligibilityEvaluationResult) => {
@@ -163,8 +176,13 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
             </div>
           </div>
           <div className="text-right shrink-0">
-            <div className={`text-2xl sm:text-3xl font-black ${r.isEligible ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-500'}`}>{r.matchScorePercentage}%</div>
-            <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">{t('repMatch')}</div>
+            <div className={`text-2xl sm:text-3xl font-black ${r.isEligible ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-500'}`}>{scoreOf(r)}%</div>
+            <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">{typeof r.documentReadiness === 'number' ? st('repOverallMatch') : t('repMatch')}</div>
+            {typeof r.documentReadiness === 'number' && (
+              <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-1 whitespace-nowrap">
+                {st('repScoreSplit', { elig: r.matchScorePercentage, docs: r.documentReadiness })}
+              </div>
+            )}
           </div>
         </div>
 
@@ -230,17 +248,63 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
                 {view.financialBenefit}
               </p>
             </div>
-            <div>
-              <h5 className="text-[11px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2">{t('repDocuments')}</h5>
-              <ul className="space-y-1.5">
-                {r.scheme.documentsRequired.map((doc) => (
-                  <li key={doc} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
-                    <FileText className="w-4 h-4 text-amber-500 shrink-0 mt-px" />
-                    <span>{doc}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {r.documentCheck ? (
+              <div>
+                <h5 className="text-[11px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2">
+                  {r.documentCheck.ready.length + r.documentCheck.missing.length > 0
+                    ? st('repDocsHeading', { ready: r.documentCheck.ready.length, total: r.documentCheck.ready.length + r.documentCheck.missing.length })
+                    : t('repDocuments')}
+                </h5>
+                {r.documentCheck.missing.length > 0 && (
+                  <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 p-3 mb-2">
+                    <p className="text-[11px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1.5">{st('repDocsMissingLabel')}</p>
+                    <ul className="space-y-1.5">
+                      {r.documentCheck.missing.map((doc) => (
+                        <li key={doc} className="flex items-start gap-2 text-xs text-slate-800 dark:text-slate-200">
+                          <FileX2 className="w-4 h-4 text-rose-500 shrink-0 mt-px" />
+                          <span>{doc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {r.documentCheck.missing.length === 0 && r.documentCheck.ready.length > 0 && (
+                  <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-2">{st('repDocsAllReady')}</p>
+                )}
+                <ul className="space-y-1.5">
+                  {r.documentCheck.ready.map((doc) => (
+                    <li key={doc} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
+                      <FileCheck2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-px" />
+                      <span>{doc}</span>
+                    </li>
+                  ))}
+                  {r.documentCheck.other.map((doc) => (
+                    <li key={doc} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
+                      <FileText className="w-4 h-4 text-amber-500 shrink-0 mt-px" />
+                      <span><strong>{st('repDocsAlsoPrepare')}:</strong> {doc}</span>
+                    </li>
+                  ))}
+                  {r.documentCheck.optional.map((doc) => (
+                    <li key={doc} className="flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
+                      <CircleDashed className="w-4 h-4 shrink-0 mt-px" />
+                      <span><strong>{st('repDocsOptional')}:</strong> {doc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div>
+                <h5 className="text-[11px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2">{t('repDocuments')}</h5>
+                <ul className="space-y-1.5">
+                  {r.scheme.documentsRequired.map((doc) => (
+                    <li key={doc} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
+                      <FileText className="w-4 h-4 text-amber-500 shrink-0 mt-px" />
+                      <span>{doc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
 
@@ -306,7 +370,7 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
       {/* Profile summary */}
       <div className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 p-5">
         <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{t('repProfileSummary')}</h3>
-        <dl className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <dl className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
           {summaryItems.map((item) => (
             <div key={item.label}>
               <dt className="text-[10px] font-black uppercase tracking-wider text-slate-400">{item.label}</dt>
@@ -359,7 +423,8 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
                 { Icon: Award, value: eligible.length, label: t('repTotalEligible'), tone: 'text-emerald-600 bg-emerald-100 dark:bg-emerald-950' },
                 { Icon: ClipboardList, value: partial.length, label: t('repAlmost'), tone: 'text-amber-600 bg-amber-100 dark:bg-amber-950' },
                 { Icon: TrendingUp, value: `${highest}%`, label: t('repHighest'), tone: 'text-emerald-600 bg-emerald-100 dark:bg-emerald-950' },
-                { Icon: Gauge, value: `${average}%`, label: t('repAverage'), tone: 'text-blue-600 bg-blue-100 dark:bg-blue-950' }
+                { Icon: Gauge, value: `${average}%`, label: t('repAverage'), tone: 'text-blue-600 bg-blue-100 dark:bg-blue-950' },
+                ...(averageReadiness !== null ? [{ Icon: FileCheck2, value: `${averageReadiness}%`, label: st('repDocsReadyStat'), tone: 'text-amber-600 bg-amber-100 dark:bg-amber-950' }] : [])
               ].map(({ Icon, value, label, tone }) => (
                 <li key={label} className="flex items-center gap-3">
                   <span className={`w-10 h-10 rounded-xl flex items-center justify-center ${tone}`}><Icon className="w-5 h-5" /></span>
@@ -370,6 +435,33 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
+            <h3 className="flex items-center gap-2 text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+              <FileX2 className="w-4 h-4 text-rose-500" /> {st('repDocsToGet')}
+            </h3>
+            {!docsChecked ? (
+              <>
+                <p className="text-xs text-slate-600 dark:text-slate-300">{st('repDocsNotChecked')}</p>
+                <button onClick={onEditAnswers} className="mt-3 w-full px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold transition-colors">
+                  {st('repDocsAdd')}
+                </button>
+              </>
+            ) : docsToGet.length === 0 ? (
+              <p className="flex items-start gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                <CheckCircle2 className="w-4 h-4 shrink-0" /> {st('repDocsNoneMissing')}
+              </p>
+            ) : (
+              <ul className="space-y-3">
+                {docsToGet.slice(0, 6).map(([type, count]) => (
+                  <li key={type}>
+                    <span className="block text-sm font-bold text-slate-900 dark:text-white">{st(`doc_${type}`)}</span>
+                    <span className="block text-xs text-slate-500 dark:text-slate-400">{st('repDocsToGetCount', { count, total: shown.length })}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {docsChecked && <p className="mt-4 text-[11px] text-slate-400">{st('repScoreNote', { docs: Math.round(DOCUMENT_WEIGHT * 100), elig: Math.round((1 - DOCUMENT_WEIGHT) * 100) })}</p>}
           </div>
           <button onClick={onOpenChat} className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 font-extrabold text-sm hover:bg-emerald-100 transition-colors">
             <Sparkles className="w-4 h-4" /> {t('repAskAI')}

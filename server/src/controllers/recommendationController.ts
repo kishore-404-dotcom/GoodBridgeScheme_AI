@@ -3,6 +3,7 @@ import { RuleEngineService } from '../services/ruleEngineService';
 import { SchemeStore } from '../services/schemeStore';
 import { UserProfile, Scheme, EligibilityEvaluationResult } from '../../../shared/types';
 import { matchingInterests } from '../../../shared/eligibilityOptions';
+import { DOCUMENT_TYPES } from '../../../shared/documents';
 
 const MAX_PARTIAL_MATCHES = 30;
 
@@ -44,7 +45,11 @@ export class RecommendationController {
         incomeBandId: req.body.incomeBandId,
         education: req.body.education,
         isMinority: Boolean(req.body.isMinority),
-        interests: Array.isArray(req.body.interests) ? req.body.interests.map(String) : []
+        interests: Array.isArray(req.body.interests) ? req.body.interests.map(String) : [],
+        // Declared documents (types only, nothing uploaded); left undefined when the citizen was not asked
+        documents: Array.isArray(req.body.documents)
+          ? req.body.documents.map(String).filter((d: string) => (DOCUMENT_TYPES as string[]).includes(d))
+          : undefined
       };
 
       const schemes = await SchemeStore.getAll();
@@ -56,9 +61,10 @@ export class RecommendationController {
         return result;
       });
 
-      // Sort by match score, then schemes matching the citizen's interests, then benefit value
+      // Sort by overall match (eligibility + documents ready), then interests, then benefit value
       results.sort(
         (a, b) =>
+          (b.overallScore ?? b.matchScorePercentage) - (a.overallScore ?? a.matchScorePercentage) ||
           b.matchScorePercentage - a.matchScorePercentage ||
           (b.matchedInterests?.length ?? 0) - (a.matchedInterests?.length ?? 0) ||
           b.scheme.financialBenefitAmount - a.scheme.financialBenefitAmount
