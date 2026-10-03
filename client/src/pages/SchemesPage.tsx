@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Search, SlidersHorizontal, ArrowRight, ExternalLink, X } from 'lucide-react';
 import { Scheme } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
+import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
 import { CATEGORIES_LIST, categoryLabelKey } from '../components/CategoryGrid';
 
 interface SchemesPageProps {
@@ -12,6 +13,9 @@ interface SchemesPageProps {
 }
 
 type SortKey = 'relevance' | 'benefit' | 'name';
+
+/** Cards rendered (and translated) at a time; "Show more" reveals the next page */
+const PAGE_SIZE = 20;
 
 // Option values match the values used in the scheme eligibility rules
 const GENDER_OPTIONS = ['Female', 'Male'];
@@ -66,6 +70,11 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
     }
     return filtered;
   }, [schemes, query, category, gender, social, occupation, sort]);
+
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  // Start from the first page whenever the search or filters change
+  useEffect(() => setVisibleCount(PAGE_SIZE), [results]);
+  const { schemes: visibleSchemes, loading: translating } = useSchemeTranslations(results.slice(0, visibleCount), 'card');
 
   const activeFilterCount = [category, gender, social, occupation].filter(Boolean).length;
   const clearAll = () => {
@@ -189,6 +198,7 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
 
           <p className="text-sm font-bold text-slate-500 dark:text-slate-400" aria-live="polite">
             {st('resultsCount', { count: results.length })}
+            {translating && <span className="ml-2 text-emerald-600 dark:text-emerald-400 font-semibold">· {st('translating')}</span>}
           </p>
 
           {results.length === 0 ? (
@@ -197,7 +207,7 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
             </div>
           ) : (
             <ul className="space-y-4">
-              {results.map((scheme) => (
+              {visibleSchemes.map((scheme) => (
                 <li key={scheme.schemeId}>
                   <article className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500/60 hover:shadow-lg transition-all p-6 flex flex-col md:flex-row md:items-start gap-5">
                     <div className="flex-1 min-w-0 space-y-2">
@@ -249,6 +259,16 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
                 </li>
               ))}
             </ul>
+          )}
+          {results.length > visibleCount && (
+            <div className="text-center pt-2">
+              <button
+                onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+                className="px-6 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-emerald-500 font-bold text-sm transition-colors"
+              >
+                {st('showMore', { count: Math.min(PAGE_SIZE, results.length - visibleCount) })}
+              </button>
+            </div>
           )}
         </div>
       </div>

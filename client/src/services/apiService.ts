@@ -2,7 +2,45 @@ import { Scheme, UserProfile, EligibilityEvaluationResult, ApplicationDraft, Cha
 
 const API_BASE = (import.meta as any).env?.VITE_API_BASE_URL || '/api';
 
+export type TranslationMode = 'card' | 'full';
+/** Translated scheme text from /api/ai/translate; missing fields mean "use the English original" */
+export type SchemeTranslation = Partial<
+  Pick<Scheme, 'name' | 'ministryOrDepartment' | 'description' | 'summaryText' | 'financialBenefit' | 'tags' | 'detailsText' | 'benefitsText' | 'eligibilityText' | 'exclusionsText' | 'documentsRequired' | 'applicationSteps'>
+>;
+
 export class ApiService {
+  /** AI translation of official scheme text; returns {} on failure so callers fall back to English */
+  public static async translateSchemes(language: string, schemeIds: string[], mode: TranslationMode): Promise<Record<string, SchemeTranslation>> {
+    try {
+      const res = await fetch(`${API_BASE}/ai/translate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ language, schemeIds, mode })
+      });
+      const json = await res.json();
+      if (json.success) return json.translations || {};
+    } catch (err) {
+      console.warn('Translation API error:', err);
+    }
+    return {};
+  }
+
+  /** Server-generated speech (WAV) for languages the browser has no voice for; null on failure */
+  public static async textToSpeech(text: string, language: string, signal?: AbortSignal): Promise<Blob | null> {
+    try {
+      const res = await fetch(`${API_BASE}/ai/tts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, language }),
+        signal
+      });
+      if (res.ok && (res.headers.get('content-type') || '').includes('audio')) return await res.blob();
+    } catch (err) {
+      if ((err as Error).name !== 'AbortError') console.warn('Voice API error:', err);
+    }
+    return null;
+  }
+
   public static async fetchSchemes(params?: { category?: string; state?: string; search?: string }): Promise<Scheme[]> {
     try {
       const query = new URLSearchParams(params as any).toString();

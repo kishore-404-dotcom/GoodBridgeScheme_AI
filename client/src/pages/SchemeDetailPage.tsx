@@ -5,6 +5,7 @@ import {
 import { Scheme, EligibilityRules } from '../../../shared/types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteText } from '../hooks/useSiteText';
+import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
 import { SpeechService } from '../services/speechService';
 import { readStore, writeStore } from '../utils/storage';
 import { categoryLabelKey } from '../components/CategoryGrid';
@@ -45,14 +46,20 @@ const describeRules = (rules: EligibilityRules = {}): string[] => {
   return items;
 };
 
-export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme, onOpenChat }) => {
+export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme: officialScheme, onOpenChat }) => {
   const { currentLanguage } = useLanguage();
   const st = useSiteText();
   const [tab, setTab] = useState<TabKey>('details');
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
-  const docsKey = `docs_${scheme?.schemeId}`;
+  const docsKey = `docs_${officialScheme?.schemeId}`;
   const [haveDocs, setHaveDocs] = useState<string[]>(() => readStore<string[]>(docsKey, []));
+
+  // AI translation of the official text into the selected language, with the original one click away
+  const [showOriginal, setShowOriginal] = useState(false);
+  const translation = useSchemeTranslations(officialScheme ? [officialScheme] : [], 'full');
+  const hasTranslation = !!officialScheme && translation.isTranslated(officialScheme.schemeId);
+  const scheme = officialScheme && hasTranslation && !showOriginal ? translation.schemes[0] : officialScheme;
 
   // Reset per-scheme state when navigating between schemes
   useEffect(() => {
@@ -73,7 +80,9 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme, onOp
   }
 
   const conditions = describeRules(scheme.eligibilityRules);
-  const docs = scheme.documentsRequired || [];
+  // Checklist state is keyed by the official document names so ticks survive a language switch
+  const docs = officialScheme?.documentsRequired || [];
+  const docLabels = scheme.documentsRequired?.length === docs.length ? scheme.documentsRequired : docs;
   const readyCount = docs.filter((d) => haveDocs.includes(d)).length;
 
   const toggleDoc = (doc: string) => {
@@ -93,10 +102,16 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme, onOp
     const eligibility = scheme.eligibilityText?.length ? scheme.eligibilityText : conditions;
     const text = `${scheme.name}. ${scheme.description} ${scheme.financialBenefit}. ${eligibility.join('. ')}. ${docs.join(', ')}.`;
     setIsSpeaking(true);
-    // Scheme content is in English, so read it with an English voice when the chosen language has none
-    const spoken = SpeechService.speak(text, currentLanguage.code, () => setIsSpeaking(false)) || SpeechService.speak(text, 'en', () => setIsSpeaking(false));
-    setVoiceNotice(SpeechService.hasVoice(currentLanguage.code) ? null : st('voiceUnavailable', { lang: currentLanguage.nativeName }));
-    if (!spoken) setIsSpeaking(false);
+    // Read the translated text in the citizen's language (browser voice, else server voice);
+    // the original English text is read in English
+    const readLang = hasTranslation && !showOriginal ? currentLanguage.code : 'en';
+    setVoiceNotice(null);
+    SpeechService.speak(
+      text,
+      readLang,
+      () => setIsSpeaking(false),
+      () => setVoiceNotice(st('voiceUnavailable', { lang: currentLanguage.nativeName }))
+    );
   };
 
   return (
@@ -145,6 +160,18 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme, onOp
           ))}
         </div>
       </header>
+
+      {/* Translation notice: official text is English; show the AI translation or the original */}
+      {translation.active && (
+        <div className="-mt-4 mb-6 flex flex-wrap items-center justify-between gap-3 px-4 py-3 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-sm text-blue-900 dark:text-blue-200">
+          <span>{translation.loading && !hasTranslation ? st('translating') : hasTranslation ? st('translatedNote') : null}</span>
+          {hasTranslation && (
+            <button onClick={() => setShowOriginal((v) => !v)} className="font-bold underline underline-offset-2 hover:no-underline">
+              {showOriginal ? st('showTranslation') : st('showOriginal')}
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-8 items-start">
         {/* Tabbed Content */}
@@ -313,7 +340,7 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme, onOp
                   </div>
                 </div>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {docs.map((doc) => {
+                  {docs.map((doc, docIndex) => {
                     const have = haveDocs.includes(doc);
                     return (
                       <li key={doc}>
@@ -327,7 +354,7 @@ export const SchemeDetailPage: React.FC<SchemeDetailPageProps> = ({ scheme, onOp
                           }`}
                         >
                           {have ? <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" /> : <Circle className="w-5 h-5 text-slate-400 shrink-0" />}
-                          {doc}
+                          {docLabels[docIndex]}
                         </button>
                       </li>
                     );

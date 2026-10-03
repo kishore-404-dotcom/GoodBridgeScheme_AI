@@ -124,8 +124,13 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
 
     // Speak the response when this device has a voice for the language; otherwise say so once
     setIsSpeaking(true);
-    const spoken = SpeechService.speak(assistantResponse.replace(/[*#•]/g, ''), currentLanguage.code, () => setIsSpeaking(false));
-    setVoiceNotice(spoken ? null : st('voiceUnavailable', { lang: currentLanguage.nativeName }));
+    setVoiceNotice(null);
+    SpeechService.speak(
+      assistantResponse,
+      currentLanguage.code,
+      () => setIsSpeaking(false),
+      () => setVoiceNotice(st('voiceUnavailable', { lang: currentLanguage.nativeName }))
+    );
   };
 
   const handleMicClick = () => {

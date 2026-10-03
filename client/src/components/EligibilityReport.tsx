@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { CATEGORIES_LIST } from './CategoryGrid';
+import { useSchemeTranslations } from '../hooks/useSchemeTranslations';
 import { EligibilityEvaluationResult, UserProfile } from '../../../shared/types';
 
 export interface StoredReport {
@@ -86,6 +87,13 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
 
   const { profile, eligible, partial } = report;
   const shown = [...eligible, ...partial];
+  // Translate only the cards currently on screen (AI translation of the official text, cached)
+  const visibleResults = [
+    ...(showAllEligible ? eligible : eligible.slice(0, ELIGIBLE_PREVIEW)),
+    ...(showAllAlmost ? partial : partial.slice(0, ALMOST_PREVIEW))
+  ];
+  const { schemes: translatedSchemes } = useSchemeTranslations(visibleResults.map((r) => r.scheme), 'card');
+  const textOf = (scheme: EligibilityEvaluationResult['scheme']) => translatedSchemes.find((t) => t.schemeId === scheme.schemeId) || scheme;
   const scores = shown.map((r) => r.matchScorePercentage);
   const highest = scores.length ? Math.max(...scores) : 0;
   const average = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
@@ -122,6 +130,7 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
   ];
 
   const renderCard = (r: EligibilityEvaluationResult) => {
+    const view = textOf(r.scheme);
     const category = CATEGORIES_LIST.find((c) => c.id === r.scheme.category);
     const Icon = category?.icon || Award;
 
@@ -140,12 +149,12 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
             <Icon className="w-6 h-6" />
           </div>
           <div className="flex-1 min-w-0">
-            <h4 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white leading-snug">{r.scheme.name}</h4>
+            <h4 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white leading-snug">{view.name}</h4>
             <div className="flex flex-wrap items-center gap-2 mt-1.5">
               <span className={`text-[11px] font-black uppercase tracking-wide px-2.5 py-1 rounded-lg ${r.isEligible ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300' : 'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300'}`}>
                 {r.isEligible ? t('label_high') : t('label_partial')}
               </span>
-              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">{r.scheme.ministryOrDepartment}</span>
+              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">{view.ministryOrDepartment}</span>
             </div>
           </div>
           <div className="text-right shrink-0">
@@ -154,7 +163,7 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
           </div>
         </div>
 
-        <p className="text-sm text-slate-600 dark:text-slate-300 mt-4 leading-relaxed">{r.scheme.summaryText}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-300 mt-4 leading-relaxed">{view.summaryText}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
           {/* Why you match / what is missing */}
@@ -213,7 +222,7 @@ export const EligibilityReport: React.FC<EligibilityReportProps> = ({
               <h5 className="text-[11px] font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-2">{t('repBenefits')}</h5>
               <p className="flex items-start gap-2 text-sm font-bold text-slate-800 dark:text-slate-100">
                 <IndianRupee className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                {r.scheme.financialBenefit}
+                {view.financialBenefit}
               </p>
             </div>
             <div>

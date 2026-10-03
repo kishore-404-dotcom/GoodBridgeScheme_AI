@@ -2,12 +2,56 @@ import { Request, Response } from 'express';
 import { GeminiAiService } from '../services/geminiAiService';
 import { DocumentCheckService } from '../services/documentCheckService';
 import { SchemeStore } from '../services/schemeStore';
+import { TranslationService, TranslationMode, TRANSLATION_LANGUAGES } from '../services/translationService';
+import { TtsService, MAX_TTS_CHARS } from '../services/ttsService';
+
+const MAX_TRANSLATE_IDS = { card: 30, full: 3 };
 
 /**
  * AI & Guidance Controller
  * Handles multilingual Gemini RAG chat and document verification requests.
  */
 export class AIController {
+  /** POST /api/ai/translate { language: 'ta', schemeIds: [...], mode: 'card' | 'full' } */
+  public static async translateSchemes(req: Request, res: Response): Promise<void> {
+    try {
+      const { language, schemeIds, mode = 'card' } = req.body || {};
+      if (!TranslationService.isSupported(language) || !Array.isArray(schemeIds) || !['card', 'full'].includes(mode)) {
+        res.status(400).json({ success: false, message: 'language, schemeIds[] and mode (card|full) are required' });
+        return;
+      }
+      const ids = [...new Set(schemeIds.map(String))].slice(0, MAX_TRANSLATE_IDS[mode as TranslationMode]);
+      const all = await SchemeStore.getAll();
+      const schemes = ids.map((id) => all.find((s) => s.schemeId === id)).filter((s): s is NonNullable<typeof s> => Boolean(s));
+      const translations = await TranslationService.translate(schemes, language, mode as TranslationMode);
+      res.status(200).json({ success: true, language, mode, translations });
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Translation failed' });
+    }
+  }
+
+  /** POST /api/ai/tts { text, language: 'ta' } -> audio/wav */
+  public static async textToSpeech(req: Request, res: Response): Promise<void> {
+    try {
+      const { text, language } = req.body || {};
+      const languageName = language === 'en' ? 'English' : TRANSLATION_LANGUAGES[language];
+      if (!text || typeof text !== 'string' || !languageName) {
+        res.status(400).json({ success: false, message: 'text and a supported language are required' });
+        return;
+      }
+      if (!TtsService.isAvailable()) {
+        res.status(503).json({ success: false, message: 'Voice generation is not configured' });
+        return;
+      }
+      const audio = await TtsService.synthesize(text.slice(0, MAX_TTS_CHARS), languageName);
+      res.setHeader('Content-Type', 'audio/wav');
+      res.setHeader('Cache-Control', 'private, max-age=3600');
+      res.send(audio);
+    } catch (error) {
+      res.status(502).json({ success: false, message: 'Voice generation failed' });
+    }
+  }
+
   public static async chatAssistant(req: Request, res: Response): Promise<void> {
     try {
       const { message, language = 'English', history = [], profile } = req.body;

@@ -1,4 +1,5 @@
 import { SUPPORTED_LANGUAGES } from '../utils/vernacularDictionary';
+import { ApiService } from './apiService';
 
 /**
  * Web Speech API Service
@@ -9,6 +10,10 @@ import { SUPPORTED_LANGUAGES } from '../utils/vernacularDictionary';
 export class SpeechService {
   private static synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
   private static voices: SpeechSynthesisVoice[] = [];
+  /** Server-generated speech currently playing (or being fetched) */
+  private static audio: HTMLAudioElement | null = null;
+  private static audioUrl: string | null = null;
+  private static fetchAbort: AbortController | null = null;
 
   /** Voices load asynchronously in Chromium; cache them as soon as they are available */
   static {
@@ -42,19 +47,20 @@ export class SpeechService {
   }
 
   /**
-   * Speaks text in the regional language voice.
-   * Returns false (and calls onEnd) when no voice for the language is installed,
-   * instead of reading regional text with a mismatched English voice.
+   * Speaks text in the regional language voice. Uses an installed browser voice when there is one;
+   * otherwise asks the server to generate speech (most browsers only have English/Hindi voices).
+   * onFail is called if neither works, so callers can show a "text only" notice.
    */
-  public static speak(text: string, langCode = 'hi', onEnd?: () => void): boolean {
+  public static speak(text: string, langCode = 'hi', onEnd?: () => void, onFail?: () => void): boolean {
+    this.stop();
+    const clean = text.replace(/[*#_`[\]()•]/g, '');
     const voice = this.synth ? this.findVoice(langCode) : null;
     if (!this.synth || !voice) {
-      onEnd?.();
-      return false;
+      this.speakFromServer(clean, langCode, onEnd, onFail);
+      return true;
     }
 
-    this.synth.cancel();
-    const utterance = new SpeechSynthesisUtterance(text.replace(/[*#_`[\]()]/g, ''));
+    const utterance = new SpeechSynthesisUtterance(clean);
     utterance.voice = voice;
     utterance.lang = voice.lang;
     utterance.rate = 0.95;
@@ -67,8 +73,52 @@ export class SpeechService {
     return true;
   }
 
+  private static async speakFromServer(text: string, langCode: string, onEnd?: () => void, onFail?: () => void) {
+    const abort = new AbortController();
+    this.fetchAbort = abort;
+    const blob = await ApiService.textToSpeech(text, langCode, abort.signal);
+    if (abort.signal.aborted) return; // stopped while loading
+    this.fetchAbort = null;
+    if (!blob) {
+      onEnd?.();
+      onFail?.();
+      return;
+    }
+    this.audioUrl = URL.createObjectURL(blob);
+    const audio = new Audio(this.audioUrl);
+    this.audio = audio;
+    const finish = () => {
+      if (this.audio === audio) this.releaseAudio();
+      onEnd?.();
+    };
+    audio.onended = finish;
+    audio.onerror = () => {
+      finish();
+      onFail?.();
+    };
+    audio.play().catch(() => {
+      finish();
+      onFail?.();
+    });
+  }
+
+  private static releaseAudio() {
+    if (this.audio) {
+      this.audio.onended = null;
+      this.audio.onerror = null;
+      this.audio.pause();
+    }
+    if (this.audioUrl) URL.revokeObjectURL(this.audioUrl);
+    this.audio = null;
+    this.audioUrl = null;
+  }
+
+  /** Stops browser speech, server audio, and any audio still being fetched */
   public static stop(): void {
     this.synth?.cancel();
+    this.fetchAbort?.abort();
+    this.fetchAbort = null;
+    this.releaseAudio();
   }
 
   /**

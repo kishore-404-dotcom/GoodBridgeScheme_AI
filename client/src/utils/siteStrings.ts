@@ -5,6 +5,7 @@
  */
 export const SITE_STRINGS: Record<string, Record<string, string>> = {
   en: {
+    showMore: 'Show {count} more schemes',
     catStudent: 'Student / Education',
     catAgri: 'Agriculture / Farmers',
     catBiz: 'Entrepreneurship / MSME',
@@ -111,6 +112,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     footerDisclaimer: 'GoodBridgeScheme AI is an independent assistant and is not affiliated with the Government of India. Scheme information is reproduced from myScheme (myscheme.gov.in), the Government of India’s official scheme platform, and official state portals; always confirm details on the official website before applying.'
   },
   hi: {
+    showMore: '{count} और योजनाएं दिखाएं',
     catStudent: 'छात्र / शिक्षा',
     catAgri: 'कृषि / किसान',
     catBiz: 'उद्यमिता / MSME',
@@ -217,6 +219,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना नहीं मिली।'
   },
   ta: {
+    showMore: 'மேலும் {count} திட்டங்களைக் காட்டு',
     catStudent: 'மாணவர் / கல்வி',
     catAgri: 'வேளாண்மை / விவசாயிகள்',
     catBiz: 'தொழில்முனைவு / MSME',
@@ -323,6 +326,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'திட்டம் கிடைக்கவில்லை.'
   },
   te: {
+    showMore: 'మరో {count} పథకాలు చూపించు',
     catStudent: 'విద్యార్థి / విద్య',
     catAgri: 'వ్యవసాయం / రైతులు',
     catBiz: 'వ్యవస్థాపకత / MSME',
@@ -429,6 +433,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'పథకం కనబడలేదు.'
   },
   mr: {
+    showMore: 'आणखी {count} योजना दाखवा',
     catStudent: 'विद्यार्थी / शिक्षण',
     catAgri: 'कृषी / शेतकरी',
     catBiz: 'उद्योजकता / MSME',
@@ -535,6 +540,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'योजना सापडली नाही.'
   },
   bn: {
+    showMore: 'আরও {count}টি প্রকল্প দেখান',
     catStudent: 'ছাত্র / শিক্ষা',
     catAgri: 'কৃষি / কৃষক',
     catBiz: 'উদ্যোক্তা / MSME',
@@ -641,6 +647,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'প্রকল্প পাওয়া যায়নি।'
   },
   kn: {
+    showMore: 'ಇನ್ನೂ {count} ಯೋಜನೆಗಳನ್ನು ತೋರಿಸಿ',
     catStudent: 'ವಿದ್ಯಾರ್ಥಿ / ಶಿಕ್ಷಣ',
     catAgri: 'ಕೃಷಿ / ರೈತರು',
     catBiz: 'ಉದ್ಯಮಶೀಲತೆ / MSME',
@@ -747,6 +754,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'ಯೋಜನೆ ಸಿಗಲಿಲ್ಲ.'
   },
   gu: {
+    showMore: 'વધુ {count} યોજનાઓ બતાવો',
     catStudent: 'વિદ્યાર્થી / શિક્ષણ',
     catAgri: 'કૃષિ / ખેડૂતો',
     catBiz: 'ઉદ્યોગસાહસિકતા / MSME',
@@ -853,6 +861,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'યોજના મળી નથી.'
   },
   ml: {
+    showMore: '{count} പദ്ധതികൾ കൂടി കാണിക്കുക',
     catStudent: 'വിദ്യാർത്ഥി / വിദ്യാഭ്യാസം',
     catAgri: 'കൃഷി / കർഷകർ',
     catBiz: 'സംരംഭകത്വം / MSME',
@@ -959,6 +968,7 @@ export const SITE_STRINGS: Record<string, Record<string, string>> = {
     notFound: 'പദ്ധതി കണ്ടെത്തിയില്ല.'
   },
   pa: {
+    showMore: '{count} ਹੋਰ ਯੋਜਨਾਵਾਂ ਵਿਖਾਓ',
     catStudent: 'ਵਿਦਿਆਰਥੀ / ਸਿੱਖਿਆ',
     catAgri: 'ਖੇਤੀਬਾੜੀ / ਕਿਸਾਨ',
     catBiz: 'ਉੱਦਮਤਾ / MSME',
