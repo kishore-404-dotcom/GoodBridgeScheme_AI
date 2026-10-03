@@ -38,6 +38,10 @@ export interface SchemeTranslation {
 const CARD_BATCH = 5;
 // Lite model first: translation needs speed more than reasoning
 const MODELS = [...new Set(['gemini-flash-lite-latest', GEMINI_MODEL, ...GEMINI_FALLBACK_MODELS])];
+// Retries (after a dropped or garbled result) go to a stronger model first
+const RETRY_MODELS = [
+  ...new Set([...(process.env.GEMINI_TRANSLATE_RETRY_MODELS || 'gemini-3.5-flash-lite,gemini-3.6-flash').split(',').map((m) => m.trim()), ...MODELS])
+];
 const CACHE_FILE = path.join(__dirname, '../../.cache/translations.json');
 
 const cache = new Map<string, SchemeTranslation>();
@@ -88,6 +92,40 @@ const sourceFields = (s: Scheme, mode: TranslationMode): SchemeTranslation =>
 const sameLength = <T,>(translated: T[] | undefined, source: unknown[] | undefined): T[] | undefined =>
   Array.isArray(translated) && Array.isArray(source) && translated.length === source.length ? translated : undefined;
 
+/** Unicode block of each language's script, to confirm the text was actually translated */
+const SCRIPT: Record<string, RegExp> = {
+  hi: /[ऀ-ॿ]/, mr: /[ऀ-ॿ]/, bn: /[ঀ-৿]/, pa: /[਀-੿]/, gu: /[઀-૿]/,
+  ta: /[஀-௿]/, te: /[ఀ-౿]/, kn: /[ಀ-೿]/, ml: /[ഀ-ൿ]/
+};
+/** The main prose field must be in the target script (names alone may legitimately stay as acronyms) */
+const isUntranslated = (t: SchemeTranslation, lang: string): boolean => {
+  const prose = t.summaryText || t.description || t.financialBenefit || "";
+  // A name made of ordinary words (not just acronyms like "PM-KISAN") should be in the target script too
+  const nameNeedsScript = !!t.name && /[a-z]{3,}/.test(t.name);
+  return !SCRIPT[lang]?.test(prose) || (nameNeedsScript && !SCRIPT[lang]?.test(t.name || ""));
+};
+
+/** All strings inside a translation (lists and step objects included) */
+const allText = (t: SchemeTranslation): string[] =>
+  Object.values(t).flatMap((v) => (Array.isArray(v) ? v : [v])).flatMap((item) =>
+    typeof item === "string" ? [item] : item && typeof item === "object" ? Object.values(item).filter((x): x is string => typeof x === "string") : []
+  );
+
+/**
+ * Garbled output: lowercase Latin glued to Indic letters inside a word ("কisan"; uppercase acronyms with
+ * grammatical endings like "KCCর" are normal), or letters from another script (e.g. Arabic in Gurmukhi).
+ */
+const MIXED_LATIN = /[a-z][ऀ-෿]|[ऀ-෿][a-z]/;
+const OTHER_SCRIPTS = /[؀-ۿݐ-ݿऀ-ॣ०-෿]/;
+const isGarbled = (t: SchemeTranslation, lang: string): boolean =>
+  allText(t).some((text) => {
+    if (MIXED_LATIN.test(text)) return true;
+    // Remove the target script (the shared danda punctuation is outside OTHER_SCRIPTS); anything left is foreign
+    const target = SCRIPT[lang];
+    const rest = target ? text.replace(new RegExp(target.source, "g"), "") : text;
+    return OTHER_SCRIPTS.test(rest);
+  });
+
 const sanitize = (t: SchemeTranslation, src: SchemeTranslation): SchemeTranslation => ({
   name: t.name?.trim() || undefined,
   ministryOrDepartment: t.ministryOrDepartment?.trim() || undefined,
@@ -103,7 +141,7 @@ const sanitize = (t: SchemeTranslation, src: SchemeTranslation): SchemeTranslati
   applicationSteps: sameLength(t.applicationSteps, src.applicationSteps)
 });
 
-async function translateBatch(schemes: Scheme[], lang: string, mode: TranslationMode): Promise<void> {
+async function translateBatch(schemes: Scheme[], lang: string, mode: TranslationMode, models: string[] = MODELS): Promise<void> {
   const language = TRANSLATION_LANGUAGES[lang];
   const items = schemes.map((s) => ({ id: s.schemeId, ...sourceFields(s, mode) }));
 
@@ -117,7 +155,7 @@ Rules:
 - Return a JSON array with one object per input object: the same keys, the same "id" and "stepNumber" values, and every list with exactly the same number of items in the same order.`;
 
   let lastErr: unknown;
-  for (const model of MODELS) {
+  for (const model of models) {
     try {
       const res = await aiClient!.models.generateContent({
         model,
@@ -134,10 +172,16 @@ Rules:
       const translated = (Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : [parsed]) as (SchemeTranslation & { id: string })[];
       for (const t of translated) {
         const src = items.find((i) => i.id === t.id);
-        if (src) cache.set(key(lang, mode, t.id), sanitize(t, src));
+        if (!src) continue;
+        const clean = sanitize(t, src);
+        // Garbled output is not cached, so the retry below (or a later request) translates it again
+        if (isGarbled(clean, lang) || isUntranslated(clean, lang)) console.warn(`Discarded garbled/untranslated ${lang} translation for ${t.id}`);
+        else cache.set(key(lang, mode, t.id), clean);
       }
       persist();
-      return;
+      // Done when every scheme got a clean translation; otherwise try the next model for the rest
+      if (items.every((i) => cache.has(key(lang, mode, i.id)))) return;
+      lastErr = new Error(`incomplete or garbled ${lang} output from ${model}`);
     } catch (err) {
       lastErr = err;
       console.warn(`Translation with ${model} failed:`, (err as Error).message.slice(0, 120));
@@ -182,7 +226,7 @@ export class TranslationService {
     if (stillMissing.length > 0 && stillMissing.length < schemes.length + 1) {
       await Promise.all(
         stillMissing.map((s) =>
-          translateBatch([s], lang, mode).catch((err) => console.warn(`Translation retry for ${s.schemeId} failed:`, (err as Error).message?.slice(0, 120)))
+          translateBatch([s], lang, mode, RETRY_MODELS).catch((err) => console.warn(`Translation retry for ${s.schemeId} failed:`, (err as Error).message?.slice(0, 120)))
         )
       );
     }
