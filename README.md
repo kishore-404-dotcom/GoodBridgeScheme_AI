@@ -24,7 +24,8 @@ Awareness and accessibility gaps stop many eligible citizens from benefiting fro
 - **myScheme-style website**: home page with search and categories, a schemes page with filter sidebar, and scheme pages with tabs (Details, Benefits, Eligibility, Application Process, Documents Required).
 - **Guided eligibility assessment**: welcome screen with a privacy promise, 5 steps, analysis screen, then a report with match percentage, reasons, missing conditions, benefits, documents, "Apply Officially" and a printable PDF (browser *Print → Save as PDF*). Answers stay on the device (localStorage).
 - **AI assistant**: answers in the citizen's language using only the scheme data. When the citizen has completed the assessment, the rule engine's verdicts are passed to the AI, so the **AI explains but never decides** eligibility.
-- **Voice**: speech input and read-aloud through the browser's Web Speech API. If the device has no voice for the chosen language, the app says so and shows text instead.
+- **Voice**: speech input through the browser. Answers and scheme pages are read aloud with the browser's voice when it has one for the language (usually English and Hindi); otherwise the server generates the speech with Gemini text-to-speech.
+- **Translated scheme content**: scheme names, descriptions, benefits, eligibility, documents and steps are translated on demand from the official English text with AI, cached, and clearly marked, with a one-click "Show original (English)".
 - **10 languages**: English, Hindi, Tamil, Telugu, Marathi, Bengali, Kannada, Gujarati, Malayalam and Punjabi, with a light/dark theme.
 
 ---
@@ -45,7 +46,7 @@ Awareness and accessibility gaps stop many eligible citizens from benefiting fro
 - **Known limitations**:
   - 508 of myScheme's 5,000+ schemes are included.
   - Ayushman Bharat PM-JAY is not included, because its official record could not be retrieved.
-  - Scheme text is in English.
+  - Official scheme text is in English; other languages are AI translations of it (marked as such, with the original one click away).
   - Information was last checked on 03 Oct 2026; always confirm on the official site.
 
 ---
@@ -168,7 +169,7 @@ The client and server both import from `shared/`, so keep the full repository co
 
 Voice input and read-aloud use the browser's Web Speech API.
 - **Voice input** works in Chrome and Edge for the supported Indian languages (internet required).
-- **Read-aloud** needs a voice for that language installed on the device. Microsoft Edge usually provides Indian-language voices; on Windows they can also be added under *Settings → Time & language → Speech*.
+- **Read-aloud** uses the device's voice when one exists for the language; otherwise the backend generates the audio (`POST /api/ai/tts`, Gemini text-to-speech), so all 10 languages can be heard on any browser.
 
 ---
 
