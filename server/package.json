@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "GoodBridgeScheme AI Backend REST API Server - Node.js + Express + TypeScript + MongoDB Atlas + Gemini AI RAG",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/server/src/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/server/src/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "seed": "ts-node src/scripts/seedSchemes.ts"
   },

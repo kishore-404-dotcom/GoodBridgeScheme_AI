@@ -1,123 +1,179 @@
-# GoodBridgeScheme AI - Vernacular Government Scheme Assistant (ZABR-003)
+# GoodBridgeScheme AI: Vernacular Government Scheme Assistant (ZABR-003)
 
-**GoodBridgeScheme AI** is a production-grade AI platform designed to bridge awareness and accessibility gaps for government welfare programs across India. It empowers citizens to discover, assess eligibility, understand, and apply for schemes in their preferred regional language via voice and text.
+**GoodBridgeScheme AI** helps Indian citizens **discover, understand and prepare to apply for government schemes in their own language**. It covers 508 central and state schemes taken from **myScheme**, the Government of India's official scheme platform. Citizens can search, check their eligibility in five simple steps, and ask an AI assistant by text or voice in 10 Indian languages. When ready, they apply on the **official** portal.
 
----
-
-## 🌟 Key Features
-
-0. **Guided Eligibility Assessment → Eligibility Report** (core flow):
-   - Welcome screen with privacy promise (no name, phone or address; answers stay on the device).
-   - 5-step wizard with progress bar: role → state, district & rural/urban → age, gender, education → income band, social category, BPL/disability/minority → up to 3 interests.
-   - "Analysing your eligibility" screen while the rule engine checks every scheme.
-   - Report: eligible and almost-eligible schemes with match %, *why you match* / *what is missing*, benefits, required documents, **Apply Officially**, how-to-apply, save and share, plus a summary sidebar.
-   - **Download PDF Report** via the browser's print → Save as PDF (prints only the report, works in all 10 scripts).
-   - Answers, report, saved schemes and language persist in localStorage; *Edit Answers* / *Start New Assessment*.
-   - *Ask AI about my results* opens the chat, which already knows the profile: the rule engine decides, Gemini explains.
-
-1. **Multilingual Vernacular Voice Core**:
-   - Native voice synthesis & speech recognition supporting **10 Indian Regional Languages**: English, Hindi (हिन्दी), Tamil (தமிழ்), Telugu (తెలుగు), Marathi (मराठी), Bengali (বাংলা), Kannada (ಕನ್ನಡ), Gujarati (ગુજરાતી), Malayalam (മലയാളം), Punjabi (ਪੰਜਾਬੀ).
-2. **Deterministic Eligibility Rule Engine**:
-   - Evaluates citizen profile parameters (Age, Income, Gender, State, Occupation, Category, Landholding, Disability, BPL) to calculate a **0-100% eligibility match score** with criterion-by-criterion status.
-3. **Grounded Gemini RAG Assistant**:
-   - Powered by Google Gemini API (`@google/genai`), grounded on a curated catalogue of central schemes sourced from official scheme portals, with conversation memory and automatic model fallback.
-4. **Document Readiness & Missing Paper Detector**:
-   - Analyzes document availability before application submission, flagging missing papers in advance.
-5. **Pre-Filled Regional Draft Generator**:
-   - Auto-populates application previews ready for printing or offline CSC / Jan Seva Kendra submission.
-6. **Landing Page**:
-   - Sun ☀️ / Moon 🌙 Dark & Light theme switcher in the header.
-   - "Find schemes based on categories" grid with live scheme counts.
-   - 3-step guided roadmap & Student, Farmer, Entrepreneur persona quick-launchers.
+> ⚠️ This is an **independent** project. It is **not** an official Government of India website. Always apply on the official scheme portal linked from each scheme.
 
 ---
 
-## 🛠️ Technology Stack
+## Problem statement
+
+Awareness and accessibility gaps stop many eligible citizens from benefiting from welfare schemes. Information is spread across many portals, mostly in English, and eligibility rules are hard to follow.
+
+| Expected solution | How GoodBridgeScheme AI delivers it |
+| :--- | :--- |
+| **Scheme recommendation engine** | Search with filters (category, gender, social category, occupation), plus ranked recommendations from the eligibility rule engine |
+| **Multilingual conversational assistant** | Gemini-powered chat in 10 languages, grounded on the official scheme data, with conversation memory, voice input and voice output |
+| **Eligibility assessment module** | A 5-step guided assessment (role → location → personal details → eligibility → interests) checked by a **deterministic rule engine**, with match %, "why you match", "what's missing" and a PDF report |
+| **Application guidance platform** | Each scheme page has benefits, eligibility, exclusions, step-by-step application process, a document checklist, official links and a "View on myScheme" source link |
+
+---
+
+## Features
+
+- **myScheme-style website**: home page with search and categories, a schemes page with filter sidebar, and scheme pages with tabs (Details, Benefits, Eligibility, Application Process, Documents Required).
+- **Guided eligibility assessment**: welcome screen with a privacy promise, 5 steps, analysis screen, then a report with match percentage, reasons, missing conditions, benefits, documents, "Apply Officially" and a printable PDF (browser *Print → Save as PDF*). Answers stay on the device (localStorage).
+- **AI assistant**: answers in the citizen's language using only the scheme data. When the citizen has completed the assessment, the rule engine's verdicts are passed to the AI, so the **AI explains but never decides** eligibility.
+- **Voice**: speech input and read-aloud through the browser's Web Speech API. If the device has no voice for the chosen language, the app says so and shows text instead.
+- **10 languages**: English, Hindi, Tamil, Telugu, Marathi, Bengali, Kannada, Gujarati, Malayalam and Punjabi, with a light/dark theme.
+
+---
+
+## Data: source and verification
+
+- **Source**: [myScheme](https://www.myscheme.gov.in), run by the National e-Governance Division, Ministry of Electronics & IT, Government of India. Data was read from the same official API Setu endpoints the myScheme website uses. myScheme's `robots.txt` allows automated access.
+- **Coverage**: **508 schemes**: 168 central and 340 state schemes from 24 states/UTs, in 6 categories. State records link to the state departments' own documents.
+- **Official vs derived**:
+  - *Official text, reproduced as published*: name, ministry/department, description, benefits, eligibility, exclusions, documents, application steps and references.
+  - *Derived for the eligibility checker*: structured rules (age, income, gender, category, occupation, state, education, BPL, disability, minority) and a short benefit summary. These were extracted from the official text with Gemini under strict "explicit conditions only" instructions, then validated against fixed vocabularies. Conditions the checker cannot verify (e.g. "must be pregnant") are shown as **"Confirm before applying"**.
+- **Quality checks**:
+  - Closed schemes were excluded.
+  - Schemes only for organisations, and honours/awards, were excluded.
+  - A sample of records was cross-checked field by field against the live myScheme pages.
+  - Rules found to be wrong on review were corrected by hand.
+- **Attribution**: myScheme's [Copyright Policy](https://www.myscheme.gov.in/copyright-policy) permits reproduction free of charge if reproduced accurately with the source prominently acknowledged. Every scheme page links to its myScheme source.
+- **Known limitations**:
+  - 508 of myScheme's 5,000+ schemes are included.
+  - Ayushman Bharat PM-JAY is not included, because its official record could not be retrieved.
+  - Scheme text is in English.
+  - Information was last checked on 03 Oct 2026; always confirm on the official site.
+
+---
+
+## Tech stack
 
 | Layer | Technology |
 | :--- | :--- |
-| **Frontend** | React 18 + TypeScript + Tailwind CSS (Vite setup) |
+| **Frontend** | React 18 + TypeScript + Tailwind CSS (Vite) |
 | **Backend** | Node.js + Express + TypeScript |
-| **Database** | MongoDB Atlas (Mongoose ORM) + Local Fallback Store |
-| **Recommendation Engine** | Custom TypeScript Rule Engine |
-| **AI & RAG** | Google Gemini API (`@google/genai`) |
-| **Voice Engine** | Browser Web Speech API (`SpeechSynthesis` & `SpeechRecognition`) |
+| **Eligibility** | Deterministic TypeScript rule engine (`server/src/services/ruleEngineService.ts`) |
+| **AI** | Google Gemini API (`@google/genai`), grounded on a relevant subset of schemes per question, with model fallback |
+| **Voice** | Browser Web Speech API (`SpeechRecognition` & `SpeechSynthesis`) |
+| **Database** | Optional MongoDB Atlas; without it the server uses the built-in scheme data |
+| **Deployment** | Frontend on **Vercel**, backend on **Render** |
 
 ---
 
-## 📁 Directory Architecture
+## Project structure
 
 ```
-GoodBridgeScheme AI/
-├── client/                          # React + TypeScript + Tailwind CSS Frontend
-│   ├── src/
-│   │   ├── components/              # UI components (Navbar, Hero, QuickEligibilityCard, CategoryGrid, VoiceChatWidget)
-│   │   ├── context/                 # ThemeContext, LanguageContext, ProfileContext
-│   │   ├── services/                # apiService, speechService
-│   │   ├── utils/                   # vernacularDictionary
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   ├── index.html
-│   ├── tailwind.config.js
-│   └── vite.config.ts
-│
-├── server/                          # Node.js + Express + TypeScript Backend
-│   ├── src/
-│   │   ├── config/                  # database.ts, gemini.ts
-│   │   ├── controllers/             # schemeController, recommendationController, aiController, authController
-│   │   ├── middleware/              # authMiddleware.ts, errorHandler.ts
-│   │   ├── models/                  # Scheme.ts, UserProfile.ts
-│   │   ├── routes/                  # schemeRoutes, recommendationRoutes, aiRoutes, authRoutes
-│   │   ├── services/                # ruleEngineService.ts, ragService.ts, geminiAiService.ts, documentCheckService.ts
-│   │   ├── scripts/                 # seedSchemes.ts (scheme dataset seeder)
-│   │   └── index.ts
-│   ├── tsconfig.json
-│   └── package.json
-│
-└── shared/                          # Shared TypeScript Types & Contracts
-    └── types.ts
+GoodBridgeScheme_AI/
+├── client/                         # React website (Vercel)
+│   └── src/
+│       ├── pages/                  # SchemesPage, SchemeDetailPage
+│       ├── components/             # Navbar, HeroBanner, CategoryGrid, HowItWorks,
+│       │                           # EligibilityAssessment, EligibilityReport, VoiceChatWidget
+│       ├── context/                # Theme, Language, Profile
+│       ├── hooks/                  # useHashRoute (#/ pages), useSiteText
+│       ├── services/               # apiService, speechService
+│       └── utils/                  # vernacularDictionary, siteStrings (UI text in 10 languages), storage
+├── server/                         # Express API (Render)
+│   └── src/
+│       ├── controllers/ routes/    # schemes, recommendations, AI chat
+│       ├── services/               # ruleEngineService, geminiAiService, ragService, schemeStore
+│       └── config/                 # gemini.ts, database.ts
+└── shared/                         # Used by both client and server
+    ├── types.ts                    # Scheme, EligibilityRules, UserProfile …
+    ├── eligibilityOptions.ts       # Roles, income bands, education levels, states, interests
+    └── seedSchemes.ts              # The 508 official schemes (generated)
 ```
 
 ---
 
-## 🚀 How to Run Locally
+## Run locally
 
-### 1. Install Dependencies
+**Requirements:** Node.js 18+ and a [Gemini API key](https://aistudio.google.com).
+
 ```bash
 npm run install:all
 ```
 
-### 2. Configure Environment Variables
-Copy `.env.example` in `server/` to `server/.env`:
-```env
+Create `server/.env` from `server/.env.example`:
+
+```
 PORT=5000
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/goodscheme_db
-GEMINI_API_KEY=your_gemini_api_key
-JWT_SECRET=goodscheme_jwt_secret_hackathon_2026
+GEMINI_API_KEY=your_gemini_api_key_here
+NODE_ENV=development
+# Optional
+GEMINI_MODEL=gemini-flash-latest
+GEMINI_FALLBACK_MODELS=gemini-flash-lite-latest
+MONGODB_URI=
 ```
 
-### 3. Start Development Servers
-Start Backend API Server (Port 5000):
+Start the backend and frontend, each in its own terminal:
+
 ```bash
 npm run dev:server
 ```
 
-Start Frontend Dev Server (Port 3000):
 ```bash
 npm run dev:client
 ```
 
-Open browser at `http://localhost:3000`.
+Open **http://localhost:3000**. The frontend sends `/api` requests to the backend on port 5000.
 
 ---
 
-## 🌐 Deployment Instructions
+## Deployment (Vercel + Render)
 
-- **Frontend (Vercel)**:
-  - Root directory: `client`
-  - Build command: `npm run build`
-  - Output directory: `dist`
-- **Backend (Render)**:
-  - Root directory: `server`
-  - Build command: `npm run build`
-  - Start command: `npm start`
+Deploy the **backend first**, because the frontend needs its URL.
+
+### Backend: Render (Web Service)
+
+| Setting | Value |
+| :--- | :--- |
+| Root Directory | `server` |
+| Build Command | `npm install && npm run build` |
+| Start Command | `npm start` (runs `node dist/server/src/index.js`) |
+
+| Environment variable | Required | Value |
+| :--- | :--- | :--- |
+| `GEMINI_API_KEY` | ✅ | Your Gemini API key |
+| `NODE_ENV` | Recommended | `production` |
+| `GEMINI_MODEL` | Optional | `gemini-flash-latest` |
+| `GEMINI_FALLBACK_MODELS` | Optional | `gemini-flash-lite-latest` |
+| `MONGODB_URI` | Optional | Leave unset to use the built-in data |
+
+Render sets `PORT` automatically. Free instances sleep after about 15 minutes idle and take 30–50 s to wake, so open the site a few minutes before a demo.
+
+### Frontend: Vercel
+
+| Setting | Value |
+| :--- | :--- |
+| Root Directory | `client` |
+| Framework Preset | Vite |
+| Build Command / Output | `npm run build` / `dist` |
+
+| Environment variable | Required | Value |
+| :--- | :--- | :--- |
+| `VITE_API_BASE_URL` | ✅ | `https://<your-render-service>.onrender.com/api` |
+
+> 🔒 Never put the Gemini key in a `VITE_` variable. Those values are built into the public website.
+
+The client and server both import from `shared/`, so keep the full repository connected; don't deploy the folders on their own. Page routes use `#/…`, so Vercel needs no rewrite rules.
+
+---
+
+## Voice support
+
+Voice input and read-aloud use the browser's Web Speech API.
+- **Voice input** works in Chrome and Edge for the supported Indian languages (internet required).
+- **Read-aloud** needs a voice for that language installed on the device. Microsoft Edge usually provides Indian-language voices; on Windows they can also be added under *Settings → Time & language → Speech*.
+
+---
+
+## License and credits
+
+- **Code**: [MIT License](LICENSE) © 2026 kishore-404-dotcom.
+- **Scheme data**: © Government of India, from [myScheme](https://www.myscheme.gov.in) and the state departments it publishes for, reproduced under myScheme's copyright policy with acknowledgement. The MIT license does not apply to this data.
+- **AI**: Google Gemini powers the assistant and was used to derive eligibility rules from official text. The project was built with AI-assisted development (Claude Code).
