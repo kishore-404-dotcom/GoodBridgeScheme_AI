@@ -60,6 +60,26 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Follow-up chips for the most recent suggested scheme, then topic chips; already-asked questions are hidden
+  const asked = new Set(messages.filter((m) => m.sender === 'user').map((m) => m.text));
+  const latestScheme = [...messages].reverse().find((m) => m.sender === 'assistant' && m.suggestedSchemes?.length)?.suggestedSchemes?.[0];
+  const schemeLabel = latestScheme ? latestScheme.shortTitle || latestScheme.name : '';
+  const suggestionChips = [
+    ...(latestScheme
+      ? [
+          { icon: '📝', text: st('chipHowApply', { name: schemeLabel }), followUp: true },
+          { icon: '📁', text: st('chipDocs', { name: schemeLabel }), followUp: true },
+          { icon: '✅', text: st('chipEligible', { name: schemeLabel }), followUp: true }
+        ]
+      : []),
+    { icon: '🎓', text: st('chipStudents'), followUp: false },
+    { icon: '🌾', text: st('chipFarmers'), followUp: false },
+    { icon: '👩', text: st('chipWomen'), followUp: false },
+    { icon: '👴', text: st('chipPension'), followUp: false },
+    { icon: '💼', text: st('chipBusiness'), followUp: false },
+    { icon: '🛠️', text: st('chipJobs'), followUp: false }
+  ].filter((chip) => !asked.has(chip.text));
+
   if (!isOpen) return null;
 
   const handleSendMessage = async (customText?: string) => {
@@ -282,26 +302,22 @@ export const VoiceChatWidget: React.FC<VoiceChatWidgetProps> = ({
         <div ref={chatEndRef} />
       </div>
 
-      {/* Suggested Quick Prompt Pills */}
+      {/* Suggestion chips: follow-ups for the latest suggested scheme, then topics (all in the chat language) */}
       <div className="px-3 py-2 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex gap-2 overflow-x-auto text-[11px] no-scrollbar">
-        <button
-          onClick={() => handleSendMessage('Schemes for female students scholarship')}
-          className="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shrink-0 hover:border-emerald-500"
-        >
-          🎓 Girl Scholarships
-        </button>
-        <button
-          onClick={() => handleSendMessage('PM-KISAN farmer cash benefit')}
-          className="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shrink-0 hover:border-emerald-500"
-        >
-          🌾 PM-KISAN Cash
-        </button>
-        <button
-          onClick={() => handleSendMessage('Low interest business loan for shopkeepers')}
-          className="px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shrink-0 hover:border-emerald-500"
-        >
-          💼 MUDRA Business Loan
-        </button>
+        {suggestionChips.map((chip) => (
+          <button
+            key={chip.text}
+            onClick={() => handleSendMessage(chip.text)}
+            disabled={loading}
+            className={`px-2.5 py-1 rounded-full border shrink-0 transition-colors disabled:opacity-50 ${
+              chip.followUp
+                ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800 hover:border-emerald-500'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:border-emerald-500'
+            }`}
+          >
+            {chip.icon} {chip.text}
+          </button>
+        ))}
       </div>
 
       {/* Input Box */}

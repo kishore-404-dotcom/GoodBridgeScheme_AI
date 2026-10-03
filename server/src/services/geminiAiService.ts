@@ -73,13 +73,17 @@ export class GeminiAiService {
 
     const systemInstruction = `You are GoodBridgeScheme AI, an independent, trustworthy assistant that helps Indian citizens understand government schemes. You are not an official government service.
 
-Always reply in ${language}, using simple, friendly words a first-time user can understand. Keep scheme names recognisable (you may add the English name in brackets).
+Always reply in ${language}, using simple, friendly words a first-time user can understand. Keep scheme names recognisable: in a non-English reply you may add the English name in brackets once; in an English reply write each name once, without repeating it in brackets.
 
 Base every fact strictly on the schemes listed below: a pre-selected subset of the ${allSchemes.length} official schemes we cover. Never invent schemes, amounts, eligibility rules or URLs. If none of the listed schemes fits, say so honestly and suggest the citizen use the eligibility check on this website or rephrase the question.
 
-If you need details to judge eligibility (age, state, occupation, annual income, gender, social category, BPL status), ask the citizen one or two short follow-up questions instead of guessing.
-
-When recommending schemes, mention the benefit (₹), the key eligibility rules, the documents needed and how to apply. Use short bullet points.
+Answer first, then personalise:
+- Whenever any listed scheme fits the question, recommend the 3 to 5 most relevant ones straight away, even if you don't know the citizen's details yet. For each: name, benefit (₹), key eligibility and how to apply, as short bullet points.
+- Only after recommending, you may ask ONE short question that would narrow the list (e.g. their state or income). Never reply with only questions, except to a bare greeting.
+- If the citizen has already told you something (state, age, occupation…) in this conversation, use it and do not ask for it again.
+- Do not repeat an earlier answer from this conversation. For a repeated or follow-up question, add new information or different schemes.
+- Vary your wording and do not start every reply with a greeting.
+- For a question about one scheme (documents, steps, benefit), answer about that scheme directly.
 
 Never write scheme IDs (like MS-pm-kisan) in the answer text; they are internal and belong only in schemeIds.
 
@@ -101,7 +105,7 @@ ${profile && verdicts ? this.buildProfileContext(profile, verdicts) : ''}`;
       config: {
         httpOptions: { timeout: GEMINI_TIMEOUT_MS },
         systemInstruction,
-        temperature: 0.3,
+        temperature: 0.5,
         responseMimeType: 'application/json',
         responseSchema: {
           type: Type.OBJECT,
@@ -110,7 +114,7 @@ ${profile && verdicts ? this.buildProfileContext(profile, verdicts) : ''}`;
             schemeIds: {
               type: Type.ARRAY,
               items: { type: Type.STRING },
-              description: 'IDs (exactly as given in the scheme list) of the schemes recommended in the answer, most relevant first. Empty if none.'
+              description: 'IDs (exactly as given in the scheme list) of EVERY scheme mentioned in the answer, most relevant first. Empty only if the answer mentions no scheme.'
             }
           },
           required: ['answer', 'schemeIds']
@@ -134,10 +138,17 @@ ${profile && verdicts ? this.buildProfileContext(profile, verdicts) : ''}`;
     const parsed = JSON.parse(response.text || '{}') as { answer?: string; schemeIds?: string[] };
     if (!parsed.answer) throw new Error('Empty Gemini response');
 
-    const relevantSchemes = (parsed.schemeIds || [])
+    const byId = (parsed.schemeIds || [])
       .map((id) => contextSchemes.find((s) => s.schemeId === id))
-      .filter((s): s is Scheme => Boolean(s))
-      .slice(0, 4);
+      .filter((s): s is Scheme => Boolean(s));
+    // The model sometimes names schemes without listing their ids; pick those up from the answer text
+    const answerLower = parsed.answer.toLowerCase();
+    const byName = contextSchemes.filter(
+      (s) =>
+        answerLower.includes(s.name.toLowerCase()) ||
+        (s.shortTitle && s.shortTitle.length >= 4 && answerLower.includes(s.shortTitle.toLowerCase()))
+    );
+    const relevantSchemes = [...new Map([...byId, ...byName].map((s) => [s.schemeId, s])).values()].slice(0, 5);
 
     // Internal ids sometimes leak into the prose despite the instruction; strip "(MS-x)", "[MS-x]", "ID: MS-x"
     const responseText = parsed.answer
