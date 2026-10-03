@@ -153,8 +153,8 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
 
       <div className="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-8 items-start">
         {/* Filter Sidebar */}
-        <aside className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 px-5 py-4 lg:sticky lg:top-32">
-          <div className="flex items-center justify-between pb-2">
+        <aside className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col lg:sticky lg:top-32 lg:max-h-[calc(100vh-9rem)] overflow-hidden">
+          <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-slate-200 dark:border-slate-800 shrink-0">
             <h2 className="font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-emerald-600" />
               {st('filtersTitle')}
@@ -169,6 +169,7 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
             )}
           </div>
 
+          <div className="filter-scroll px-5 pb-4 lg:overflow-y-auto lg:overscroll-contain min-h-0">
           {radioGroup(
             'category',
             st('filterCategory'),
@@ -183,6 +184,7 @@ export const SchemesPage: React.FC<SchemesPageProps> = ({ schemes, initialQuery,
           {radioGroup('gender', st('filterGender'), gender, setGender, GENDER_OPTIONS.map((g) => ({ value: g, label: st(g === 'Female' ? 'genderFemale' : 'genderMale') })))}
           {radioGroup('social', st('filterSocialCategory'), social, setSocial, SOCIAL_OPTIONS.map((c) => ({ value: c, label: c === 'General' ? st('socialGeneral') : c })))}
           {radioGroup('occupation', st('filterOccupation'), occupation, setOccupation, OCCUPATION_OPTIONS.map((o) => ({ value: o.value, label: st(o.labelKey) })))}
+          </div>
         </aside>
 
         {/* Results */}
